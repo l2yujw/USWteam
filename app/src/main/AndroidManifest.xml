@@ -23,6 +23,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".FindRoadActivity"/>
+        <activity android:name=".RecentAreaActivity"/>
+        <activity android:name=".RecentRouteActivity"/>
+        <activity android:name=".RecentBookmarkActivity"/>
     </application>
 
 </manifest>

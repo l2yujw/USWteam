@@ -89,6 +89,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="2"/>
                 <Button
+                    android:id="@+id/recent_area"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -110,6 +111,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="2"/>
                 <Button
+                    android:id="@+id/recent_route"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
@@ -131,6 +133,7 @@
                     android:layout_height="0dp"
                     android:layout_weight="2"/>
                 <Button
+                    android:id="@+id/recent_bookmark"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
