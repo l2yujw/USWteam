@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     private Toolbar toolbar;
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
+    private Button btnfindroad;
 
     @SuppressLint("WrongConstant")
     @Override
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        // 툴바 생성
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -46,10 +49,24 @@ public class MainActivity extends AppCompatActivity {
 
         drawerLayout = (DrawerLayout)findViewById(R.id.drawerLayout);
         navigationView = (NavigationView)findViewById(R.id.navigationView);
+        // 툴바 생성 완료 + menu 버튼 생성 + 네비게이션 뷰 생성 완료
 
-    }
+        // 길찾기 버튼 클릭시
+        btnfindroad = (Button) findViewById(R.id.findRoad);
+        btnfindroad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), FindRoadActivity.class);
 
-    // 메인 화면에서 메뉴 버튼을 클릭했을 때의 행동
+                startActivity(intent);
+            }
+        });
+
+
+        
+    } // onCreate 마지막 줄
+
+    // 메인 화면에서 사이드바의 메뉴 버튼을 클릭했을 때
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
