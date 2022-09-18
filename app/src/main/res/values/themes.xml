@@ -1,0 +1,41 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.HelpYou" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlNormal">#ffffff</item>
+
+        <!-- No Title Bar-->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+
+        <!--Status Bar 배경색-->
+        <item name="android:statusBarColor" tools:targetApi="lollipop">#3a7aff</item>
+        <!--Status Bar 글자색깔-->
+        <item name="android:windowLightStatusBar" tools:targetApi="m">false</item>
+
+    </style>
+
+    <style name="AlertDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/basic_color_3A7AFF</item>
+        <item name="android:textColorPrimary">@color/basic_color_3A7AFF</item>
+        <item name="android:fontFamily">@font/nanumsquareregular</item>
+        <item name="android:textSize">@dimen/dialog_min_textSize</item>
+        <item name="android:windowMinWidthMajor">@dimen/dialog_min_width_major</item>
+        <item name="android:windowMinWidthMinor">@dimen/dialog_min_width_minor</item>
+    </style>
+
+    <style name="NavigationViewStyle">
+        <item name="android:fontFamily">@font/nanumsquareregular</item>
+        <item name="android:textSize">18dp</item>
+    </style>
+
+    <style name="EditTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorAccent">@color/basic_color_FFFFFF</item>
+        <item name="colorControlNormal">@color/basic_color_FFFFFF</item>
+        <item name="android:fontFamily">@font/nanumsquarebold</item>
+        <item name="android:textColor">@color/basic_color_FFFFFF</item>
+    </style>
+</resources>

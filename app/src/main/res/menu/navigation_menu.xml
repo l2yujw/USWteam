@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/item_mainhome"
+            android:title="메인 홈" />
+
+        <item
+            android:id="@+id/item_bookmark"
+            android:title="즐겨찾기" />
+
+        <item
+            android:id="@+id/item_subway_map"
+            android:title="지하철 노선도" />
+
+        <item
+            android:id="@+id/item_setting"
+            android:title="설정" />
+    </group>
+</menu>
