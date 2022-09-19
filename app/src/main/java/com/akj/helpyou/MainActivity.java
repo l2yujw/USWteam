@@ -70,9 +70,9 @@ public class MainActivity extends AppCompatActivity {
                 drawerLayout.closeDrawers();
 
                 int id = menuItem.getItemId();
-                //메인 홈 선택시
+                //메인 홈 선택시 -> 새창으로 안뜨게 하기 + 다른 창에서도 메뉴바 선택할 수 있게 할까?
                 if(id == R.id.item_mainhome) {
-                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+
                 }
                 //즐겨찾기 선택시
                 if(id == R.id.item_bookmark) {
