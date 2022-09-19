@@ -14,8 +14,17 @@
         <entry key="..\:/HelpYou/app/src/main/res/layout/activity_recent_area.xml" value="0.2526041666666667" />
         <entry key="..\:/HelpYou/app/src/main/res/layout/activity_recent_bookmark.xml" value="0.25364583333333335" />
         <entry key="..\:/HelpYou/app/src/main/res/layout/activity_recent_route.xml" value="0.2526041666666667" />
+        <entry key="..\:/HelpYou/app/src/main/res/layout/fragment_tab_area.xml" value="0.25364583333333335" />
+        <entry key="..\:/HelpYou/app/src/main/res/layout/fragment_tab_bus.xml" value="0.2390625" />
+        <entry key="..\:/HelpYou/app/src/main/res/layout/fragment_tab_route.xml" value="0.2390625" />
         <entry key="..\:/HelpYou/app/src/main/res/layout/main_to_findroad.xml" value="0.2526041666666667" />
+        <entry key="..\:/HelpYou/app/src/main/res/layout/navigation_bookmark.xml" value="0.1" />
         <entry key="..\:/HelpYou/app/src/main/res/layout/navigation_header.xml" value="0.253125" />
+        <entry key="..\:/HelpYou/app/src/main/res/layout/navigation_setting.xml" value="0.2526041666666667" />
+        <entry key="..\:/HelpYou/app/src/main/res/layout/navigation_subwaymap.xml" value="0.25364583333333335" />
+        <entry key="..\:/HelpYou/app/src/main/res/layout/tab_fragment_area.xml" value="0.1" />
+        <entry key="..\:/HelpYou/app/src/main/res/layout/tab_fragment_bus.xml" value="0.25364583333333335" />
+        <entry key="..\:/HelpYou/app/src/main/res/layout/tab_fragment_route.xml" value="0.2526041666666667" />
         <entry key="..\:/HelpYou/app/src/main/res/menu/navigation_menu.xml" value="0.264" />
       </map>
     </option>

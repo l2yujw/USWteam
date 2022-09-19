@@ -26,6 +26,9 @@
         <activity android:name=".RecentAreaActivity"/>
         <activity android:name=".RecentRouteActivity"/>
         <activity android:name=".RecentBookmarkActivity"/>
+        <activity android:name=".BookmarkActivity"/>
+        <activity android:name=".SettingActivity"/>
+        <activity android:name=".SubwayMapActivity"/>
     </application>
 
 </manifest>

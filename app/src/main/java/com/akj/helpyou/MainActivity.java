@@ -62,6 +62,34 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        // 네비게이션 뷰 안 메뉴 선택시 뜨는 창
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                menuItem.setChecked(true);
+                drawerLayout.closeDrawers();
+
+                int id = menuItem.getItemId();
+                //메인 홈 선택시
+                if(id == R.id.item_mainhome) {
+                    startActivity(new Intent(getApplicationContext(), MainActivity.class));
+                }
+                //즐겨찾기 선택시
+                if(id == R.id.item_bookmark) {
+                    startActivity(new Intent(getApplicationContext(), BookmarkActivity.class));
+                }
+                //지하철 노선도 선택시
+                if(id == R.id.item_subway_map) {
+                    startActivity(new Intent(getApplicationContext(), SubwayMapActivity.class));
+                }
+                //설정 선택시
+                if(id == R.id.item_setting) {
+                    startActivity(new Intent(getApplicationContext(), SettingActivity.class));
+                }
+
+                return true;
+            }
+        });
 
         
     } // onCreate 마지막 줄
