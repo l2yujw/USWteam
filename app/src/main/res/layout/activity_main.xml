@@ -49,19 +49,12 @@
 
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.Toolbar>
+
             <FrameLayout
-                android:layout_below="@id/toolbar"
+                android:id="@+id/map_view"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/yellow">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="이곳에\n지도 api\n적용하기"
-                    android:layout_gravity="center"
-                    android:textSize="50dp"
-                    />
-
+                android:layout_below="@+id/toolbar">
             </FrameLayout>
         </RelativeLayout>
 

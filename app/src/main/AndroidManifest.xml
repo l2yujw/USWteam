@@ -3,6 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.akj.helpyou">
 
+    <!-- 인터넷, 위치 권한 -->
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -12,7 +17,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.HelpYou"
-        tools:targetApi="31">
+        tools:targetApi="31"
+        android:usesCleartextTraffic="true"
+        android:networkSecurityConfig="@xml/network_security_config">
         <activity
             android:name=".MainActivity"
             android:exported="true">
@@ -29,6 +36,7 @@
         <activity android:name=".BookmarkActivity"/>
         <activity android:name=".SettingActivity"/>
         <activity android:name=".SubwayMapActivity"/>
+        <meta-data android:name="com.kakao.sdk.AppKey" android:value="ba736be77629e672fce65d7bb072ed17"/>
     </application>
 
 </manifest>
