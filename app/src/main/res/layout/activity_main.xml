@@ -55,6 +55,28 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_below="@+id/toolbar">
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="122dp"
+                    android:src="@drawable/ic_baseline_my_location_24"
+                    />
+
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_elctric_station"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="56dp"
+                    android:src="@drawable/ic_electric_station_48"
+                    />
+
+
             </FrameLayout>
         </RelativeLayout>
 
@@ -68,6 +90,5 @@
             app:menu="@menu/navigation_menu"/>
 
     </androidx.drawerlayout.widget.DrawerLayout>
-
 
 </RelativeLayout>
