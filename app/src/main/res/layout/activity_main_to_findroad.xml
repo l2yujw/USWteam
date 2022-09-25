@@ -1,187 +1,217 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-// 버스만, 지하철만, 버스 + 지하철 검색란 추가 해야됨.
+    // 버스만, 지하철만, 버스 + 지하철 검색란 추가 해야됨.
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/linearLayout1"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.5">
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:elevation="10dp"
+            android:orientation="vertical"
+            android:padding="18dp"
+            tools:ignore="MissingConstraints">
+
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <ImageButton
-                        android:id="@+id/ibtn_change"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_change_circle_36"
-                        android:layout_gravity="center">
-                    </ImageButton>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="5">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <SearchView
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:iconifiedByDefault="false"
-                            android:queryHint="출발지 입력"/>
-                        <SearchView
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:iconifiedByDefault="false"
-                            android:queryHint="도착지 입력"/>
-                    </LinearLayout>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical">
-                        <ImageButton
-                            android:id="@+id/ibtn_cancel"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_baseline_close_24"/>
-                        <ImageButton
-                            android:id="@+id/ibtn_kebab_menu"
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_kebab_menu_48"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="0.3">
-            <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="56dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:text="@string/start"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/addressSearchEditText1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_gravity="center"
+                        android:layout_weight="1"
+                        android:background="#F3F3F3"
+                        android:duplicateParentState="false"
+                        android:editable="false"
+                        android:ems="15"
+                        android:hint=" 출발지를 검색해 주세요."
+                        android:inputType="textPersonName"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginVertical="7dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/textView2"
+                        android:layout_width="56dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/end"
+                        android:textAlignment="textStart"
+                        android:textColor="@color/black"
+                        android:textSize="15dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/addressSearchEditText2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="40dp"
+                        android:layout_weight="1"
+                        android:background="#F3F3F3"
+                        android:editable="false"
+                        android:ems="15"
+                        android:hint=" 도착지를 검색해 주세요."
+                        android:inputType="textPersonName" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
                 android:orientation="horizontal">
-                <RadioButton
-                    android:id="@+id/rbtnbs"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textAlignment="center"
-                    android:background="@color/colorGray"
-                    android:text="버스 + 지하철"
-                    android:checked="true"
-                    />
-                <RadioButton
-                    android:id="@+id/rbtnb"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textAlignment="center"
-                    android:background="@color/colorGray"
-                    android:text="버스"/>
-                <RadioButton
-                    android:id="@+id/rbtns"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textAlignment="center"
-                    android:background="@color/colorGray"
-                    android:text="지하철"/>
-            </RadioGroup>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"/>
-                <Button
-                    android:id="@+id/recent_area"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                <RadioGroup
+                    android:layout_width="0dp"
+                    android:layout_weight="7"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rbtnbs"
+                        android:layout_width="0dp"
+                        android:layout_weight="1.2"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:buttonTint="@color/blue"
+                        android:checked="true"
+                        android:text="버스 + 지하철"
+                        android:textAlignment="textStart" />
+
+                    <RadioButton
+                        android:id="@+id/rbtns"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:buttonTint="@color/blue"
+                        android:text="지하철"
+                        android:textAlignment="textStart" />
+
+                    <RadioButton
+                        android:id="@+id/rbtnb"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:buttonTint="@color/blue"
+                        android:text="버스"
+                        android:textAlignment="textStart" />
+
+                </RadioGroup>
+                <ImageButton
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:text="최근 장소 더보기"/>
+                    android:src="@drawable/ic_baseline_my_location_24"
+                    android:background="@color/colorBlueMain"/>
             </LinearLayout>
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-            <LinearLayout
+            <Button
+                android:id="@+id/findRoad"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"/>
-                <Button
-                    android:id="@+id/recent_route"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="최근 경로 더보기"/>
-            </LinearLayout>
-
+                android:layout_height="0dp"
+                android:layout_marginVertical="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/whitebttn"
+                android:backgroundTint="@color/colorBlueMain"
+                android:onClick="onClickedSearch"
+                android:text="길찾기"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
-            <LinearLayout
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/selectedlist1"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                <ListView
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="2"/>
-                <Button
-                    android:id="@+id/recent_bookmark"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="즐겨찾기한 경로 더보기"/>
-            </LinearLayout>
+                android:layout_height="90dp"
+                android:layout_marginHorizontal="18dp" />
+
+            <Button
+                android:id="@+id/recent_area"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="최근 장소 더보기" />
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/selectedlist2"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginHorizontal="18dp" />
+
+            <Button
+                android:id="@+id/recent_route"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="최근 경로 더보기" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/selectedlist3"
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginHorizontal="18dp" />
+
+            <Button
+                android:id="@+id/recent_bookmark"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="즐겨찾기한 경로 더보기" />
+        </LinearLayout>
 
     </LinearLayout>
-
-
-
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -23,5 +23,6 @@
     <color name="colorBlack">#000000</color>
     <color name="colorGray">#808080</color>
     <color name="yellow">#FFEB3B</color>
+    <color name="colorBlueMain">#0085FF</color>
 
 </resources>

@@ -4,6 +4,9 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/HelpYou/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.204" />
+        <entry key="..\:/HelpYou/app/src/main/res/drawable-v24/whitebttn.xml" value="0.229" />
+        <entry key="..\:/HelpYou/app/src/main/res/drawable/ic_baseline_arrow_outward_24.xml" value="0.229" />
+        <entry key="..\:/HelpYou/app/src/main/res/drawable/ic_baseline_change_circle_36.xml" value="0.229" />
         <entry key="..\:/HelpYou/app/src/main/res/drawable/ic_baseline_close_24.xml" value="0.1935" />
         <entry key="..\:/HelpYou/app/src/main/res/drawable/ic_baseline_my_location_24.xml" value="0.222" />
         <entry key="..\:/HelpYou/app/src/main/res/drawable/ic_electric_station_48.xml" value="0.186" />
@@ -16,6 +19,8 @@
         <entry key="..\:/HelpYou/app/src/main/res/layout/activity_recent_area.xml" value="0.2526041666666667" />
         <entry key="..\:/HelpYou/app/src/main/res/layout/activity_recent_bookmark.xml" value="0.25364583333333335" />
         <entry key="..\:/HelpYou/app/src/main/res/layout/activity_recent_route.xml" value="0.2526041666666667" />
+        <entry key="..\:/HelpYou/app/src/main/res/layout/activity_search1.xml" value="0.2" />
+        <entry key="..\:/HelpYou/app/src/main/res/layout/activity_search2.xml" value="0.189453125" />
         <entry key="..\:/HelpYou/app/src/main/res/layout/fragment_tab_area.xml" value="0.25364583333333335" />
         <entry key="..\:/HelpYou/app/src/main/res/layout/fragment_tab_bus.xml" value="0.2390625" />
         <entry key="..\:/HelpYou/app/src/main/res/layout/fragment_tab_route.xml" value="0.2390625" />

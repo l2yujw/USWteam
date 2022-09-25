@@ -26,7 +26,6 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-import net.daum.android.map.coord.MapCoordLatLng;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
 
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
             @Override
             public void onClick(View view) {
                 fab_location_count++;
-                if (fab_location_count % 2 == 0) {
+                if (fab_location_count % 2 == 1) {
                     mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
                     if (!checkLocationServicesStatus()) {
                         showDialogForLocationServiceSetting();
@@ -108,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
         btnfindroad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), FindRoadActivity.class);
+                Intent intent = new Intent(getApplicationContext(), FindRoad.class);
 
                 startActivity(intent);
             }
@@ -353,5 +352,7 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
     public void onMapViewMoveFinished(MapView mapView, MapPoint mapPoint) {
 
     }
+
+
 
 }
