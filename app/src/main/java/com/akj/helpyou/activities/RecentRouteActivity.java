@@ -1,7 +1,9 @@
-package com.akj.helpyou;
+package com.akj.helpyou.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+
+import com.akj.helpyou.R;
 
 public class RecentRouteActivity extends Activity {
     @Override

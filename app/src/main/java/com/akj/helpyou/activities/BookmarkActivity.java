@@ -1,11 +1,14 @@
-package com.akj.helpyou;
+package com.akj.helpyou.activities;
 
 import android.os.Bundle;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import com.akj.helpyou.R;
+import com.akj.helpyou.fragments.FragmentTabArea;
+import com.akj.helpyou.fragments.FragmentTabBus;
+import com.akj.helpyou.fragments.FragmentTabRoute;
 import com.google.android.material.tabs.TabLayout;
 
 
@@ -31,7 +34,7 @@ public class BookmarkActivity extends AppCompatActivity {
         fragment2 = new FragmentTabBus();
         fragment3 = new FragmentTabRoute();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.containers, fragment1).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.nv_bookmarker, fragment1).commit();
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -46,7 +49,7 @@ public class BookmarkActivity extends AppCompatActivity {
                 }else if (position == 2) {
                     selected = fragment3;
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.containers, selected).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.nv_bookmarker, selected).commit();
             }
 
             @Override

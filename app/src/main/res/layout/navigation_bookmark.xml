@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".BookmarkActivity">
+    tools:context=".activities.BookmarkActivity">
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
@@ -18,7 +18,7 @@
         app:tabTextColor="@color/black"
         android:elevation="1dp"/>
     <FrameLayout
-        android:id="@+id/containers"
+        android:id="@+id/nv_bookmarker"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

@@ -21,20 +21,23 @@
         android:usesCleartextTraffic="true"
         android:networkSecurityConfig="@xml/network_security_config">
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FindRoad"/>
-        <activity android:name=".RecentAreaActivity"/>
-        <activity android:name=".RecentRouteActivity"/>
-        <activity android:name=".RecentBookmarkActivity"/>
-        <activity android:name=".BookmarkActivity"/>
-        <activity android:name=".SettingActivity"/>
-        <activity android:name=".SubwayMapActivity"/>
+        <activity android:name=".activities.FindRoadActivity"/>
+        <activity android:name=".activities.RecentAreaActivity"/>
+        <activity android:name=".activities.RecentRouteActivity"/>
+        <activity android:name=".activities.RecentBookmarkActivity"/>
+        <activity android:name=".activities.BookmarkActivity"/>
+        <activity android:name=".activities.SettingActivity"/>
+        <activity android:name=".activities.SubwayMapActivity"/>
+        <activity android:name=".activities.SearchActivity1"/>
+        <activity android:name=".activities.SearchActivity2"/>
+        <activity android:name=".activities.ResultRouteActivity"/>
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="ba736be77629e672fce65d7bb072ed17"/>
     </application>
 

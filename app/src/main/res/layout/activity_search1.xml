@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="100dp"
         android:background="@color/colorBlueMain">
 
         <LinearLayout
@@ -23,18 +23,19 @@
                 android:id="@+id/textView1"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
+                android:layout_marginRight="5dp"
                 android:text="출발지"
                 android:textAlignment="center"
+                android:gravity="center"
                 android:textColor="@color/white"
-                android:textSize="30dp"
+                android:textSize="20dp"
                 android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/addressSearchEditText3"
                 android:layout_width="wrap_content"
-                android:layout_height="70dp"
+                android:duplicateParentState="false"
+                android:layout_height="40dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
@@ -47,60 +48,45 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="검색"
-                android:textSize="45dp" />
+                android:textSize="20dp" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1.5">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="fragment : 출발지 위치 지도로 보여주기"
+                android:textAlignment="center"/>
+
+<!--            <fragment-->
+<!--                android:id="@+id/fragment1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                >-->
+<!--            </fragment>-->
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="2">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="리스트 뷰 또는 리사이클 뷰 추가"
+                android:background="@color/yellow"
+                android:textAlignment="center"/>
         </LinearLayout>
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="26dp"
-        android:layout_marginTop="29dp"
-        android:layout_marginBottom="16dp"
-        android:text="자주가는 장소"
-        android:textColor="@color/black"
-        android:textSize="50dp"
-        android:textStyle="bold" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/adressRecyclerView1"
-        android:layout_width="match_parent"
-        android:layout_height="390dp"
-        android:layout_marginTop="10dp">
 
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
-            android:id="@+id/nodata"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="288dp"
-                android:layout_marginTop="200dp"
-                android:backgroundTint="@color/colorBlueMain"
-                android:src="@mipmap/nodata"
-                app:tint="@color/colorBlueMain" />
-
-            <TextView
-                android:id="@+id/textView7"
-                android:layout_width="match_parent"
-                android:layout_height="169dp"
-                android:gravity="center"
-                android:text="검색결과가 없습니다"
-                android:textAlignment="center"
-                android:textColor="@color/black"
-                android:textSize="50dp"
-                android:textStyle="bold" />
-
-        </LinearLayout>
-    </FrameLayout>
 
 </LinearLayout>

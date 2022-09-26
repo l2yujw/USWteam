@@ -3,15 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.FragmentTabArea">
+    tools:context=".fragments.FragmentSubway2">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Area ListView 생성"
+        android:text="휠체어 리프트 사용 가능 / 불가능 / 수리중"
         android:textColor="@color/black"
-        android:background="@color/yellow"
         android:gravity="center"
         />
 

@@ -1,4 +1,4 @@
-package com.akj.helpyou;
+package com.akj.helpyou.activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -7,9 +7,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import androidx.recyclerview.widget.RecyclerView;
+import com.akj.helpyou.R;
+import com.akj.helpyou.activities.RecentAreaActivity;
+import com.akj.helpyou.activities.RecentBookmarkActivity;
+import com.akj.helpyou.activities.RecentRouteActivity;
+import com.akj.helpyou.activities.ResultRouteActivity;
+import com.akj.helpyou.activities.SearchActivity1;
+import com.akj.helpyou.activities.SearchActivity2;
 
-public class FindRoad extends Activity {
+public class FindRoadActivity extends Activity {
 
 
 
@@ -26,14 +32,15 @@ public class FindRoad extends Activity {
 
         EditText startText = (EditText) findViewById(R.id.addressSearchEditText1);
         EditText endText = (EditText) findViewById(R.id.addressSearchEditText2);
+        startText.setInputType(0);
+        endText.setInputType(0);
 
         startText.setOnClickListener( //출발지 EditText버튼 클릭시
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(getApplicationContext(), SearchActivity1.class);
-                        startActivity(intent);
-//                        startActivityForResult(intent, 100);
+                        startActivityForResult(intent, 100);
                     }
                 }
         );
@@ -42,8 +49,7 @@ public class FindRoad extends Activity {
                     @Override
                     public void onClick(View view) {
                         Intent intent = new Intent(getApplicationContext(), SearchActivity2.class);
-                        startActivity(intent);
-//                        startActivityForResult(intent, 101);
+                        startActivityForResult(intent, 101);
                     }
                 }
         );
@@ -52,30 +58,27 @@ public class FindRoad extends Activity {
         btnrecent2 = (Button) findViewById(R.id.recent_route);
         btnrecent3 = (Button) findViewById(R.id.recent_bookmark);
 
-        btnrecent1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RecentAreaActivity.class);
-
-                startActivity(intent);
-            }
-        });
-        btnrecent2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RecentRouteActivity.class);
-
-                startActivity(intent);
-            }
-        });
-        btnrecent3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RecentBookmarkActivity.class);
-
-                startActivity(intent);
-            }
-        });
+//        btnrecent1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), RecentAreaActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        btnrecent2.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), RecentRouteActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        btnrecent3.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), RecentBookmarkActivity.class);
+//                startActivity(intent);
+//            }
+//        });
 
 
         // 길찾기 버튼을 누르면 경로를 탐색한다. -> 경로를 알려주는 layout + 대중교통 알림 layout추가
@@ -83,7 +86,8 @@ public class FindRoad extends Activity {
         btnfindroad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getApplicationContext(), ResultRouteActivity.class);
+                startActivity(intent);
             }
         });
 

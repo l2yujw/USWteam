@@ -156,12 +156,17 @@
             android:layout_marginTop="5dp"
             android:layout_weight="1"
             android:orientation="vertical">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/selectedlist1"
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:layout_marginHorizontal="18dp" />
+                android:text="리스트 뷰 또는 리사이클 뷰 추가"
+                android:background="@color/yellow"
+                android:textAlignment="center"/>
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/selectedlist1"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="90dp"-->
+<!--                android:layout_marginHorizontal="18dp" />-->
 
             <Button
                 android:id="@+id/recent_area"
@@ -178,11 +183,17 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/selectedlist2"
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:layout_marginHorizontal="18dp" />
+                android:text="리스트 뷰 또는 리사이클 뷰 추가"
+                android:background="@color/yellow"
+                android:textAlignment="center"/>
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/selectedlist2"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="90dp"-->
+<!--                android:layout_marginHorizontal="18dp" />-->
 
             <Button
                 android:id="@+id/recent_route"
@@ -199,11 +210,18 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/selectedlist3"
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="90dp"
-                android:layout_marginHorizontal="18dp" />
+                android:text="리스트 뷰 또는 리사이클 뷰 추가"
+                android:background="@color/yellow"
+                android:textAlignment="center"/>
+
+<!--            <androidx.recyclerview.widget.RecyclerView-->
+<!--                android:id="@+id/selectedlist3"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="90dp"-->
+<!--                android:layout_marginHorizontal="18dp" />-->
 
             <Button
                 android:id="@+id/recent_bookmark"

@@ -3,15 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.FragmentTabArea">
+    tools:context=".fragments.FragmentSubway3">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Area ListView 생성"
+        android:text="Random 아무거나 일단 넣기"
         android:textColor="@color/black"
-        android:background="@color/yellow"
         android:gravity="center"
         />
 

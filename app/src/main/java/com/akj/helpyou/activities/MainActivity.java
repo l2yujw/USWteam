@@ -1,4 +1,4 @@
-package com.akj.helpyou;
+package com.akj.helpyou.activities;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -23,6 +23,7 @@ import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import com.akj.helpyou.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
         btnfindroad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), FindRoad.class);
+                Intent intent = new Intent(getApplicationContext(), FindRoadActivity.class);
 
                 startActivity(intent);
             }
