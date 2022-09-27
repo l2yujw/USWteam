@@ -66,6 +66,8 @@ public class SearchActivity1 extends AppCompatActivity implements OnMapReadyCall
 
 
 
+
+
     }
 
     @Override
