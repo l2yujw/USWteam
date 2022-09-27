@@ -62,7 +62,7 @@ public class SearchActivity1 extends AppCompatActivity implements OnMapReadyCall
         CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(loc, 15);
         mMap.moveCamera(cameraUpdate);                 // 초기 위치
         mMap.animateCamera(CameraUpdateFactory.zoomTo(15));                         // 줌의 정도
-        googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
 
 
