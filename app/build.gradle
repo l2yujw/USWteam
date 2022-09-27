@@ -42,4 +42,8 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 //  카카오 Map API
     implementation files('libs/libDaumMapAndroid.jar')
+
+    //구글지도 api
+    implementation 'com.google.android.gms:play-services-maps:18.1.0'
+    implementation 'com.google.android.gms:play-services-location:20.0.0'
 }

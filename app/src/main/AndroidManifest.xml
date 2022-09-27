@@ -39,6 +39,7 @@
         <activity android:name=".activities.SearchActivity2"/>
         <activity android:name=".activities.ResultRouteActivity"/>
         <meta-data android:name="com.kakao.sdk.AppKey" android:value="ba736be77629e672fce65d7bb072ed17"/>
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyBU_ovnZhR5ojzZr7EtIoLTqfrV-UDcEtQ" />
     </application>
 
 </manifest>
