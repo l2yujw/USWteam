@@ -3,6 +3,7 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/drawable-anydpi/ic_location.xml" value="0.2215" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/drawable/ic_baseline_arrow_back_24.xml" value="0.2265" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/drawable/ic_baseline_arrow_outward_24.xml" value="0.2265" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/drawable/ic_baseline_change_circle_36.xml" value="0.106" />
@@ -15,13 +16,18 @@
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/activity_recent_area.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/activity_recent_bookmark.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/activity_recent_route.xml" value="0.22826086956521738" />
-        <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/activity_search1.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/activity_search1.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/activity_search2.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/activity_search3.xml" value="0.23541666666666666" />
+        <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/activity_test.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/activity_testactivity.xml" value="0.1" />
+        <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/autocompletesupportfragment.xml" value="0.1" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/fragment_subway1.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/navigation_bookmark.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/navigation_header.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/navigation_setting.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/navigation_subwaymap.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/search_recycler_item.xml" value="0.234375" />
         <entry key="..\:/HelpYou/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.204" />
         <entry key="..\:/HelpYou/app/src/main/res/drawable-v24/whitebttn.xml" value="0.229" />
         <entry key="..\:/HelpYou/app/src/main/res/drawable/ic_baseline_arrow_outward_24.xml" value="0.229" />
