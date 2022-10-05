@@ -8,12 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.akj.helpyou.R;
-import com.akj.helpyou.activities.RecentAreaActivity;
-import com.akj.helpyou.activities.RecentBookmarkActivity;
-import com.akj.helpyou.activities.RecentRouteActivity;
-import com.akj.helpyou.activities.ResultRouteActivity;
-import com.akj.helpyou.activities.SearchActivity1;
-import com.akj.helpyou.activities.SearchActivity2;
+import com.akj.helpyou.activities.search.Search1Activity;
 
 public class FindRoadActivity extends Activity {
 
@@ -23,15 +18,18 @@ public class FindRoadActivity extends Activity {
     private Button btnrecent2;
     private Button btnrecent3;
     private Button btnfindroad;
-
+    private int startrequestcode = 100;
+    private int endrequestcode = 101;
+    private EditText startText;
+    private EditText endText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_to_findroad);
 
-        EditText startText = (EditText) findViewById(R.id.addressSearchEditText1);
-        EditText endText = (EditText) findViewById(R.id.addressSearchEditText2);
+        startText = (EditText) findViewById(R.id.addressSearchEditText1);
+        endText = (EditText) findViewById(R.id.addressSearchEditText2);
         startText.setInputType(0);
         endText.setInputType(0);
 
@@ -39,8 +37,8 @@ public class FindRoadActivity extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(), SearchActivity1.class);
-                        startActivityForResult(intent, 100);
+                        Intent intent = new Intent(getApplicationContext(), Search1Activity.class);
+                        startActivityForResult(intent, startrequestcode);
                     }
                 }
         );
@@ -48,8 +46,7 @@ public class FindRoadActivity extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(), SearchActivity2.class);
-                        startActivityForResult(intent, 101);
+
                     }
                 }
         );
@@ -92,5 +89,17 @@ public class FindRoadActivity extends Activity {
         });
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==startrequestcode){
+            if (resultCode != Activity.RESULT_OK) {
+                return;
+            }
+            String sendText = data.getExtras().getString("returnValue");
+            startText.setText(sendText);
+        }
     }
 }

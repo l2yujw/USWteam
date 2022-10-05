@@ -169,7 +169,8 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mapViewContainer.removeAllViews();
+        //어플이 가끔 죽어서 일단 주석처리
+        //mapViewContainer.removeAllViews();
     }
 
     @Override
