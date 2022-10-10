@@ -1,18 +1,30 @@
 package com.akj.helpyou.activities;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.Rect;
+import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.ImageView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -28,9 +40,15 @@ public class SubwayMapActivity extends AppCompatActivity {
 
     private Toolbar toolbar;                                 // 상단 툴바
     public String targetStation;
-    Cursor c = null; // db 커서
-    Bitmap bitmap;
-    GestureDetector detector;
+    private Cursor c = null; // db 커서
+    private Bitmap bitmap;  // imageView의 bitmap
+    private Bitmap drawBitmap;
+    private GestureDetector detector;
+    final public String[] versionArray = new String[]{"출발", "경유", "도착"};
+    private Button button1;
+    private Button button2;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,21 +105,30 @@ public class SubwayMapActivity extends AppCompatActivity {
                     PointF sCoord = imageView.viewToSourceCoord(ev.getX(), ev.getY());
                     int x_cor = (int) sCoord.x;
                     int y_cor = (int) sCoord.y;
-                    int bitWidth = bitmap.getWidth();
-                    int bitHeight = bitmap.getHeight();
-                    Log.e("bitmap", "width: " + bitWidth + " height: " + bitHeight);
 
                     Log.e("좌표", "X: " + x_cor + ", Y: " + y_cor);
                     // Loop for finding the station.
                     if (c.moveToFirst()) {
                         do {
                             if ((x_cor > c.getInt(2)) && (x_cor < c.getInt(4)) && (y_cor > c.getInt(3)) && (y_cor < c.getInt(5))) {
-                                String targetStation = c.getString(1); // 유저가 클릭한 지하철역
+                                targetStation = c.getString(1); // 유저가 클릭한 지하철역
+
+                                Log.e("Cursor", "X1: " + c.getInt(2) + "Y1: " + c.getInt(3) + "X2: " + c.getInt(4) + " Y2: " + c.getInt(5));
                                 Log.e("Check", "만족");
                                 Log.e("Station", targetStation);
-                                Toast.makeText(getApplicationContext(), targetStation, Toast.LENGTH_LONG).show(); // 여기에 마커 Layout 생성
+                                // 대화 상자 생성해서 (출발, 경유, 도착지 설정)
+                                AlertDialog.Builder dialog = new AlertDialog.Builder(SubwayMapActivity.this);
+                                dialog.setTitle(targetStation); // 대화상자 제목
+                                dialog.setSingleChoiceItems(versionArray, 0, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        /// 선택 결과 길찾기로 넘기기.
+                                    }
+                                });
+                                dialog.setPositiveButton("닫기", null);
+                                dialog.show();
+
                             }
-                            Log.e("Cursor", "X1: " + c.getInt(2) + "Y1: " + c.getInt(3) + "X2: " + c.getInt(4) + " Y2: " + c.getInt(5));
                         } while (c.moveToNext());
                     }
                 }
@@ -129,10 +156,50 @@ public class SubwayMapActivity extends AppCompatActivity {
                 detector.onTouchEvent(motionEvent);
                 return SubwayMapActivity.super.onTouchEvent(motionEvent);
             }
+        }); //Touchevent를 Gesture로 넘겨서 실행
+
+
+        // Button - 엘레베이터 / 리프트
+        button1 = findViewById(R.id.btn_Elevator);
+        button2 = findViewById(R.id.btn_Lift);
+
+        button1.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View view) {
+
+                drawBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), bitmap.getConfig());
+                Canvas canvas = new Canvas(drawBitmap);
+
+                Paint paint = new Paint();
+                paint.setColor(Color.GREEN);
+                paint.setStrokeWidth(30f);
+
+                canvas.drawBitmap(bitmap,0,0, paint);
+
+                RectF rectf = new RectF();
+                if (c.moveToFirst()) {
+                    do {
+                        if (c.getInt(6) == 1) {
+                            rectf.set(c.getInt(2), c.getInt(3), c.getInt(4), c.getInt(5));
+                            canvas.drawArc(rectf, 0, 360, true, paint);
+                        }
+                    } while (c.moveToNext());
+                }
+
+                imageView.setImage(ImageSource.bitmap(drawBitmap));
+            }
+        });
+
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
         });
 
 
-    }
+    } // onCreate 끝
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -145,4 +212,5 @@ public class SubwayMapActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
 }

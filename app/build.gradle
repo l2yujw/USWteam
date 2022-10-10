@@ -42,6 +42,8 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 //  카카오 Map API
     implementation files('libs/libDaumMapAndroid.jar')
-    // subsampling-scale-image-view
+// subsampling-scale-image-view
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
+// QuickAction
+//    implementation 'com.github.piruin:quickaction:2.4.3'
 }

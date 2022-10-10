@@ -32,12 +32,12 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-
                 <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
                     android:id="@+id/subwayMap"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
                 </com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView>
+
             </RelativeLayout>
 
 
@@ -49,7 +49,7 @@
             android:layout_weight="1">
 
             <Button
-                android:id="@+id/elevator"
+                android:id="@+id/btn_Elevator"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -59,7 +59,7 @@
                 android:text="엘레베이터" />
 
             <Button
-                android:id="@+id/lift"
+                android:id="@+id/btn_Lift"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
