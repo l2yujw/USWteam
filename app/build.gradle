@@ -1,7 +1,5 @@
 plugins {
     id 'com.android.application'
-    id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
-    id 'org.jetbrains.kotlin.android'
 }
 
 android {
@@ -22,9 +20,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
-    buildFeatures {
-        dataBinding true
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -47,19 +42,4 @@ dependencies {
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 //  카카오 Map API
     implementation files('libs/libDaumMapAndroid.jar')
-
-    //구글 지도 api
-    implementation 'com.google.android.gms:play-services-maps:18.1.0'
-    implementation 'com.google.android.gms:play-services-location:20.0.0'
-
-    //recyclerView
-    implementation "androidx.recyclerview:recyclerview:1.2.1"
-    implementation "androidx.recyclerview:recyclerview-selection:1.1.0"
-
-    //구글 Place api
-    implementation 'com.google.android.libraries.places:places:2.6.0'
-
-    //retrofit2
-    implementation 'com.squareup.retrofit2:retrofit:2.7.1'
-    implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
 }
