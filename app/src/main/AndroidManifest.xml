@@ -37,7 +37,7 @@
         <activity android:name=".activities.SettingActivity" />
         <activity android:name=".activities.SubwayMapActivity" />
         <activity android:name=".activities.ResultRouteActivity" />
-        <activity android:name=".activities.search.Search1Activity"/>
+        <activity android:name=".activities.search.SearchActivity"/>
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

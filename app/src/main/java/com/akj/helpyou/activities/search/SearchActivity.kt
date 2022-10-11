@@ -17,7 +17,7 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
-import  com.akj.helpyou.databinding.ActivitySearch3Binding
+import com.akj.helpyou.databinding.ActivitySearchBinding
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
@@ -27,13 +27,13 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class Search1Activity : AppCompatActivity() {
+class SearchActivity : AppCompatActivity() {
     companion object {
         const val BASE_URL = "https://dapi.kakao.com/"
         const val API_KEY = "KakaoAK b71bf16d2f21ac2a4c5efa68ddd32e3f"  // REST API 키
     }
 
-    private lateinit var binding : ActivitySearch3Binding
+    private lateinit var binding : ActivitySearchBinding
     private val ACCESS_FINE_LOCATION = 1000
     private val listItems = arrayListOf<ListLayout>()   // 리사이클러 뷰 아이템
     private val listAdapter = ListAdapter(listItems)    // 리사이클러 뷰 어댑터
@@ -42,9 +42,18 @@ class Search1Activity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivitySearch3Binding.inflate(layoutInflater)
+        binding = ActivitySearchBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
+
+        if (intent.hasExtra("textView1")) {
+            binding.textView1.text = intent.getStringExtra("textView1")
+            /* "nameKey"라는 이름의 key에 저장된 값이 있다면
+               textView의 내용을 "nameKey" key에서 꺼내온 값으로 바꾼다 */
+
+        } else {
+            binding.textView1.text = "출발지"
+        }
 
         if (checkLocationService()) {
             // GPS가 켜져있을 경우
