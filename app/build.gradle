@@ -62,4 +62,9 @@ dependencies {
     //retrofit2
     implementation 'com.squareup.retrofit2:retrofit:2.7.1'
     implementation 'com.squareup.retrofit2:converter-gson:2.7.1'
+
+    // subsampling-scale-image-view
+    implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
+// QuickAction
+//    implementation 'com.github.piruin:quickaction:2.4.3'
 }

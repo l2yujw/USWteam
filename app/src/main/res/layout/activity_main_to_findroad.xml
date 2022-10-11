@@ -40,7 +40,7 @@
                         android:textSize="15dp"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/addressSearchEditText1"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
@@ -51,6 +51,7 @@
                         android:editable="false"
                         android:ems="15"
                         android:hint=" 출발지를 검색해 주세요."
+                        android:gravity="center_vertical"
                         android:inputType="textPersonName"/>
                 </LinearLayout>
 
@@ -70,7 +71,7 @@
                         android:textSize="15dp"
                         android:textStyle="bold" />
 
-                    <EditText
+                    <TextView
                         android:id="@+id/addressSearchEditText2"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
@@ -79,6 +80,7 @@
                         android:editable="false"
                         android:ems="15"
                         android:hint=" 도착지를 검색해 주세요."
+                        android:gravity="center_vertical"
                         android:inputType="textPersonName" />
                 </LinearLayout>
             </LinearLayout>
@@ -133,7 +135,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/ic_baseline_my_location_24"
-                    android:background="@color/colorBlueMain"/>
+                    android:background="@color/BlueMain"/>
             </LinearLayout>
 
             <Button
@@ -143,7 +145,7 @@
                 android:layout_marginVertical="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/whitebttn"
-                android:backgroundTint="@color/colorBlueMain"
+                android:backgroundTint="@color/BlueMain"
                 android:onClick="onClickedSearch"
                 android:text="길찾기"
                 android:textColor="@color/white"

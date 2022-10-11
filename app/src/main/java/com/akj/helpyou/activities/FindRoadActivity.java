@@ -5,10 +5,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.TextView;
 
 import com.akj.helpyou.R;
-import com.akj.helpyou.activities.search.Search1Activity;
+import com.akj.helpyou.activities.search.SearchActivity;
 
 public class FindRoadActivity extends Activity {
 
@@ -20,16 +20,16 @@ public class FindRoadActivity extends Activity {
     private Button btnfindroad;
     private int startrequestcode = 100;
     private int endrequestcode = 101;
-    private EditText startText;
-    private EditText endText;
+    private TextView startText;
+    private TextView endText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_to_findroad);
 
-        startText = (EditText) findViewById(R.id.addressSearchEditText1);
-        endText = (EditText) findViewById(R.id.addressSearchEditText2);
+        startText = (TextView) findViewById(R.id.addressSearchEditText1);
+        endText = (TextView) findViewById(R.id.addressSearchEditText2);
         startText.setInputType(0);
         endText.setInputType(0);
 
@@ -37,7 +37,8 @@ public class FindRoadActivity extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getApplicationContext(), Search1Activity.class);
+                        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                        intent.putExtra("textView1","출발지");
                         startActivityForResult(intent, startrequestcode);
                     }
                 }
@@ -46,7 +47,9 @@ public class FindRoadActivity extends Activity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                        intent.putExtra("textView1","도착지");
+                        startActivityForResult(intent, endrequestcode);
                     }
                 }
         );
@@ -100,6 +103,12 @@ public class FindRoadActivity extends Activity {
             }
             String sendText = data.getExtras().getString("returnValue");
             startText.setText(sendText);
+        }else if(requestCode==endrequestcode){
+            if (resultCode != Activity.RESULT_OK) {
+                return;
+            }
+            String sendText = data.getExtras().getString("returnValue");
+            endText.setText(sendText);
         }
     }
 }
