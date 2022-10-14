@@ -66,5 +66,5 @@ dependencies {
     // subsampling-scale-image-view
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
 // QuickAction
-//    implementation 'com.github.piruin:quickaction:2.4.3'
+    implementation 'com.github.ovenbits:QuickActionView:latest.release.here'
 }
