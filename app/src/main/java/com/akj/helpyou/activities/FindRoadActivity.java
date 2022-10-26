@@ -91,7 +91,12 @@ public class FindRoadActivity extends Activity {
             }
         });
 
-
+        //MainActivity에서 마커로 눌러서 와졌을때
+        if(getIntent().hasExtra("startPoint") && getIntent().hasExtra("endPoint")){
+            startText.setText(getIntent().getStringExtra("startPoint"));
+            endText.setText(getIntent().getStringExtra("endPoint"));
+            btnfindroad.callOnClick();
+        }
     }
 
     @Override
