@@ -95,7 +95,7 @@ public class FindRoadActivity extends Activity {
         if(getIntent().hasExtra("startPoint") && getIntent().hasExtra("endPoint")){
             startText.setText(getIntent().getStringExtra("startPoint"));
             endText.setText(getIntent().getStringExtra("endPoint"));
-            btnfindroad.callOnClick();
+
         }
     }
 

@@ -50,7 +50,9 @@
                         android:duplicateParentState="false"
                         android:editable="false"
                         android:ems="15"
-                        android:hint=" 출발지를 검색해 주세요."
+                        android:paddingStart="5dp"
+                        android:textColor="@color/black"
+                        android:text=" 출발지를 검색해 주세요."
                         android:gravity="center_vertical"
                         android:inputType="textPersonName"/>
                 </LinearLayout>
@@ -79,7 +81,9 @@
                         android:background="#F3F3F3"
                         android:editable="false"
                         android:ems="15"
-                        android:hint=" 도착지를 검색해 주세요."
+                        android:paddingStart="5dp"
+                        android:textColor="@color/black"
+                        android:text=" 도착지를 검색해 주세요."
                         android:gravity="center_vertical"
                         android:inputType="textPersonName" />
                 </LinearLayout>
