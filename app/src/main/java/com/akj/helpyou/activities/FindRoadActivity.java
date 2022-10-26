@@ -33,6 +33,7 @@ public class FindRoadActivity extends Activity {
         startText.setInputType(0);
         endText.setInputType(0);
 
+
         startText.setOnClickListener( //출발지 EditText버튼 클릭시
                 new View.OnClickListener() {
                     @Override

@@ -475,6 +475,7 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
         intent.putExtra("startPoint",startpoint);
         intent.putExtra("endPoint",endpoint);
         startActivity(intent);
+
     }
 
     @Override
