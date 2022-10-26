@@ -2,8 +2,9 @@ plugins {
     id 'com.android.application'
     id 'com.google.android.libraries.mapsplatform.secrets-gradle-plugin'
     id 'org.jetbrains.kotlin.android'
-}
 
+}
+apply plugin: 'kotlin-kapt'
 android {
     compileSdk 32
 
@@ -50,7 +51,7 @@ dependencies {
 
     //구글 지도 api
     implementation 'com.google.android.gms:play-services-maps:18.1.0'
-    implementation 'com.google.android.gms:play-services-location:20.0.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.0'
 
     //recyclerView
     implementation "androidx.recyclerview:recyclerview:1.2.1"
@@ -66,5 +67,16 @@ dependencies {
     // subsampling-scale-image-view
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
 // QuickAction
-    implementation 'com.github.ovenbits:QuickActionView:latest.release.here'
+
+    //implementation 'com.github.ovenbits:QuickActionView:1.0.3'
+
+    //room
+    def room_version = "2.4.3"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+
+    // To use Kotlin annotation processing tool (kapt)
+    kapt "androidx.room:room-compiler:$room_version"
+
 }

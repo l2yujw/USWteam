@@ -48,8 +48,6 @@ class SearchActivity : AppCompatActivity() {
 
         if (intent.hasExtra("textView1")) {
             binding.textView1.text = intent.getStringExtra("textView1")
-            /* "nameKey"라는 이름의 key에 저장된 값이 있다면
-               textView의 내용을 "nameKey" key에서 꺼내온 값으로 바꾼다 */
 
         } else {
             binding.textView1.text = "출발지"
