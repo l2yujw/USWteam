@@ -13,4 +13,4 @@ public class ResultRouteActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_road);
     }
-}
+}//안씀
