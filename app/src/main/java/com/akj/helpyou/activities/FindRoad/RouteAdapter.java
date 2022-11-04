@@ -1,4 +1,4 @@
-package com.akj.helpyou.activities;
+package com.akj.helpyou.activities.FindRoad;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -16,19 +16,19 @@ import com.akj.helpyou.R;
 
 import java.util.ArrayList;
 
-public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.ViewHolder> {
-    String area = "";
+public class RouteAdapter extends RecyclerView.Adapter<RouteAdapter.ViewHolder> {
+    String startpoint = "";
 
-    DBHelper2 dbHelper2;
+    DBHelper dbHelper;
 
     AlertDialog.Builder builder;
 
-    ArrayList<Area> items = new ArrayList<Area>();
+    ArrayList<Route> items = new ArrayList<Route>();
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        View itemview = inflater.inflate(R.layout.item_area, viewGroup, false);
+        View itemview = inflater.inflate(R.layout.item_route, viewGroup, false);
 
         return new ViewHolder(itemview);
     }
@@ -36,28 +36,28 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
         int mPosition = viewHolder.getAdapterPosition();
-        Area item = items.get(mPosition);
+        Route item = items.get(mPosition);
         viewHolder.setItem(item);
 
-        viewHolder.cardView2.setOnClickListener(new View.OnClickListener() {
+        viewHolder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Context context = v.getContext();
 
-                dbHelper2 = new DBHelper2(context.getApplicationContext(), "USER_INFO2.db", null, 1);
+                dbHelper = new DBHelper(context.getApplicationContext(), "USER_INFO.db", null, 1);
 
-                area = items.get(mPosition).getArea();
+                startpoint = items.get(mPosition).getStartpoint();
 
                 builder = new AlertDialog.Builder(context);
                 builder.setTitle("삭제");
-                builder.setMessage("해당 항목을 삭제하시겠습니까?");
+                builder.setMessage("[" + startpoint + "]해당 항목을 삭제하시겠습니까?");
                 builder.setPositiveButton("예",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 deleteItem(mPosition);
                                 notifyDataSetChanged();
-                                dbHelper2.delete(area);
+                                dbHelper.delete(startpoint);
                             }
                         });
                 builder.setNegativeButton("아니오",
@@ -79,8 +79,8 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.ViewHolder> {
         return items.size();
     }
 
-    public void addItem(Area area){
-        items.add(area);
+    public void addItem(Route route){
+        items.add(route);
     }
 
     public void deleteItem(int position){
@@ -92,20 +92,23 @@ public class AreaAdapter extends RecyclerView.Adapter<AreaAdapter.ViewHolder> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        TextView area;
+        TextView startpoint;
+        TextView endpoint;
         TextView when;
-        CardView cardView2;
+        CardView cardView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            area = itemView.findViewById(R.id.startpoint2);
-            when = itemView.findViewById(R.id.when2);
-            cardView2 = itemView.findViewById(R.id.cardView2);
+            startpoint = itemView.findViewById(R.id.startpoint);
+            endpoint = itemView.findViewById(R.id.endpoint);
+            when = itemView.findViewById(R.id.when);
+            cardView = itemView.findViewById(R.id.cardView);
         }
 
-        public void setItem(Area vo){
-            area.setText(vo.getArea());
+        public void setItem(Route vo){
+            startpoint.setText(vo.getStartpoint());
+            endpoint.setText(vo.getEndpoint());
             when.setText(vo.getTimestamp());
         }
     }

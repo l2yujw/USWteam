@@ -1,4 +1,4 @@
-package com.akj.helpyou.activities;
+package com.akj.helpyou.activities.FindRoad;
 
 public class Area {
 
