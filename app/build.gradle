@@ -10,7 +10,7 @@ android {
 
     defaultConfig {
         applicationId "com.akj.helpyou"
-        minSdk 29
+        minSdk 28
         targetSdk 32
         versionCode 1
         versionName "1.0"
@@ -66,9 +66,12 @@ dependencies {
 
     // subsampling-scale-image-view
     implementation 'com.davemorrissey.labs:subsampling-scale-image-view-androidx:3.10.0'
-// QuickAction
 
-    //implementation 'com.github.ovenbits:QuickActionView:1.0.3'
+    //Circular Floating Action Button Menu
+    implementation 'com.oguzdev:CircularFloatingActionMenu:1.0.2'
+
+    // Quick Action
+    implementation 'com.github.piruin:quickaction:2.4.3'
 
     //room
     def room_version = "2.4.3"

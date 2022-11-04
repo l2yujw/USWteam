@@ -27,5 +27,8 @@
     <color name="Pink">#FF00F2</color>
     <color name="teal">#008080</color>
     <color name="pink">#E91E63</color>
+    <color name="fabcolor">#4E4C4D</color>
+
+    <color name="colorBlueMain">#0085FF</color>
 
 </resources>

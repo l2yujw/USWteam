@@ -23,6 +23,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.SearchView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,6 +38,9 @@ import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
 import java.io.IOException;
 
+import me.piruin.quickaction.ActionItem;
+import me.piruin.quickaction.QuickAction;
+
 // 바텀 네비게이션 추가 합시다 -> 승강기, 화장실 등등있어요.
 public class SubwayMapActivity extends AppCompatActivity {
 
@@ -42,25 +48,66 @@ public class SubwayMapActivity extends AppCompatActivity {
     public String targetStation;
     private Cursor c = null; // db 커서
     private Bitmap bitmap;  // imageView의 bitmap
-    private Bitmap drawBitmap;
+    private Bitmap elevatorBitmap;
+    private Bitmap liftBitmap;
+    private boolean checkE = true;
+    private boolean checkL = true;
     private GestureDetector detector;
     final public String[] versionArray = new String[]{"출발", "경유", "도착"};
     private Button button1;
     private Button button2;
 
+    //Quick Action
+    private static final int ID_SOURCE = 1;
+    private static final int ID_VIA = 2;
+    private static final int ID_DESTINATION = 3;
+    private static final int ID_TIMETABLE = 4;
+    private static final int ID_3DVIEW = 5;
+    private QuickAction quickAction;
 
+    // 데이터 값 저장
+    public String Source = null;
+    public String Via = null;
+    public String Destination = null;
+    // 검색창
+    private SearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_subwaymap);
 
-
         // 툴바 만들기
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24); //왼쪽 상단 버튼 아이콘 지정
+
+        // QUICK ACTION 만들기
+
+        ActionItem sourceItem = new ActionItem(ID_SOURCE, "출발", R.drawable.ic_baseline_source_pin_24);
+        ActionItem viaItem = new ActionItem(ID_VIA, "경유", R.drawable.ic_baseline_via_pin_24);
+        ActionItem destinationItem = new ActionItem(ID_DESTINATION, "도착", R.drawable.ic_baseline_destination_pin_24);
+        ActionItem timetableItem = new ActionItem(ID_TIMETABLE, "시간표", R.drawable.ic_baseline_timetable_24);
+        ActionItem viewItem = new ActionItem(ID_3DVIEW, "3D", R.drawable.ic_baseline_3dview_24);
+
+        sourceItem.setSticky(true);
+        viaItem.setSticky(true);
+        destinationItem.setSticky(true);
+        timetableItem.setSticky(true);
+        viewItem.setSticky(true);
+
+        quickAction = new QuickAction(this, QuickAction.HORIZONTAL);
+        quickAction.setColorRes(R.color.fabcolor);
+        quickAction.setTextColorRes(R.color.white);
+
+        quickAction.addActionItem(sourceItem);
+        quickAction.addActionItem(viaItem);
+        quickAction.addActionItem(destinationItem);
+        quickAction.addActionItem(timetableItem);
+        quickAction.addActionItem(viewItem);
+
+        RelativeLayout quickview = findViewById(R.id.quickview);
 
 
         // DB 데이터 적용 시작
@@ -88,6 +135,7 @@ public class SubwayMapActivity extends AppCompatActivity {
         bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.naver_subway);
         imageView.setImage(ImageSource.bitmap(bitmap));
 
+
         detector = new GestureDetector(this, new GestureDetector.OnGestureListener() {
             @Override
             public boolean onDown(MotionEvent motionEvent) {
@@ -113,22 +161,14 @@ public class SubwayMapActivity extends AppCompatActivity {
                             if ((x_cor > c.getInt(2)) && (x_cor < c.getInt(4)) && (y_cor > c.getInt(3)) && (y_cor < c.getInt(5))) {
                                 targetStation = c.getString(1); // 유저가 클릭한 지하철역
 
-                                Log.e("Cursor", "X1: " + c.getInt(2) + "Y1: " + c.getInt(3) + "X2: " + c.getInt(4) + " Y2: " + c.getInt(5));
-                                Log.e("Check", "만족");
+                                Log.e("Cursor", "X1: " + c.getInt(2) + " Y1: " + c.getInt(3) + " X2: " + c.getInt(4) + " Y2: " + c.getInt(5));
                                 Log.e("Station", targetStation);
-                                // 대화 상자 생성해서 (출발, 경유, 도착지 설정)
-                                AlertDialog.Builder dialog = new AlertDialog.Builder(SubwayMapActivity.this);
-                                dialog.setTitle(targetStation); // 대화상자 제목
-                                dialog.setSingleChoiceItems(versionArray, 0, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        /// 선택 결과 길찾기로 넘기기.
-                                    }
-                                });
-                                dialog.setPositiveButton("닫기", null);
-                                dialog.show();
-
+                                Log.e("ev", "X: " + ev.getX() + "  Y: " + ev.getY() );
+                                quickview.setX(ev.getX());
+                                quickview.setY(ev.getY());
+                                quickAction.show(quickview);
                             }
+
                         } while (c.moveToNext());
                     }
                 }
@@ -167,36 +207,98 @@ public class SubwayMapActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View view) {
-
-                drawBitmap = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(), bitmap.getConfig());
-                Canvas canvas = new Canvas(drawBitmap);
-
-                Paint paint = new Paint();
-                paint.setColor(Color.GREEN);
-                paint.setStrokeWidth(30f);
-
-                canvas.drawBitmap(bitmap,0,0, paint);
-
-                RectF rectf = new RectF();
-                if (c.moveToFirst()) {
-                    do {
-                        if (c.getInt(6) == 1) {
-                            rectf.set(c.getInt(2), c.getInt(3), c.getInt(4), c.getInt(5));
-                            canvas.drawArc(rectf, 0, 360, true, paint);
-                        }
-                    } while (c.moveToNext());
+                bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.naver_subway);
+                elevatorBitmap = makeEle(bitmap, elevatorBitmap);
+                if (checkE == true && checkL == true) {
+                    imageView.setImage(ImageSource.bitmap(elevatorBitmap));
+                    checkE = false;
+                } else if (checkE == false && checkL == true) {
+                    imageView.setImage(ImageSource.bitmap(bitmap));
+                    checkE = true;
+                } else if (checkE == true && checkL == false) {
+                    imageView.setImage(ImageSource.bitmap(elevatorBitmap));
+                    checkE = false;
+                    checkL = true;
+                } else if (checkE == false && checkL == false) {
+                    imageView.setImage(ImageSource.bitmap(elevatorBitmap));
+                    checkE = true;
+                    checkL = true;
                 }
-
-                imageView.setImage(ImageSource.bitmap(drawBitmap));
             }
         });
 
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.naver_subway);
+                liftBitmap = makeLift(bitmap, liftBitmap);
+                if (checkE == true && checkL == true) {
+                    imageView.setImage(ImageSource.bitmap(liftBitmap));
+                    checkL = false;
+                } else if (checkE == true && checkL == false) {
+                    imageView.setImage(ImageSource.bitmap(bitmap));
+                    checkL = true;
+                } else if (checkE == false && checkL == true) {
+                    imageView.setImage(ImageSource.bitmap(liftBitmap));
+                    checkE = true;
+                    checkL = false;
+                } else if (checkE == false && checkL == false) {
+                    imageView.setImage(ImageSource.bitmap(liftBitmap));
+                    checkE = true;
+                    checkL = true;
+                }
             }
         });
+
+        quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
+            @Override
+            public void onItemClick(ActionItem item) {
+                if (item == sourceItem) {
+                    Source = targetStation;
+                    Toast.makeText(getApplicationContext(), Source, Toast.LENGTH_SHORT).show();
+                } else if (item == viaItem) {
+                    Via = targetStation;
+                    Toast.makeText(getApplicationContext(), Via, Toast.LENGTH_SHORT).show();
+                } else if (item == destinationItem) {
+                    Destination = targetStation;
+                    Toast.makeText(getApplicationContext(), Destination, Toast.LENGTH_SHORT).show();
+                } else if (item == timetableItem) {
+                    // 지하철 time table 레이아웃 전환
+                } else if (item == viewItem) {
+                    // 3d 지도 보여주기
+                }
+            }
+        });
+
+
+        // 지하철 역 검색하면 화면 확대 + 이동
+        searchView = findViewById(R.id.search_subway);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String searchText) {
+                if (c.moveToFirst()) {
+                    do {
+                        if (searchText.equals(c.getString(1))) {
+                            // db에서 좌표값 받아오고 확대해서 보여주기.
+                            PointF point = new PointF();
+                            point.x = (c.getInt(2) + c.getInt(4)) / 2;
+                            point.y = (c.getInt(3) + c.getInt(5)) / 2;
+                            imageView.setScaleAndCenter(2, point);
+                        }
+
+                    } while (c.moveToNext());
+                }
+
+                return true;
+            } // 입력받은 문자열 처리
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
+            } // 입력란의 문자가 바뀌었을 떄 처리
+        });
+
+        // 마커 생성
 
 
     } // onCreate 끝
@@ -212,5 +314,50 @@ public class SubwayMapActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public Bitmap makeEle(Bitmap original, Bitmap copy) {
+        copy = Bitmap.createBitmap(original.getWidth(), original.getHeight(), original.getConfig());
+        Canvas canvas = new Canvas(copy);
+
+        Paint paint = new Paint();
+        paint.setColor(Color.GREEN);
+        paint.setStrokeWidth(1);
+        paint.setAntiAlias(true);
+        canvas.drawBitmap(original, 0, 0, paint);
+        RectF rectf = new RectF();
+        if (c.moveToFirst()) {
+            do {
+                if (c.getInt(6) == 1) {
+                    rectf.set(c.getInt(2), c.getInt(3), c.getInt(4), c.getInt(5));
+                    canvas.drawArc(rectf, 0, 360, true, paint);
+                }
+            } while (c.moveToNext());
+        }
+
+        return copy;
+    }
+
+    public Bitmap makeLift(Bitmap original, Bitmap copy) {
+        copy = Bitmap.createBitmap(original.getWidth(), original.getHeight(), original.getConfig());
+        Canvas canvas = new Canvas(copy);
+
+        Paint paint = new Paint();
+        paint.setColor(Color.GREEN);
+        paint.setStrokeWidth(1);
+        paint.setAntiAlias(true);
+        canvas.drawBitmap(original, 0, 0, paint);
+        RectF rectf = new RectF();
+        if (c.moveToFirst()) {
+            do {
+                if (c.getInt(7) == 1) {
+                    rectf.set(c.getInt(2), c.getInt(3), c.getInt(4), c.getInt(5));
+                    canvas.drawArc(rectf, 0, 360, true, paint);
+                }
+            } while (c.moveToNext());
+        }
+
+        return copy;
+    }
+
 
 }
