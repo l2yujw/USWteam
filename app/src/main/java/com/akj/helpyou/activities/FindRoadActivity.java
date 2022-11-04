@@ -43,6 +43,7 @@ public class FindRoadActivity extends AppCompatActivity {
         startText.setInputType(0);
         endText.setInputType(0);
 
+
         startText.setOnClickListener( //출발지 EditText버튼 클릭시
                 new View.OnClickListener() {
                     @Override
@@ -140,7 +141,7 @@ public class FindRoadActivity extends AppCompatActivity {
         if(getIntent().hasExtra("startPoint") && getIntent().hasExtra("endPoint")){
             startText.setText(getIntent().getStringExtra("startPoint"));
             endText.setText(getIntent().getStringExtra("endPoint"));
-            btnfindroad.callOnClick();
+
         }
     }
 
