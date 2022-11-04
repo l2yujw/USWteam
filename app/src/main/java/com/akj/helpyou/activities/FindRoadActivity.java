@@ -2,26 +2,36 @@ package com.akj.helpyou.activities;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 
 import com.akj.helpyou.R;
 import com.akj.helpyou.activities.search.SearchActivity;
+import com.google.android.material.tabs.TabLayout;
 
-public class FindRoadActivity extends Activity {
+public class FindRoadActivity extends AppCompatActivity {
 
-
-
-    private Button btnrecent1;
-    private Button btnrecent2;
-    private Button btnrecent3;
     private Button btnfindroad;
     private int startrequestcode = 100;
     private int endrequestcode = 101;
     private TextView startText;
     private TextView endText;
+
+    DBHelper dbHelper;
+    DBHelper2 dbHelper2;
+    Time time = new Time();
+
+    ListFragment listFragment;
+    ListFragment2 listFragment2;
+    ListFragment3 listFragment3;
+    TabLayout tabs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,38 +64,73 @@ public class FindRoadActivity extends Activity {
                 }
         );
 
-        btnrecent1 = (Button) findViewById(R.id.recent_area);
-        btnrecent2 = (Button) findViewById(R.id.recent_route);
-        btnrecent3 = (Button) findViewById(R.id.recent_bookmark);
-
-//        btnrecent1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), RecentAreaActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//        btnrecent2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), RecentRouteActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//        btnrecent3.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), RecentBookmarkActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-
 
         // 길찾기 버튼을 누르면 경로를 탐색한다. -> 경로를 알려주는 layout + 대중교통 알림 layout추가
-        btnfindroad = (Button) findViewById(R.id.findRoad);
+        listFragment = new ListFragment();
+        listFragment2 = new ListFragment2();
+        listFragment3 = new ListFragment3();
+
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, listFragment).commit();
+
+        tabs = findViewById(R.id.tabs);
+        tabs.addTab(tabs.newTab().setText("최근 장소"));
+        tabs.addTab(tabs.newTab().setText("최근 경로"));
+        tabs.addTab(tabs.newTab().setText("즐겨찾기"));
+
+        tabs.setTabTextColors(Color.rgb(0,0,0),Color.rgb(255,0,0));
+
+        tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                int position = tab.getPosition();
+
+                Fragment selected = null;
+
+                if(position == 0){
+                    selected = listFragment2;
+                }
+                else if(position == 1){
+                    selected = listFragment;
+                }
+                else if(position ==2){
+                    selected = listFragment3;
+                }
+
+
+                getSupportFragmentManager().beginTransaction().replace(R.id.container, selected).commit();
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+        dbHelper = new DBHelper(getApplicationContext(), "USER_INFO.db", null, 1);
+        dbHelper2 = new DBHelper2(getApplicationContext(), "USER_INFO2.db", null, 1);
+
+        Button btnfindroad = findViewById(R.id.findRoad);
         btnfindroad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                String startpoint = startText.getText().toString();
+                String endpoint = endText.getText().toString();
+
+                if(startpoint.equals("") || endpoint.equals("")){
+                    Toast.makeText(getApplicationContext(), "입력을 다 해주세요", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    dbHelper.insert(startpoint,endpoint,time.set);
+                    dbHelper2.insert(startpoint,time.set);
+                    dbHelper2.insert(endpoint,time.set);
+                }
+                reset();
                 Intent intent = new Intent(getApplicationContext(), ResultRouteActivity.class);
                 startActivity(intent);
             }
@@ -115,5 +160,10 @@ public class FindRoadActivity extends Activity {
             String sendText = data.getExtras().getString("returnValue");
             endText.setText(sendText);
         }
+    }
+
+    public void reset(){
+        startText.setText("");
+        endText.setText("");
     }
 }

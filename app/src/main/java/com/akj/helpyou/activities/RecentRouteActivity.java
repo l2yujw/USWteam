@@ -12,5 +12,5 @@ public class RecentRouteActivity extends Activity {
         setContentView(R.layout.activity_recent_route);
 
 
-    }
+    }//안씀
 }
