@@ -30,6 +30,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.akj.helpyou.DB.Chargestation;
 import com.akj.helpyou.DB.ChargestationDatabase;
 import com.akj.helpyou.R;
+import com.akj.helpyou.activities.Odsay.FindDirection;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -64,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        FindDirection BusThread = new FindDirection();
+        BusThread.start();
 
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         // 맵뷰 생성
