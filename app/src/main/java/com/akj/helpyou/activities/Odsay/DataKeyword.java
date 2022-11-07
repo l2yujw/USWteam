@@ -16,11 +16,14 @@ public class DataKeyword {
     private String StartY;
     private String EndX;
     private String EndY;
+    private String Start_tel; // 지하철 승차역 전화번호
+    private String End_tel; // 지하철 하차역 전화번호
+    private String BusID; // 버스 정류장 고유 ID
 
+    public DataKeyword( String  circle, String startTraffic, String endTraffic, String moveTime, String stationCount, String busID, String passName,
+                         int wCode, String startX, String startY, String endX, String endY, String low, int bustime, String start_tel, String end_tel){
 
-    public DataKeyword( String  circle, String startTraffic, String endTraffic, String moveTime, String stationCount, int startcd, String passName,
-                         int wCode, String startX, String startY, String endX, String endY, String low, int bustime){
-
+        this.BusID=busID;
         this.circle = circle; // 도보 시 '도보', 버스시 버스 번호, 지하철시 호선 번호
         this.startTraffic = startTraffic; // 도보시 '도보 distance 값', 버스시 버스 첫 정거장, 지하철시 지하철 첫 역
         this.endTraffic = endTraffic; // 도보시 'null', 버스시 버스 마지막 정거장, 지하철시 지하철 마지막 역
@@ -35,6 +38,8 @@ public class DataKeyword {
         this.EndY=endY;
         this.Low=low;
         this.busTime=bustime;
+        this.Start_tel=start_tel;
+        this.End_tel=end_tel;
     }
 
 
@@ -42,6 +47,12 @@ public class DataKeyword {
 //    {
 //        return this.img;
 //    }
+
+    public String getBusID() {return this.BusID;}
+
+    public String getStartTraffic() {return this.Start_tel;}
+
+    public String getEnd_tel() {return this.End_tel;}
 
     public String getcircle()
     {
