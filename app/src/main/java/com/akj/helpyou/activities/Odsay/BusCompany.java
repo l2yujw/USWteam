@@ -1,20 +1,24 @@
 package com.akj.helpyou.activities.Odsay;
+
 import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-// 길찾기 - odsay Json 받아오는 자바 파일 - JasponParser에서 파싱
 
-public class FindDirection extends Thread {
-    public void run() {
+public class BusCompany {
+    public static String run(String busNo, int citycode) {
+        String name = null;
         try {
             // ODsay Api Key 정보
             String apiKey = "KBZOsvKhbug6iLyW4x9sOPH+YLTTWKjn2S9oPW7tXiQ";
 
-            String urlInfo = "https://api.odsay.com/v1/api/searchPubTransPathT?SX=126.9027279&SY=37.5349277&EX=126.9145430&EY=37.5499421&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
+            String urlInfo = "https://api.odsay.com/v1/api/searchBusLane?lang=0&busNo="+busNo+"&CID="+citycode+"&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
 
             // http 연결
             URL url = new URL(urlInfo);
@@ -33,12 +37,22 @@ public class FindDirection extends Thread {
                     while (true) {
                         line = reader.readLine();
 
-                        Log.d("JsonParsing", "line : " + line);
-
                         if(line == null){
                             break;
                         }
-                         JsonParser.jsonParser(line);
+                        JSONObject companyinfo = new JSONObject(line);
+                        JSONArray cpinfo = companyinfo.getJSONObject("result").getJSONArray("lane");
+
+                        for(int i=0; i<cpinfo.length(); i++){
+                            String bN = cpinfo.getJSONObject(i).getString("busNo");
+
+                            Log.d("BusCompany11","버스번호 : "+ bN);
+                            if(busNo.equals(bN)) {
+                                name = cpinfo.getJSONObject(i).getString("busCompanyNameKor");
+                                Log.d("BusCompany11","운수회사 명 : "+ name);
+                                return name;
+                            }
+                        }
                     }
                     reader.close();
                 }
@@ -47,5 +61,7 @@ public class FindDirection extends Thread {
         } catch (Exception e) {
 
         }
+        return name;
     }
 }
+
