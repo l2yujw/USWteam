@@ -50,5 +50,5 @@
             android:name="org.apache.http.legacy"
             android:required="false" />
     </application>
-
+    <uses-permission android:name="android:permission.INTERNET"/>
 </manifest>
