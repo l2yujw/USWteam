@@ -1,4 +1,4 @@
-package com.akj.helpyou.activities;
+package com.akj.helpyou.activities.FindRoad;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -11,13 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.akj.helpyou.R;
-
-import org.w3c.dom.Text;
 
 public class ListFragment2 extends Fragment {
 

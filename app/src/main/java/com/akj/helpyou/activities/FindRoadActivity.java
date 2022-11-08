@@ -13,6 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.akj.helpyou.R;
+import com.akj.helpyou.activities.FindRoad.DBHelper;
+import com.akj.helpyou.activities.FindRoad.DBHelper2;
+import com.akj.helpyou.activities.FindRoad.ListFragment;
+import com.akj.helpyou.activities.FindRoad.ListFragment2;
+import com.akj.helpyou.activities.FindRoad.ListFragment3;
+import com.akj.helpyou.activities.FindRoad.Time;
 import com.akj.helpyou.activities.search.SearchActivity;
 import com.google.android.material.tabs.TabLayout;
 
@@ -112,6 +118,8 @@ public class FindRoadActivity extends AppCompatActivity {
             }
         });
 
+        tabs.selectTab(tabs.getTabAt(1));
+
         dbHelper = new DBHelper(getApplicationContext(), "USER_INFO.db", null, 1);
         dbHelper2 = new DBHelper2(getApplicationContext(), "USER_INFO2.db", null, 1);
 
@@ -130,10 +138,10 @@ public class FindRoadActivity extends AppCompatActivity {
                     dbHelper.insert(startpoint,endpoint,time.set);
                     dbHelper2.insert(startpoint,time.set);
                     dbHelper2.insert(endpoint,time.set);
+                    //reset();
+                    Intent intent = new Intent(getApplicationContext(), ResultRouteActivity.class);
+                    startActivity(intent);
                 }
-                reset();
-                Intent intent = new Intent(getApplicationContext(), ResultRouteActivity.class);
-                startActivity(intent);
             }
         });
 
@@ -144,6 +152,7 @@ public class FindRoadActivity extends AppCompatActivity {
 
         }
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
