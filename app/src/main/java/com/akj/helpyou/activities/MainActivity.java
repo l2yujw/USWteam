@@ -16,6 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -34,6 +36,7 @@ import com.akj.helpyou.activities.Odsay.FindDirection;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
+import net.daum.mf.map.api.CalloutBalloonAdapter;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
 import net.daum.mf.map.api.MapView;
@@ -43,7 +46,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener {
+public class MainActivity extends AppCompatActivity implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener, MapView.POIItemEventListener {
 
     private Toolbar toolbar;                                 // 상단 툴바
     private DrawerLayout drawerLayout;                       // 네비게이션 드로우
@@ -56,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     private LocationManager lm;
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
+    private Location loc_Current;
     int fab_location_count = 0; // 현위치 버튼 홀수번 클릭 : 현위치 표시 및 이동, 짝수번 클릭 : 현위치 표시 제거
 
 
@@ -69,49 +73,17 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
         BusThread.start();
 
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        loc_Current = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         // 맵뷰 생성
         mapView = new MapView(this);
         mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
         mapViewContainer.addView(mapView);
         mapView.setMapViewEventListener(this);
-        mapView.setPOIItemEventListener(new MapView.POIItemEventListener() {
-            @Override
-            public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
-
-            }
-
-            //마커 눌렀을때의 이벤트
-            @Override
-            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
-                Toast.makeText(getApplicationContext(), "Clicked " + mapPOIItem.getItemName() + " Callout Balloon", Toast.LENGTH_SHORT).show();
-                if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                        && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                    return;
-                }
-                Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                double latitude = location.getLatitude(); // 경도
-                double longitude = location.getLongitude(); // 위도
-                String startpoint = getCurrentAddress(latitude,longitude);
-                String endpoint = mapPOIItem.getItemName();
-
-                Intent intent = new Intent(MainActivity.this,FindRoadActivity.class);
-                intent.putExtra("startPoint",startpoint);
-                intent.putExtra("endPoint",endpoint);
-                startActivity(intent);
-            }
-
-            @Override
-            public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
-
-            }
-
-            @Override
-            public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
-
-            }
-        });
-
+        mapView.setPOIItemEventListener(this);
 
         //플로팅 액션 버튼 생성
         FloatingActionButton fab_btn1 = (FloatingActionButton) findViewById(R.id.fab_location);
@@ -203,19 +175,12 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
 
     } // onCreate 마지막 줄
 
+
     private void findelectricstation() {
         //경기도 소재 데이터는 20년 12월 기준, 서울시 소재 데이터는 22년 10월 기준
 
         double latitude = 0.0;
         double longitude = 0.0;
-
-
-//마지막 위치 받아오기
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            Log.d(LOG_TAG, "findelectricstation: need permission location");
-            return;
-        }
-        Location loc_Current = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
 
         latitude = loc_Current.getLatitude(); //위도
         longitude = loc_Current.getLongitude(); //경도
@@ -421,7 +386,7 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
     }
 
     public String getCurrentAddress(double latitude, double longitude){
-        Geocoder geocoder = new Geocoder(this, Locale.getDefault());
+        Geocoder geocoder = new Geocoder(this, Locale.KOREA);
         List<Address> addresses = null;
         try{
             addresses = geocoder.getFromLocation(
@@ -489,5 +454,40 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
     }
 
 
+    @Override
+    public void onPOIItemSelected(MapView mapView, MapPOIItem mapPOIItem) {
 
+    }
+
+    @Override
+    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
+        //Toast.makeText(getApplicationContext(), "Clicked " + mapPOIItem.getItemName() + " Callout Balloon", Toast.LENGTH_SHORT).show();
+        if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+        double latitude = location.getLatitude(); // 경도
+        double longitude = location.getLongitude(); // 위도
+        String startpoint = getCurrentAddress(latitude,longitude);
+        startpoint = startpoint.split("대한민국 ")[1];
+        String endpoint = mapPOIItem.getItemName();
+
+        Intent intent = new Intent(MainActivity.this,FindRoadActivity.class);
+        intent.putExtra("startPoint",startpoint);
+        intent.putExtra("endPoint",endpoint);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
+
+    }
+
+    @Override
+    public void onDraggablePOIItemMoved(MapView mapView, MapPOIItem mapPOIItem, MapPoint mapPoint) {
+
+    }
 }

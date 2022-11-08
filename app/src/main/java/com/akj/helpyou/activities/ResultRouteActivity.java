@@ -14,4 +14,4 @@ public class ResultRouteActivity extends Activity {
         setContentView(R.layout.activity_result_road);
 
     }
-}
+}//안씀

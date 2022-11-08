@@ -14,6 +14,5 @@ public class RecentBookmarkActivity extends Activity {
         setContentView(R.layout.activity_recent_bookmark);
 
 
-    }
-
+    }//안씀
 }
