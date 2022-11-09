@@ -14,6 +14,7 @@ public class JsonParser extends Activity {
     public static void jsonParser(String resultJson) {
 //
         int sec;
+        Dataset dataset;
         ArrayList<DataKeyword> trafficDataList = new ArrayList<>();
         String []Tel = new String[2];
         String []XY = new String[4];
@@ -34,8 +35,7 @@ public class JsonParser extends Activity {
             int i=0;
             int g= 0;
             for(int j=0; j<path.length(); j++) {
-                trafficDataList.add(g , new DataKeyword( null, "출발", null, null, null, null, null, 3, null,null,null,null, null, 0,null,null));
-                g++;
+
 //                String totalTime = path.getJSONObject(j).getJSONObject("info").getString("totalTime");
 //                String payment = path.getJSONObject(j).getJSONObject("info").getString("payment");
 //                Integer trafficCount = path.getJSONObject(j).getJSONArray("subPath").length();
@@ -46,7 +46,7 @@ public class JsonParser extends Activity {
                     if (trafficType == 3) { //도보
                         Integer distance = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getInt("distance");
                         Integer secTime = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getInt("sectionTime");
-                        trafficDataList.add(g , new DataKeyword( "도보", "도보로 " + distance + "m 이동", null, secTime.toString() + "분 소요  ", " ", null," "
+                        trafficDataList.add(g , new DataKeyword( "도보",   distance.toString(), null, secTime , 0, null," "
                                 ,3, null,null,null,null, null,0,null,null));
                         g++;
                         Log.d("rewq", "secTime : " + secTime);
@@ -76,7 +76,7 @@ public class JsonParser extends Activity {
                             low = bus[1];
                             Log.d("busdata", "버스도착시간 : " + busarrival + "저상버스유무 : " + low);
                         }
-                        trafficDataList.add(g, new DataKeyword( busNo, busstart, busend + "  ", secTime.toString() + "분 소요  ", subwayCount.toString() + "개역 이동", busID," ",3,startX,startY,endX,endY, low, busarrival,null,null));
+                        trafficDataList.add(g, new DataKeyword( busNo, busstart, busend + "  ", secTime, subwayCount, busID," ",3,startX,startY,endX,endY, low, busarrival,null,null));
                         g++;
                     }
                     if (trafficType == 1) { //지하철
@@ -101,20 +101,26 @@ public class JsonParser extends Activity {
                         endX = XY[2];
                         endY = XY[3];
 
-                        trafficDataList.add(g, new DataKeyword( subwayNo.toString() + "호선", subwaystart + "역", subwayend + "역  ", secTime.toString() + "분 소요  ", subwayCount.toString() + "개역 이동",null," ",wayCode,
+                        trafficDataList.add(g, new DataKeyword( subwayNo.toString() + "호선", subwaystart + "역", subwayend + "역  ", secTime , subwayCount ,null," ",wayCode,
                                 startX, startY,endX,endY,null,0,Tel[0],Tel[1]));
                         g++;
                     }
+                    Log.d("mmm","ggg : " + trafficType +" "+g);
+                    g--;
+                    Log.d("mmm","kkk : " + trafficDataList.get(g).getmoveTime());
+                    dataset = new Dataset(trafficDataList, j, i, g, trafficType);
+                    g++;
+
+                    Log.d("mmm","ggg : " + dataset.getDistance(j,i));
                 }
-                trafficDataList.add(g, new DataKeyword( null, "도착", null, null, null,null,null,3,null,null,null,null,null,0,null,null));
-                g++;
 
             }
 
             for( i=0; i<100; i++) {
-                Log.d("rewq", "result : " + trafficDataList.get(i).getjsonFormat());
+                Log.d("rewq", "result : " + trafficDataList.get(i).getcircle());
 
             }
+
 
         } catch (JSONException jsonException) {
             jsonException.printStackTrace();

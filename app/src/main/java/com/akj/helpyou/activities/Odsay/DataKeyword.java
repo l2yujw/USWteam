@@ -4,8 +4,8 @@ public class DataKeyword {
     private String circle;
     private String startTraffic; // 승차 정류장/역 명
     private String endTraffic; // 하차 정류장/역 명
-    private String moveTime; // 구간 별 이동시간
-    private String stationCount; // 정차하는 정거장 수
+    private int moveTime; // 구간 별 이동시간
+    private int stationCount; // 정차하는 정거장 수
   //  private int img;
     private int startcd; // 출발 정류장/역 코드
     private String passName; // 정차하는 정거장/역 상세 구간 이름
@@ -20,7 +20,7 @@ public class DataKeyword {
     private String End_tel; // 지하철 하차역 전화번호
     private String BusID; // 버스 정류장 고유 ID
 
-    public DataKeyword( String  circle, String startTraffic, String endTraffic, String moveTime, String stationCount, String busID, String passName,
+    public DataKeyword( String  circle, String startTraffic, String endTraffic, int moveTime, int stationCount, String busID, String passName,
                          int wCode, String startX, String startY, String endX, String endY, String low, int bustime, String start_tel, String end_tel){
 
         this.BusID=busID;
@@ -43,14 +43,11 @@ public class DataKeyword {
     }
 
 
-//    public int getImg()
-//    {
-//        return this.img;
-//    }
+
 
     public String getBusID() {return this.BusID;}
 
-    public String getStartTraffic() {return this.Start_tel;}
+    public String getStart_tel() {return this.Start_tel;}
 
     public String getEnd_tel() {return this.End_tel;}
 
@@ -69,12 +66,12 @@ public class DataKeyword {
         return this.endTraffic;
     }
 
-    public String getmoveTime()
+    public int getmoveTime()
     {
         return this.moveTime;
     }
 
-    public String getstationCount()
+    public int getstationCount()
     {
         return this.stationCount;
     }
