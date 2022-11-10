@@ -78,6 +78,15 @@
                     android:layout_marginBottom="56dp"
                     android:src="@drawable/ic_electric_station_48"
                     />
+                <com.google.android.material.floatingactionbutton.FloatingActionButton
+                    android:id="@+id/fab_call"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginBottom="188dp"
+                    android:src="@drawable/ic_call_48"
+                    />
 
 
             </FrameLayout>

@@ -3,7 +3,6 @@ package com.akj.helpyou.activities;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -16,18 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
@@ -38,13 +31,12 @@ import com.akj.helpyou.activities.Odsay.FindDirection;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
-import net.daum.mf.map.api.CalloutBalloonAdapter;
 import net.daum.mf.map.api.MapPOIItem;
 import net.daum.mf.map.api.MapPoint;
+import net.daum.mf.map.api.MapReverseGeoCoder;
 import net.daum.mf.map.api.MapView;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -63,7 +55,13 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
     private Location loc_Current;
     private boolean fab_location_state = true;
+    public double fab_latitude = 0.0;
+    public double fab_longitude = 0.0;
+    public String PointToAddress;
+    CalltexiDialog calltexiDialog;
 
+
+//    private String apikey = "b71bf16d2f21ac2a4c5efa68ddd32e3f";
 
     @SuppressLint("WrongConstant")
     @Override
@@ -71,14 +69,15 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FindDirection BusThread = new FindDirection();
-        BusThread.start();
+//        FindDirection BusThread = new FindDirection();
+//        BusThread.start();
 
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         //플로팅 액션 버튼 생성
         FloatingActionButton fab_btn1 = (FloatingActionButton) findViewById(R.id.fab_location);
         FloatingActionButton fab_btn2 = (FloatingActionButton) findViewById(R.id.fab_elctric_station);
+        FloatingActionButton fab_btn3 = (FloatingActionButton) findViewById(R.id.fab_call);
 
         // 현재 위치로 이동 및 표시
 
@@ -104,6 +103,37 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
             public void onClick(View view) {
                 //api에서 충전소 리스트 불러와서 가까운 순서로 정렬
                 findelectricstation();
+            }
+        });
+
+        fab_btn3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                fab_latitude = loc_Current.getLatitude(); //위도
+                fab_longitude = loc_Current.getLongitude(); //경도
+                MapPoint currentpoint = MapPoint.mapPointWithGeoCoord(fab_latitude, fab_longitude);
+                Log.e("fab3", "X : " + fab_latitude + " Y : " + fab_longitude);
+                MapReverseGeoCoder reverseGeoCoder = new MapReverseGeoCoder("b71bf16d2f21ac2a4c5efa68ddd32e3f", currentpoint, new MapReverseGeoCoder.ReverseGeoCodingResultListener() {
+                    @Override
+                    public void onReverseGeoCoderFoundAddress(MapReverseGeoCoder mapReverseGeoCoder, String s) {
+                        PointToAddress = s;
+                    }
+
+                    @Override
+                    public void onReverseGeoCoderFailedToFindAddress(MapReverseGeoCoder mapReverseGeoCoder) {
+                        Toast.makeText(getApplicationContext(),"주소변환 실패", Toast.LENGTH_SHORT).show();
+                    }
+                }, MainActivity.this);
+                reverseGeoCoder.startFindingAddress();
+                Toast.makeText(getApplicationContext(), "주소: " + PointToAddress, Toast.LENGTH_SHORT).show();
+                Log.e("location", "주소 : " + PointToAddress);
+//                if (PointToAddress != null) {
+//                    calltexiDialog.getAddress(PointToAddress);
+//                    final CalltexiDialog dialog = new CalltexiDialog(MainActivity.this);
+//                    dialog.show();
+//                } else {
+//                    Toast.makeText(getApplicationContext(), "버튼을 다시 눌러주세요", Toast.LENGTH_SHORT).show();
+//                }
             }
         });
 
