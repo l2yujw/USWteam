@@ -5,123 +5,16 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/frame_inf"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#FFFFFF"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/linearLayout1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:elevation="10dp"
-            android:orientation="vertical"
-            android:padding="18dp">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView1"
-                        android:layout_width="56dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:text="@string/start"
-                        android:textColor="@color/black"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/addressSearchEditText1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_gravity="center"
-                        android:layout_weight="1"
-                        android:background="#F3F3F3"
-                        android:duplicateParentState="false"
-                        android:editable="false"
-                        android:ems="15"
-                        android:inputType="textPersonName" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginVertical="7dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/textView2"
-                        android:layout_width="56dp"
-                        android:layout_height="wrap_content"
-                        android:text="@string/end"
-                        android:textAlignment="textStart"
-                        android:textColor="@color/black"
-                        android:textSize="15dp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/addressSearchEditText2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:layout_weight="1"
-                        android:background="#F3F3F3"
-                        android:editable="false"
-                        android:ems="15"
-                        android:inputType="textPersonName" />
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/yellow"
-                android:text="여기에 전체 경로 지도 보이기"
-                android:textAlignment="center"
-                >
-            </EditText>
-
-        <SlidingDrawer
-            android:id="@+id/slidingdrawer"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView_inf"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:content="@+id/content"
-            android:handle="@+id/handle"
-            android:orientation="vertical" >
-
-            <Button
-                android:id="@+id/handle"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:text="선택하면 화면 올라감" />
-
-            <LinearLayout
-                android:id="@+id/content"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#FFFFFF"
-                android:orientation="vertical">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView_inf"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="10dp"/>
-            </LinearLayout>
-        </SlidingDrawer>
-        </FrameLayout>
-
-
+            android:layout_marginTop="10dp"/>
     </LinearLayout>
 </LinearLayout>
