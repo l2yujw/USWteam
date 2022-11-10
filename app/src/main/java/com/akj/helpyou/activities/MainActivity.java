@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
     private LocationManager lm;
     String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
     private Location loc_Current;
-    int fab_location_count = 0; // 현위치 버튼 홀수번 클릭 : 현위치 표시 및 이동, 짝수번 클릭 : 현위치 표시 제거
+    private boolean fab_location_state = true;
 
 
     @SuppressLint("WrongConstant")
@@ -85,11 +85,12 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
         fab_btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                fab_location_count++;
-                if (fab_location_count % 2 == 1) {
+                if (fab_location_state) {
                     mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+                    fab_location_state = false;
                 } else {
                     mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
+                    fab_location_state = true;
                 }
 
             }
