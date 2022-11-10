@@ -21,6 +21,9 @@ class ListAdapter(val itemList: ArrayList<ListLayout>): RecyclerView.Adapter<Lis
         holder.name.text = itemList[position].name
         holder.road.text = itemList[position].road
         holder.address.text = itemList[position].address
+        holder.latitude.text = itemList[position].x.toString()
+        holder.longitude.text = itemList[position].y.toString()
+
         // 아이템 클릭 이벤트
         holder.itemView.setOnClickListener {
             itemClickListener.onClick(it, position)
@@ -31,6 +34,8 @@ class ListAdapter(val itemList: ArrayList<ListLayout>): RecyclerView.Adapter<Lis
         val name: TextView = itemView.findViewById(R.id.tv_list_name)
         val road: TextView = itemView.findViewById(R.id.tv_list_road)
         val address: TextView = itemView.findViewById(R.id.tv_list_address)
+        val latitude:TextView = itemView.findViewById(R.id.tv_list_latitude)
+        val longitude:TextView = itemView.findViewById(R.id.tv_list_longitude)
     }
 
     interface OnItemClickListener {

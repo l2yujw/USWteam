@@ -16,6 +16,8 @@
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/activity_recent_area.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/activity_recent_bookmark.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/activity_recent_route.xml" value="0.22826086956521738" />
+        <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/activity_result_road.xml" value="0.23541666666666666" />
+        <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/activity_result_route_detail.xml" value="0.23541666666666666" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/activity_search1.xml" value="0.264" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/activity_search2.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/activity_search3.xml" value="0.23541666666666666" />
@@ -28,6 +30,7 @@
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/fragment_list3.xml" value="0.23541666666666666" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/fragment_subway1.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/item_area.xml" value="0.23541666666666666" />
+        <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/item_inf.xml" value="0.23541666666666666" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/item_route.xml" value="0.23541666666666666" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/navigation_bookmark.xml" value="0.22826086956521738" />
         <entry key="..\:/AndroidStudioProject/USWteam/app/src/main/res/layout/navigation_header.xml" value="0.22826086956521738" />
