@@ -18,6 +18,17 @@ public class InfAdapter extends RecyclerView.Adapter<InfAdapter.InfViewHolder> {
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
     private List<Inf> infList;
 
+    private OnItemClickListener mListener = null ;
+
+    public interface OnItemClickListener {
+        void onItemClick(View v, int position) ;
+    }
+
+    // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mListener = listener ;
+    }
+
     InfAdapter(List<Inf> infList){
         this.infList = infList;
     }
@@ -69,6 +80,20 @@ public class InfAdapter extends RecyclerView.Adapter<InfAdapter.InfViewHolder> {
             cost = itemView.findViewById(R.id.inf_cost);
             // 자식아이템 영역
             rvInf = itemView.findViewById(R.id.recyclerView_inf2);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+
+                    if(position != RecyclerView.NO_POSITION){
+                        if(mListener !=null){
+                            mListener.onItemClick(v,position);
+                        }
+                    }
+
+                }
+            });
         }
     }
 }
