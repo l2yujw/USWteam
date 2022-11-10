@@ -4,17 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import com.akj.helpyou.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ResultRouteDetail extends AppCompatActivity {
+public class ResultRouteDetailActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +19,7 @@ public class ResultRouteDetail extends AppCompatActivity {
         setContentView(R.layout.activity_result_route_detail);
 
         RecyclerView rvInfD = findViewById(R.id.recyclerView_inf_d);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(ResultRouteDetail.this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(ResultRouteDetailActivity.this);
         InfDAdapter infDAdapter = new InfDAdapter(buildInfDList());
         rvInfD.setAdapter(infDAdapter);
         rvInfD.setLayoutManager(layoutManager);
