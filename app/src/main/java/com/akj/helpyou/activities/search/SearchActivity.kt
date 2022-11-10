@@ -33,6 +33,7 @@ class SearchActivity : AppCompatActivity() {
         const val API_KEY = "KakaoAK b71bf16d2f21ac2a4c5efa68ddd32e3f"  // REST API 키
     }
 
+    private val TAG = "SearchActivity123"
     private lateinit var binding : ActivitySearchBinding
     private val ACCESS_FINE_LOCATION = 1000
     private val listItems = arrayListOf<ListLayout>()   // 리사이클러 뷰 아이템
@@ -70,6 +71,9 @@ class SearchActivity : AppCompatActivity() {
             override fun onClick(v: View, position: Int) {
                 val returnIntent = Intent()
                 returnIntent.putExtra("returnValue",listItems[position].road)
+                returnIntent.putExtra("returnValue_x",listItems[position].x)
+                returnIntent.putExtra("returnValue_y",listItems[position].y)
+                Log.d(TAG, "onClick: ${listItems[position].x}  ${listItems[position].y}")
                 setResult(Activity.RESULT_OK,returnIntent)
                 finish()
             }

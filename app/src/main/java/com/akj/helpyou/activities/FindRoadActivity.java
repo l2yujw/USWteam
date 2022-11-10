@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -24,11 +25,18 @@ import com.google.android.material.tabs.TabLayout;
 
 public class FindRoadActivity extends AppCompatActivity {
 
+    private String TAG = "FindRoadActivity123";
+
     private Button btnfindroad;
     private int startrequestcode = 100;
     private int endrequestcode = 101;
     private TextView startText;
     private TextView endText;
+
+    private Double start_x;
+    private Double start_y;
+    private Double end_x;
+    private Double end_y;
 
     DBHelper dbHelper;
     DBHelper2 dbHelper2;
@@ -123,7 +131,7 @@ public class FindRoadActivity extends AppCompatActivity {
         dbHelper = new DBHelper(getApplicationContext(), "USER_INFO.db", null, 1);
         dbHelper2 = new DBHelper2(getApplicationContext(), "USER_INFO2.db", null, 1);
 
-        Button btnfindroad = findViewById(R.id.findRoad);
+        btnfindroad = findViewById(R.id.findRoad);
         btnfindroad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -133,8 +141,11 @@ public class FindRoadActivity extends AppCompatActivity {
 
                 if(startpoint.equals("") || endpoint.equals("")){
                     Toast.makeText(getApplicationContext(), "입력을 다 해주세요", Toast.LENGTH_SHORT).show();
+                }else if(start_x.isNaN() || start_y.isNaN() || end_x.isNaN() || end_y.isNaN()){
+                    Toast.makeText(getApplicationContext(),"좌표 없음",Toast.LENGTH_SHORT).show();
                 }
                 else{
+                    Toast.makeText(getApplicationContext(),start_x+" / "+start_y+" / "+end_x+" / "+end_y,Toast.LENGTH_SHORT).show();
                     dbHelper.insert(startpoint,endpoint,time.set);
                     dbHelper2.insert(startpoint,time.set);
                     dbHelper2.insert(endpoint,time.set);
@@ -163,12 +174,16 @@ public class FindRoadActivity extends AppCompatActivity {
             }
             String sendText = data.getExtras().getString("returnValue");
             startText.setText(sendText);
+            start_x = data.getExtras().getDouble("returnValue_x");
+            start_y = data.getExtras().getDouble("returnValue_y");
         }else if(requestCode==endrequestcode){
             if (resultCode != Activity.RESULT_OK) {
                 return;
             }
             String sendText = data.getExtras().getString("returnValue");
             endText.setText(sendText);
+            end_x = data.getExtras().getDouble("returnValue_x");
+            end_y = data.getExtras().getDouble("returnValue_y");
         }
     }
 
