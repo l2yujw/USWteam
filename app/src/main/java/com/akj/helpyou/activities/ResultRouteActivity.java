@@ -39,28 +39,33 @@ public class ResultRouteActivity extends AppCompatActivity {
     public static int[][] walkSectionTime = new int[5][7]; // 도보 이동 시간
 
     //버스
-
     public static int[][] busSectionTime = new int[5][7]; // 버스 이동 시간
     public static int[][] busArrivalTime = new int[5][7];; // 버스 실시간 도착 시간
-    public static String[][] endBusName = new String[5][7]; // 버스 하차 정류장 이름
+    public static String[][] endName = new String[5][7]; // 버스 하차 정류장 이름
     public static String[][] busID = new String[5][7]; // 버스 정류장 고유 ID
     public static int[][] busStationCount = new int[5][7];; // 정차 정류장 수
     public static String[][] busLow = new String[5][7]; // 저상버스 유무
 
     //지하철
     public static int[][] subwaySectionTime = new int[5][7]; // 지하철 이동 시간
-    public static String[][] endSubwayName = new String[5][7]; // 지하철 하차역 이름
     public static int[][] subwayStationCount = new int[5][7];; // 정차 정류장 수
     public static int[][] subwayWaycode = new int[5][7];; // 1:상행 2:하행
     public static String[][] startSubwayTel = new String[5][7]; // 출발역 전화번호
     public static String[][] endSubwayTel = new String[5][7]; // 도착역 전화번호
 
+//    public static String startRoute;
+//    public static String endRoute;
+
 
     public static void resdata (ArrayList<DataKeyword> data, int j, int i, int k, int trafficType){
         Dataset dataset = new Dataset(data, j, i, k, trafficType);
+        if(i==0) {
+            totalFee[j][0] = dataset.gettotalFee(j,i);
+            totalTime[j][0] = dataset.gettotalTime(j,i);
+            Log.d("hkhk","totalFee : " + totalFee[j][0]);
+            Log.d("hkhk","totalTime : " + totalTime[j][0]);
+        }
         traffic[j][i] = trafficType;
-//        totalFee[j][0] = dataset.gettotalFee(j,i);
-//        totalTime[j][0] = dataset.gettotalTime(j,i)/60;
 
         resj = j;
         resi[j] = i;
@@ -80,7 +85,7 @@ public class ResultRouteActivity extends AppCompatActivity {
             Log.d("kkk", "trafficNum : " + trafficNum[j][i] + " resi[j] : " + i);
             busSectionTime[j][i] = dataset.getBusSectionTime(j,i);
             busArrivalTime[j][i] = dataset.getBusArrivalTime(j,i);
-            endBusName[j][i] = dataset.getEndBusName(j,i);
+            endName[j][i] = dataset.getEndBusName(j,i);
             busID[j][i] = dataset.getBusID(j,i);
             busStationCount[j][i] = dataset.getBusStationCount(j,i);
             busLow[j][i] = dataset.getBusID(j,i);
@@ -93,7 +98,7 @@ public class ResultRouteActivity extends AppCompatActivity {
             trafficNum[j][i] = dataset.getSubwayNo(j,i);
 
             subwaySectionTime[j][i] = dataset.getSubwaySectionTime(j,i);
-            endSubwayName[j][i] = dataset.getEndSubwayName(j,i);
+            endName[j][i] = dataset.getEndSubwayName(j,i);
             subwayStationCount[j][i] = dataset.getSubwayStationCount(j,i);
             startSubwayTel[j][i] = dataset.getStartSubwayTel(j,i);
             endSubwayTel[j][i] = dataset.getEndSubwayTel(j,i);
@@ -113,11 +118,12 @@ public class ResultRouteActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View v, int position) {
                 Intent intent = new Intent(getApplicationContext(), ResultRouteDetailActivity.class);
+                //눌린 포지션 전송
+                Log.d("pos"," "+position);
                 startActivity(intent);
             }
         });
         rvInf.setAdapter(infAdapter);
-
         rvInf.setLayoutManager(layoutManager);
 
     }//adapter 클릭시 detail로 이동 필요 값들을 미리 넣어줌
@@ -130,10 +136,7 @@ public class ResultRouteActivity extends AppCompatActivity {
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
         List<Inf> infList = new ArrayList<>();
-        for (int j=0; j<5; j++) {
-            // totalfee[j][0]
-            //test[j][i] = i + " ";
-            //Inf inf = new Inf("Item ", test[j][i], "cost", buildInf2List());
+        for (int j=0; j<resj; j++) {
             cal.add(Calendar.MINUTE, totalTime[j][0]);
             today = sdformat.format(cal.getTime());
             Inf inf = new Inf( Integer.toString(totalTime[j][0]), today, totalFee[j][0], buildInf2List());
@@ -143,14 +146,23 @@ public class ResultRouteActivity extends AppCompatActivity {
     }//dddd
 
     private List<Inf2> buildInf2List() {
+        Intent intent = getIntent();
+        String startRoute = intent.getStringExtra("startText1");
+        Log.d("www"," " + startRoute);
         List<Inf2> inf2List = new ArrayList<>();
 
             for (int i=0; i<resi[resjj]+1; i++) {
                 if(traffic[resjj][i] == 3) {  // 도보값만 저장
-                    //test[resj][resi] = dataset.getDistance(resj, resi);
                     // 검색출발지
-                    Inf2 inf2 = new Inf2("도보", "출발지");
-                    inf2List.add(inf2);
+                    if(i == 0){
+                        Inf2 inf2 = new Inf2("도보", startRoute);
+                        inf2List.add(inf2);
+                    }
+                    else{
+                        startName[resjj][i] = endName[resjj][i-1];
+                        Inf2 inf2 = new Inf2("도보", startName[resjj][i]);
+                        inf2List.add(inf2);
+                    }
                 }
                 if(traffic[resjj][i] == 2) {  // 버스값만 저장
                     // 이동수단 번호
@@ -162,7 +174,6 @@ public class ResultRouteActivity extends AppCompatActivity {
                     Inf2 inf2 = new Inf2(trafficNum[resjj][i], startName[resjj][i]);
                     inf2List.add(inf2);
                 }
-
             }
             resjj++;
         return inf2List;

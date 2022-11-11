@@ -4,6 +4,7 @@ import android.util.Log;
 
 
 import com.akj.helpyou.activities.ResultRouteActivity;
+import com.akj.helpyou.activities.ResultRouteDetailActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,7 +50,7 @@ public class JsonParser extends Activity {
                         Integer distance = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getInt("distance");
                         Integer secTime = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getInt("sectionTime");
                         trafficDataList.add(g , new DataKeyword( "도보",   distance.toString(), null, secTime , 0, null," "
-                                ,3, null,null,null,null, null,0,null,null));
+                                ,3, totalTime,payment,null,null, null,0,null,null));
                         g++;
                         Log.d("rewq", "secTime : " + secTime);
                     }
@@ -111,6 +112,7 @@ public class JsonParser extends Activity {
                     g--;
 
                     ResultRouteActivity.resdata(trafficDataList, j, i, g, trafficType);
+                    ResultRouteDetailActivity.resdata2(trafficDataList, j, i, g, trafficType);
                     g++;
 
 
@@ -119,7 +121,7 @@ public class JsonParser extends Activity {
             }
 
             for( i=0; i<100; i++) {
-                Log.d("rewq", "result : " + trafficDataList.get(i).getcircle());
+                Log.d("rewq", "result : " + trafficDataList.get(i).getstartTraffic());
 
             }
 

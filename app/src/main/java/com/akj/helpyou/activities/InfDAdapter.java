@@ -38,7 +38,7 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
         // 자식 레이아웃 매니저 설정
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 infDViewHolder.rvInfD.getContext(),
-                LinearLayoutManager.HORIZONTAL,
+                LinearLayoutManager.VERTICAL,
                 false
         );
         layoutManager.setInitialPrefetchItemCount(infD.getInfD2List().size());

@@ -23,6 +23,8 @@ import com.akj.helpyou.activities.FindRoad.Time;
 import com.akj.helpyou.activities.search.SearchActivity;
 import com.google.android.material.tabs.TabLayout;
 
+import java.io.Serializable;
+
 public class FindRoadActivity extends AppCompatActivity {
 
     private String TAG = "FindRoadActivity123";
@@ -151,6 +153,11 @@ public class FindRoadActivity extends AppCompatActivity {
                     dbHelper2.insert(endpoint,time.set);
                     //reset();
                     Intent intent = new Intent(getApplicationContext(), ResultRouteActivity.class);
+                    intent.putExtra("startText1", startpoint);
+                    intent.putExtra("endText1", endpoint);
+                    Intent intent2 = new Intent(getApplicationContext(), ResultRouteDetailActivity.class);
+                    intent2.putExtra("startText2", startpoint);
+                    intent2.putExtra("endText2", endpoint);
                     startActivity(intent);
                 }
             }

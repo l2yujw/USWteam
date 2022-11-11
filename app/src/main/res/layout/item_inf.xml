@@ -27,8 +27,9 @@
                     android:id="@+id/inf_duration_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="25sp"
-                    android:text="31" />
+                    android:text="31"
+                    android:textSize="25sp" />
+
                 <TextView
                     android:id="@+id/inf_minute"
                     android:layout_width="wrap_content"
@@ -46,21 +47,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="18:09" />
+
                 <TextView
                     android:id="@+id/inf_arr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" 도착" />
+
                 <TextView
                     android:id="@+id/inf_div2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text=" | " />
+
                 <TextView
                     android:id="@+id/inf_cost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1450" />
+
                 <TextView
                     android:id="@+id/inf_won"
                     android:layout_width="wrap_content"
