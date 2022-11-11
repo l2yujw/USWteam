@@ -69,8 +69,8 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        FindDirection BusThread = new FindDirection();
-//        BusThread.start();
+        FindDirection BusThread = new FindDirection();
+        BusThread.start();
 
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 

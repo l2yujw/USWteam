@@ -3,6 +3,8 @@ import android.app.Activity;
 import android.util.Log;
 
 
+import com.akj.helpyou.activities.ResultRouteActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -27,8 +29,7 @@ public class JsonParser extends Activity {
             String searchType = odsayData.getJSONObject("result").getString("searchType");
             JSONArray path = odsayData.getJSONObject("result").getJSONArray("path");
 
-            String totalTime = path.getJSONObject(0).getJSONObject("info").getString("totalTime");
-            String payment = path.getJSONObject(0).getJSONObject("info").getString("payment");
+
             Integer trafficCount = path.getJSONObject(0).getJSONArray("subPath").length();
 
 
@@ -36,11 +37,12 @@ public class JsonParser extends Activity {
             int g= 0;
             for(int j=0; j<path.length(); j++) {
 
-//                String totalTime = path.getJSONObject(j).getJSONObject("info").getString("totalTime");
-//                String payment = path.getJSONObject(j).getJSONObject("info").getString("payment");
-//                Integer trafficCount = path.getJSONObject(j).getJSONArray("subPath").length();
+                String totalTime = path.getJSONObject(j).getJSONObject("info").getString("totalTime");
+                String payment = path.getJSONObject(j).getJSONObject("info").getString("payment");
 
                 for ( i=0; i<trafficCount; i++) {
+                    Log.d("qqq", "j : " +j);
+                    Log.d("qqq", "i : " + i);
                     Integer trafficType = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getInt("trafficType");
 
                     if (trafficType == 3) { //도보
@@ -105,13 +107,13 @@ public class JsonParser extends Activity {
                                 startX, startY,endX,endY,null,0,Tel[0],Tel[1]));
                         g++;
                     }
-                    Log.d("mmm","ggg : " + trafficType +" "+g);
+
                     g--;
-                    Log.d("mmm","kkk : " + trafficDataList.get(g).getmoveTime());
-                    dataset = new Dataset(trafficDataList, j, i, g, trafficType);
+
+                    ResultRouteActivity.resdata(trafficDataList, j, i, g, trafficType);
                     g++;
 
-                    Log.d("mmm","ggg : " + dataset.getDistance(j,i));
+
                 }
 
             }

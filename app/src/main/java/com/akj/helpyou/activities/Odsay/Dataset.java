@@ -8,6 +8,8 @@ public class Dataset {
     // 도보시
     public int[][] distance = new int[5][7]; // 걷는 거리
     public int[][] walkSectionTime = new int[5][7]; // 도보 이동 시간
+    public int[][] totalTime = new int[5][7];
+    public String[][] totalFee = new String[5][7];
 
     // 버스시
     public String[][] busNo = new String[5][7]; // 버스 번호
@@ -41,9 +43,10 @@ public class Dataset {
         Data = data;
         if (trafficType == 3) { // 도보
 
+            this.totalTime[j][i] = Integer.parseInt(data.get(k).getStartX());
+            this.totalFee[j][i] = data.get(k).getStartY();
             this.walkSectionTime[j][i] = data.get(k).getmoveTime();
             this.distance[j][i] = Integer.parseInt(data.get(k).getstartTraffic());
-
 
         }
         if (trafficType == 2 ) { // 버스
@@ -78,6 +81,8 @@ public class Dataset {
     }
     public int getDistance(int j, int i) {return this.distance[j][i];}
     public int getWalkSectionTime(int j, int i) {return this.walkSectionTime[j][i];}
+    public int gettotalTime(int j, int i) {return this.totalTime[j][i];}
+    public String gettotalFee(int j, int i) {return this.totalFee[j][i];}
 
     public String getBusNo(int j, int i) {return this.busNo[j][i];}
     public int getBusSectionTime(int j, int i) {return this.busSectionTime[j][i];}

@@ -31,7 +31,7 @@ public class Inf2Adapter extends RecyclerView.Adapter<Inf2Adapter.Inf2ViewHolder
     public void onBindViewHolder(@NonNull Inf2ViewHolder inf2ViewHolder, int i) {
         Inf2 inf2 = inf2List.get(i);
         inf2ViewHolder.vhnum.setText(inf2.getVhnum());
-        inf2ViewHolder.vhnum.setText(inf2.getStartpoint());
+        inf2ViewHolder.startpoint.setText(inf2.getStartpoint());
 
     }
 
