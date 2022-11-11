@@ -58,10 +58,8 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
     public double fab_latitude = 0.0;
     public double fab_longitude = 0.0;
     public String PointToAddress;
-    CalltexiDialog calltexiDialog;
 
 
-//    private String apikey = "b71bf16d2f21ac2a4c5efa68ddd32e3f";
 
     @SuppressLint("WrongConstant")
     @Override
@@ -112,7 +110,6 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
                 fab_latitude = loc_Current.getLatitude(); //위도
                 fab_longitude = loc_Current.getLongitude(); //경도
                 MapPoint currentpoint = MapPoint.mapPointWithGeoCoord(fab_latitude, fab_longitude);
-                Log.e("fab3", "X : " + fab_latitude + " Y : " + fab_longitude);
                 MapReverseGeoCoder reverseGeoCoder = new MapReverseGeoCoder("b71bf16d2f21ac2a4c5efa68ddd32e3f", currentpoint, new MapReverseGeoCoder.ReverseGeoCodingResultListener() {
                     @Override
                     public void onReverseGeoCoderFoundAddress(MapReverseGeoCoder mapReverseGeoCoder, String s) {
@@ -125,15 +122,14 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
                     }
                 }, MainActivity.this);
                 reverseGeoCoder.startFindingAddress();
-                Toast.makeText(getApplicationContext(), "주소: " + PointToAddress, Toast.LENGTH_SHORT).show();
-                Log.e("location", "주소 : " + PointToAddress);
-//                if (PointToAddress != null) {
-//                    calltexiDialog.getAddress(PointToAddress);
-//                    final CalltexiDialog dialog = new CalltexiDialog(MainActivity.this);
-//                    dialog.show();
-//                } else {
-//                    Toast.makeText(getApplicationContext(), "버튼을 다시 눌러주세요", Toast.LENGTH_SHORT).show();
-//                }
+                reverseGeoCoder.startFindingAddress();
+                if (PointToAddress == null) {
+                    Toast.makeText(getApplicationContext(), "다시 한번 눌러주세요", Toast.LENGTH_SHORT).show();
+                } else {
+                    CalltexiDialog dialog = new CalltexiDialog(MainActivity.this);
+                    dialog.calltexiAddress = PointToAddress;
+                    dialog.show();
+                }
             }
         });
 
