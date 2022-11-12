@@ -40,7 +40,7 @@
         <activity android:name=".activities.ResultRouteActivity" />
         <activity android:name=".activities.search.SearchActivity" />
         <activity android:name=".activities.ResultRouteDetailActivity" />
-
+        <activity android:name=".activities.Substitute3dImageActivity" />
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="ba736be77629e672fce65d7bb072ed17" />

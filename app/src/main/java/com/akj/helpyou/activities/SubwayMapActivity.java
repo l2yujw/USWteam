@@ -30,6 +30,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.room.util.StringUtil;
 
 import com.akj.helpyou.DB.SubwayDBHelper;
 import com.akj.helpyou.R;
@@ -265,7 +266,9 @@ public class SubwayMapActivity extends AppCompatActivity {
                 } else if (item == timetableItem) {
                     // 지하철 time table 레이아웃 전환
                 } else if (item == viewItem) {
-                    // 3d 지도 보여주기
+                    Intent intent = new Intent(getApplicationContext(), Substitute3dImageActivity.class);
+                    intent.putExtra("targetStation", targetStation);
+                    startActivity(intent);
                 }
             }
         });
@@ -278,14 +281,13 @@ public class SubwayMapActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String searchText) {
                 if (c.moveToFirst()) {
                     do {
-                        if (searchText.equals(c.getString(1))) {
+                        if (c.getString(1).indexOf(searchText)>-1) {
                             // db에서 좌표값 받아오고 확대해서 보여주기.
                             PointF point = new PointF();
                             point.x = (c.getInt(2) + c.getInt(4)) / 2;
                             point.y = (c.getInt(3) + c.getInt(5)) / 2;
                             imageView.setScaleAndCenter(2, point);
                         }
-
                     } while (c.moveToNext());
                 }
 
@@ -320,7 +322,7 @@ public class SubwayMapActivity extends AppCompatActivity {
         Canvas canvas = new Canvas(copy);
 
         Paint paint = new Paint();
-        paint.setColor(Color.GREEN);
+        paint.setColor(Color.BLUE);
         paint.setStrokeWidth(1);
         paint.setAntiAlias(true);
         canvas.drawBitmap(original, 0, 0, paint);
