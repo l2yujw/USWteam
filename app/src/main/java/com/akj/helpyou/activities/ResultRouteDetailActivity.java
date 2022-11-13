@@ -20,43 +20,55 @@ import java.util.Date;
 import java.util.List;
 
 public class ResultRouteDetailActivity extends AppCompatActivity {
-    public static int[] resi = new int[7];
+    public static int[] resi = new int[20];
     public static int resj = 0;
     public static int resjj = 0;
     public static String start;
-    public static String[][] test = new String[5][7];
-    public static int[][] traffic = new int[5][7];
+    public static String[][] test = new String[5][20];
+    public static int[][] traffic = new int[5][20];
     public static int[][] totalTime = new int[5][1];
     public static String[][] totalFee = new String[5][1];
-    public static String[][] trafficNum = new String[5][7];
-    public static String[][] startName = new String[5][7];
+    public static String[][] trafficNum = new String[5][20];
+    public static String[][] startName = new String[5][20];
     public static Time time = new Time();
 
     //도보시
-    public static String[][] distance = new String[5][7]; // 걷는 거리
-    public static int[][] walkSectionTime = new int[5][7]; // 도보 이동 시간
+    public static String[][] distance = new String[5][20]; // 걷는 거리
+    public static int[][] walkSectionTime = new int[5][20]; // 도보 이동 시간
 
     //버스
-    public static int[][] busSectionTime = new int[5][7]; // 버스 이동 시간
-    public static int[][] busArrivalTime = new int[5][7];; // 버스 실시간 도착 시간
-    public static String[][] endName = new String[5][7]; // 버스 하차 정류장 이름
-    public static String[][] busID = new String[5][7]; // 버스 정류장 고유 ID
-    public static int[][] busStationCount = new int[5][7];; // 정차 정류장 수
-    public static String[][] busLow = new String[5][7]; // 저상버스 유무
+    public static int[][] busSectionTime = new int[5][20]; // 버스 이동 시간
+    public static int[][] busArrivalTime = new int[5][20];; // 버스 실시간 도착 시간
+    public static String[][] endName = new String[5][20]; // 버스 하차 정류장 이름
+    public static String[][] busID = new String[5][20]; // 버스 정류장 고유 ID
+    public static int[][] busStationCount = new int[5][20];; // 정차 정류장 수
+    public static String[][] busLow = new String[5][20]; // 저상버스 유무
 
     //지하철
-    public static int[][] subwaySectionTime = new int[5][7]; // 지하철 이동 시간
-    public static int[][] subwayStationCount = new int[5][7];; // 정차 정류장 수
-    public static int[][] subwayWaycode = new int[5][7];; // 1:상행 2:하행
-    public static String[][] startSubwayTel = new String[5][7]; // 출발역 전화번호
-    public static String[][] endSubwayTel = new String[5][7]; // 도착역 전화번호
+    public static int[][] subwaySectionTime = new int[5][20]; // 지하철 이동 시간
+    public static int[][] subwayStationCount = new int[5][20];; // 정차 정류장 수
+    public static int[][] subwayWaycode = new int[5][20];; // 1:상행 2:하행
+    public static String[][] startSubwayTel = new String[5][20]; // 출발역 전화번호
+    public static String[][] endSubwayTel = new String[5][20]; // 도착역 전화번호
+
+    // 지하철or 버스 경유 정차명
+    public static String[][][] passName = new String[5][20][100];  // [j][i][z] j/i는 그전에 썻던 그대로 위치값 z는 경유 정차 갯수
+    // ex) [j][i][0]~[j][i][k]는 [j][i]가 버스일때 해당 버스 출발지부터 도착지까지의 경유 정류장이름이 들어가있음
+    // 쓸 때 버스랑 지하철일 경우(if문)만 for문으로 z=0; z<100; z++하고 if(passName[j][i][z] !=null) 이면 passName[j][i][z] 호출 <<하면됄듯
 
 //    public static String startRoute;
 //    public static String endRoute;
 
 
-    public static void resdata2 (ArrayList<DataKeyword> data, int j, int i, int k, int trafficType){
+    public static void resdata2 (ArrayList<DataKeyword> data, int j, int i, int k, int trafficType, String[][][] Pass){
         Dataset dataset = new Dataset(data, j, i, k, trafficType);
+        passName = Pass;
+        for(int z=0; z<100; z++){
+            if(passName[j][i][z] != null){
+                Log.d("aassdd" ,"passName" +passName[j][i][z]);
+            }
+        }
+        Log.d("aassdd", "j / i : " +j + " " + i);
         if(i==0) {
             totalFee[j][0] = dataset.gettotalFee(j,i);
             totalTime[j][0] = dataset.gettotalTime(j,i);

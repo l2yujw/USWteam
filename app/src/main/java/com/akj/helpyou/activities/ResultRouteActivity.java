@@ -22,36 +22,36 @@ import java.util.List;
 
 // 스레드 스타트
 public class ResultRouteActivity extends AppCompatActivity {
-    public static int[] resi = new int[7];
+    public static int[] resi = new int[20];
     public static int resj = 0;
     public static int resjj = 0;
     public static String start;
-    public static String[][] test = new String[5][7];
-    public static int[][] traffic = new int[5][7];
+    public static String[][] test = new String[5][20];
+    public static int[][] traffic = new int[5][20];
     public static int[][] totalTime = new int[5][1];
     public static String[][] totalFee = new String[5][1];
-    public static String[][] trafficNum = new String[5][7];
-    public static String[][] startName = new String[5][7];
+    public static String[][] trafficNum = new String[5][20];
+    public static String[][] startName = new String[5][20];
     public static Time time = new Time();
 
     //도보시
-    public static String[][] distance = new String[5][7]; // 걷는 거리
-    public static int[][] walkSectionTime = new int[5][7]; // 도보 이동 시간
+    public static String[][] distance = new String[5][20]; // 걷는 거리
+    public static int[][] walkSectionTime = new int[5][20]; // 도보 이동 시간
 
     //버스
-    public static int[][] busSectionTime = new int[5][7]; // 버스 이동 시간
-    public static int[][] busArrivalTime = new int[5][7];; // 버스 실시간 도착 시간
-    public static String[][] endName = new String[5][7]; // 버스 하차 정류장 이름
-    public static String[][] busID = new String[5][7]; // 버스 정류장 고유 ID
-    public static int[][] busStationCount = new int[5][7];; // 정차 정류장 수
-    public static String[][] busLow = new String[5][7]; // 저상버스 유무
+    public static int[][] busSectionTime = new int[5][20]; // 버스 이동 시간
+    public static int[][] busArrivalTime = new int[5][20];; // 버스 실시간 도착 시간
+    public static String[][] endName = new String[5][20]; // 버스 하차 정류장 이름
+    public static String[][] busID = new String[5][20]; // 버스 정류장 고유 ID
+    public static int[][] busStationCount = new int[5][20];; // 정차 정류장 수
+    public static String[][] busLow = new String[5][20]; // 저상버스 유무
 
     //지하철
-    public static int[][] subwaySectionTime = new int[5][7]; // 지하철 이동 시간
-    public static int[][] subwayStationCount = new int[5][7];; // 정차 정류장 수
-    public static int[][] subwayWaycode = new int[5][7];; // 1:상행 2:하행
-    public static String[][] startSubwayTel = new String[5][7]; // 출발역 전화번호
-    public static String[][] endSubwayTel = new String[5][7]; // 도착역 전화번호
+    public static int[][] subwaySectionTime = new int[5][20]; // 지하철 이동 시간
+    public static int[][] subwayStationCount = new int[5][20];; // 정차 정류장 수
+    public static int[][] subwayWaycode = new int[5][20];; // 1:상행 2:하행
+    public static String[][] startSubwayTel = new String[5][20]; // 출발역 전화번호
+    public static String[][] endSubwayTel = new String[5][20]; // 도착역 전화번호
 
 //    public static String startRoute;
 //    public static String endRoute;

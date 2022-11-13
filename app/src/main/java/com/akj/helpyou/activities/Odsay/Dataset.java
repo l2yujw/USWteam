@@ -6,38 +6,38 @@ public class Dataset {
     ArrayList<DataKeyword> Data;
 
     // 도보시
-    public int[][] distance = new int[5][7]; // 걷는 거리
-    public int[][] walkSectionTime = new int[5][7]; // 도보 이동 시간
-    public int[][] totalTime = new int[5][7];
-    public String[][] totalFee = new String[5][7];
+    public int[][] distance = new int[5][20]; // 걷는 거리
+    public int[][] walkSectionTime = new int[5][20]; // 도보 이동 시간
+    public int[][] totalTime = new int[5][20];
+    public String[][] totalFee = new String[5][20];
 
     // 버스시
-    public String[][] busNo = new String[5][7]; // 버스 번호
-    public int[][] busSectionTime = new int[5][7]; // 버스 이동 시간
-    public int[][] busArrivalTime = new int[5][7];; // 버스 실시간 도착 시간
-    public String[][] startBusName = new String[5][7]; // 버스 출발 정류장 이름
-    public String[][] endBusName = new String[5][7]; // 버스 하차 정류장 이름
-    public String[][] startBusStationX = new String[5][7]; // 출발 X좌표
-    public String[][] startBusStationY = new String[5][7]; // 출발 Y좌표
-    public String[][] endBusStationX = new String[5][7]; // 도착 X좌표
-    public String[][] endBusStationY = new String[5][7]; // 도착 Y좌표
-    public String[][] busID = new String[5][7]; // 버스 정류장 고유 ID
-    public int[][] busStationCount = new int[5][7];; // 정차 정류장 수
-    public String[][] busLow = new String[5][7]; // 저상버스 유무
+    public String[][] busNo = new String[5][20]; // 버스 번호
+    public int[][] busSectionTime = new int[5][20]; // 버스 이동 시간
+    public int[][] busArrivalTime = new int[5][20];; // 버스 실시간 도착 시간
+    public String[][] startBusName = new String[5][20]; // 버스 출발 정류장 이름
+    public String[][] endBusName = new String[5][20]; // 버스 하차 정류장 이름
+    public String[][] startBusStationX = new String[5][20]; // 출발 X좌표
+    public String[][] startBusStationY = new String[5][20]; // 출발 Y좌표
+    public String[][] endBusStationX = new String[5][20]; // 도착 X좌표
+    public String[][] endBusStationY = new String[5][20]; // 도착 Y좌표
+    public String[][] busID = new String[5][20]; // 버스 정류장 고유 ID
+    public int[][] busStationCount = new int[5][20];; // 정차 정류장 수
+    public String[][] busLow = new String[5][20]; // 저상버스 유무
 
     // 지하철시
-    public String[][] subwayNo = new String[5][7]; //지하철 호선
-    public int[][] subwaySectionTime = new int[5][7]; // 지하철 이동 시간
-    public String[][] startSubwayName = new String[5][7]; // 지하철 출발역 이름
-    public String[][] endSubwayName = new String[5][7]; // 지하철 하차역 이름
-    public String[][] startSubwayStationX = new String[5][7]; // 출발 X좌표
-    public String[][] startSubwayStationY = new String[5][7]; // 출발 Y좌표
-    public String[][] endSubwayStationX = new String[5][7]; // 도착 X좌표
-    public String[][] endSubwayStationY = new String[5][7]; // 도착 Y좌표
-    public int[][] subwayStationCount = new int[5][7];; // 정차 정류장 수
-    public int[][] subwayWaycode = new int[5][7];; // 1:상행 2:하행
-    public String[][] startSubwayTel = new String[5][7]; // 출발역 전화번호
-    public String[][] endSubwayTel = new String[5][7]; // 도착역 전화번호
+    public String[][] subwayNo = new String[5][20]; //지하철 호선
+    public int[][] subwaySectionTime = new int[5][20]; // 지하철 이동 시간
+    public String[][] startSubwayName = new String[5][20]; // 지하철 출발역 이름
+    public String[][] endSubwayName = new String[5][20]; // 지하철 하차역 이름
+    public String[][] startSubwayStationX = new String[5][20]; // 출발 X좌표
+    public String[][] startSubwayStationY = new String[5][20]; // 출발 Y좌표
+    public String[][] endSubwayStationX = new String[5][20]; // 도착 X좌표
+    public String[][] endSubwayStationY = new String[5][20]; // 도착 Y좌표
+    public int[][] subwayStationCount = new int[5][20];; // 정차 정류장 수
+    public int[][] subwayWaycode = new int[5][20];; // 1:상행 2:하행
+    public String[][] startSubwayTel = new String[5][20]; // 출발역 전화번호
+    public String[][] endSubwayTel = new String[5][20]; // 도착역 전화번호
 
     public Dataset(ArrayList<DataKeyword> data, int j, int i, int k, int trafficType) {
         Data = data;
