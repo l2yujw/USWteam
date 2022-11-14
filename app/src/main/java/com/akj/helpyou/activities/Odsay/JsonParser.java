@@ -111,6 +111,7 @@ public class JsonParser extends Activity {
 
                         }
 
+                        SubwayTimetable.run();
 
                         Tel = Subwaytell.run(startcode, endcode);
                         Log.d("TEL", "Start_tell : " + Tel[0] + " End_tell : "+ Tel[1]);
