@@ -70,7 +70,7 @@ public class ElevatorLocation {
             }
 
             Log.d("qwq ", "SX : "+ xy[0] + " SY : " + xy[1] + " EX : " + xy[2] + " EY : " +xy[3]);
-            SubwayName.run();
+            //SubwayName.run();
             return xy;
 
         } catch (ProtocolException e) {

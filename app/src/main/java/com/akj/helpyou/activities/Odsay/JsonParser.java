@@ -74,7 +74,9 @@ public class JsonParser extends Activity {
                                 Pass[j][i][z] = pass.getJSONObject(z).getString("stationName");
 
                         }
-
+                        // 노선 그래픽 데이터 좌표 불러오기
+                        String mapObj = path.getJSONObject(j).getJSONObject("info").getString("mapObj");
+                        PathGraphic.run(mapObj, g);
 
                         BCompany = BusCompany.run(busNo, CityCode); //버스회사 받아옴. 엑셀로 버스회사 매칭되는거 전화번호 값 받아오기 설정필요
 
@@ -104,6 +106,10 @@ public class JsonParser extends Activity {
                         Integer endcode = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getInt("endID");
                         Integer wayCode = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getInt("wayCode");
 
+                        String mapObj = path.getJSONObject(j).getJSONObject("info").getString("mapObj");
+                        Log.d("qqtt", "mapobj : " +mapObj);
+                        PathGraphic.run(mapObj,g);
+
                         JSONArray pass = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getJSONObject("passStopList").getJSONArray("stations");
                         Log.d("qwe","qwe : " +pass);
                         for(int z=0; z<pass.length(); z++) {
@@ -111,7 +117,6 @@ public class JsonParser extends Activity {
 
                         }
 
-                        SubwayTimetable.run();
 
                         Tel = Subwaytell.run(startcode, endcode);
                         Log.d("TEL", "Start_tell : " + Tel[0] + " End_tell : "+ Tel[1]);

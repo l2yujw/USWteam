@@ -13,15 +13,15 @@ import java.net.URLEncoder;
 
 public class SubwayTimetable {
   //  public static String[] run(int code, String num)
-    public static void run(){
-        String[][] SubwayTime = new String[2][25];  // [호선][상/하행][시간][분]
+    public static void run(String code){
+        String[][] SubwayTime = new String[2][25];  // [상/하행][시간]
         try {
 
             // ODsay Api Key 정보
             String apiKey = "KBZOsvKhbug6iLyW4x9sOPH+YLTTWKjn2S9oPW7tXiQ";
 
             String urlInfo = "https://api.odsay.com/v1/api/subwayTimeTable?lang=0&stationID=130&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
-
+          // String urlInfo = "https://api.odsay.com/v1/api/subwayTimeTable?lang=0&stationID="+code+"&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
             // http 연결
             URL url = new URL(urlInfo);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -45,6 +45,7 @@ public class SubwayTimetable {
                             break;
                         }
                         JSONObject odsayData = new JSONObject(String.valueOf(sb));
+                 //       String sName = odsayData.getJSONObject("result").getString("laneName");
                         JSONObject real = odsayData.getJSONObject("result").getJSONObject("OrdList").getJSONObject("up");
                         JSONArray time = real.getJSONArray("time");
                         Log.d("qtq " ,"qtq : " + real);

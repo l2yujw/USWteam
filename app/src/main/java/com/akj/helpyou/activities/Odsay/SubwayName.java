@@ -16,13 +16,15 @@ import java.net.ProtocolException;
 import java.net.URL;
 
 public class SubwayName {
+    // 이름을 받아오면 지하철 코드와 호선정보 넘기기
     public static void run() {
-
+        String []Code = new String[5];
+        String []LineNum = new String[5];
         try {
 
             // ODsay Api Key 정보
             String urlBuilder = "http://openAPI.seoul.go.kr:8088/756a7746487968773539456a4b4549/json/SearchInfoBySubwayNameService/1/5/동대문역사문화공원/";
-
+        //  String urlBuilder = "http://openAPI.seoul.go.kr:8088/756a7746487968773539456a4b4549/json/SearchInfoBySubwayNameService/1/5/sName/";
             // http 연결
             URL url = new URL(urlBuilder.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -46,9 +48,11 @@ public class SubwayName {
             JSONArray row = elvtData.getJSONObject("SearchInfoBySubwayNameService").getJSONArray("row");
             Log.d("qqee", "qqee : " + row);
             for(int i=0 ; i<row.length(); i++) {
-                String Code = row.getJSONObject(i).getString("FR_CODE");
-
+                Code[i] = row.getJSONObject(i).getString("FR_CODE");
+                LineNum[i] = row.getJSONObject(i).getString("LINE_NUM");
             }
+
+
         } catch (ProtocolException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {
