@@ -3,6 +3,9 @@ import android.app.Activity;
 import android.util.Log;
 
 
+import com.akj.helpyou.activities.ResultRouteActivity;
+import com.akj.helpyou.activities.ResultRouteDetailActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -14,6 +17,7 @@ public class JsonParser extends Activity {
     public static void jsonParser(String resultJson) {
 //
         int sec;
+        String [][][] Pass = new String[5][20][1000];
         Dataset dataset;
         ArrayList<DataKeyword> trafficDataList = new ArrayList<>();
         String []Tel = new String[2];
@@ -27,27 +31,26 @@ public class JsonParser extends Activity {
             String searchType = odsayData.getJSONObject("result").getString("searchType");
             JSONArray path = odsayData.getJSONObject("result").getJSONArray("path");
 
-            String totalTime = path.getJSONObject(0).getJSONObject("info").getString("totalTime");
-            String payment = path.getJSONObject(0).getJSONObject("info").getString("payment");
-            Integer trafficCount = path.getJSONObject(0).getJSONArray("subPath").length();
 
+            Integer trafficCount = path.getJSONObject(0).getJSONArray("subPath").length();
 
             int i=0;
             int g= 0;
             for(int j=0; j<path.length(); j++) {
 
-//                String totalTime = path.getJSONObject(j).getJSONObject("info").getString("totalTime");
-//                String payment = path.getJSONObject(j).getJSONObject("info").getString("payment");
-//                Integer trafficCount = path.getJSONObject(j).getJSONArray("subPath").length();
+                String totalTime = path.getJSONObject(j).getJSONObject("info").getString("totalTime");
+                String payment = path.getJSONObject(j).getJSONObject("info").getString("payment");
 
+//
                 for ( i=0; i<trafficCount; i++) {
+
                     Integer trafficType = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getInt("trafficType");
 
                     if (trafficType == 3) { //도보
                         Integer distance = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getInt("distance");
                         Integer secTime = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getInt("sectionTime");
                         trafficDataList.add(g , new DataKeyword( "도보",   distance.toString(), null, secTime , 0, null," "
-                                ,3, null,null,null,null, null,0,null,null));
+                                ,3, totalTime,payment,null,null, null,0,null,null));
                         g++;
                         Log.d("rewq", "secTime : " + secTime);
                     }
@@ -64,6 +67,16 @@ public class JsonParser extends Activity {
                         Integer startcode = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getInt("startID");
                         String busID = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getString("startArsID");
                         int CityCode = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getJSONArray("lane").getJSONObject(0).getInt("busCityCode");
+
+                        JSONArray pass = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getJSONObject("passStopList").getJSONArray("stations");
+
+                        for(int z=0; z<pass.length(); z++) {
+                                Pass[j][i][z] = pass.getJSONObject(z).getString("stationName");
+
+                        }
+                        // 노선 그래픽 데이터 좌표 불러오기
+                        String mapObj = path.getJSONObject(j).getJSONObject("info").getString("mapObj");
+                        PathGraphic.run(mapObj, g);
 
                         BCompany = BusCompany.run(busNo, CityCode); //버스회사 받아옴. 엑셀로 버스회사 매칭되는거 전화번호 값 받아오기 설정필요
 
@@ -93,34 +106,42 @@ public class JsonParser extends Activity {
                         Integer endcode = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getInt("endID");
                         Integer wayCode = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getInt("wayCode");
 
+                        String mapObj = path.getJSONObject(j).getJSONObject("info").getString("mapObj");
+                        Log.d("qqtt", "mapobj : " +mapObj);
+                        PathGraphic.run(mapObj,g);
+
+                        JSONArray pass = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getJSONObject("passStopList").getJSONArray("stations");
+                        Log.d("qwe","qwe : " +pass);
+                        for(int z=0; z<pass.length(); z++) {
+                            Pass[j][i][z] = pass.getJSONObject(z).getString("stationName");
+
+                        }
+
+
                         Tel = Subwaytell.run(startcode, endcode);
                         Log.d("TEL", "Start_tell : " + Tel[0] + " End_tell : "+ Tel[1]);
                         XY = ElevatorLocation.run(subwaystart, subwayend);
-                        startX = XY[0];
-                        startY = XY[1];
-                        endX = XY[2];
-                        endY = XY[3];
-
+                        if(XY[0] != null) {
+                            startX = XY[0];
+                            startY = XY[1];
+                            endX = XY[2];
+                            endY = XY[3];
+                        }
+                        Log.d("qwq ", "SX : "+ startX + " SY : " + startY + " EX : " + endX + " EY : " +endY);
                         trafficDataList.add(g, new DataKeyword( subwayNo.toString() + "호선", subwaystart + "역", subwayend + "역  ", secTime , subwayCount ,null," ",wayCode,
                                 startX, startY,endX,endY,null,0,Tel[0],Tel[1]));
                         g++;
+
                     }
-                    Log.d("mmm","ggg : " + trafficType +" "+g);
                     g--;
-                    Log.d("mmm","kkk : " + trafficDataList.get(g).getmoveTime());
-                    dataset = new Dataset(trafficDataList, j, i, g, trafficType);
+                    ResultRouteActivity.resdata(trafficDataList, j, i, g, trafficType);
+                    ResultRouteDetailActivity.resdata2(trafficDataList, j, i, g, trafficType, Pass);
                     g++;
 
-                    Log.d("mmm","ggg : " + dataset.getDistance(j,i));
+
                 }
 
             }
-
-            for( i=0; i<100; i++) {
-                Log.d("rewq", "result : " + trafficDataList.get(i).getcircle());
-
-            }
-
 
         } catch (JSONException jsonException) {
             jsonException.printStackTrace();

@@ -15,7 +15,7 @@ public class Subwaytell {
         String[] tel = new String[2];
         try {
             // ODsay Api Key 정보
-            String apiKey = "KBZOsvKhbug6iLyW4x9sOPH+YLTTWKjn2S9oPW7tXiQ";
+            String apiKey = "odsay_api_key";
 
             String urlInfo = "https://api.odsay.com/v1/api/subwayStationInfo?lang=0&stationID="+startid+"&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
 

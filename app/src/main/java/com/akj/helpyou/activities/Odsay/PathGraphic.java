@@ -11,14 +11,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class BusCompany {
-    public static String run(String busNo, int citycode) {
-        String name = null;
+public class PathGraphic {
+
+    public static void run(String mapObj, int n) {
         try {
+            String[] Pathxy = new String[20];
             // ODsay Api Key 정보
             String apiKey = "odsay_api_key";
 
-            String urlInfo = "https://api.odsay.com/v1/api/searchBusLane?lang=0&busNo="+busNo+"&CID="+citycode+"&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
+            String urlInfo = "https://api.odsay.com/v1/api/loadLane?lang=0&mapObject=126:37@" + mapObj + "&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
 
             // http 연결
             URL url = new URL(urlInfo);
@@ -31,28 +32,26 @@ public class BusCompany {
                 int resCode = conn.getResponseCode();
                 int HTTP_OK = HttpURLConnection.HTTP_OK;
 
-                if(resCode == HttpURLConnection.HTTP_OK){
+                if (resCode == HttpURLConnection.HTTP_OK) {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String line = null;
+                    StringBuilder sb = new StringBuilder();
                     while (true) {
                         line = reader.readLine();
+                        sb.append(line);
+                        Log.d("BusTimetable", "line : " + line);
 
-                        if(line == null){
+                        if (line == null) {
                             break;
                         }
-                        JSONObject companyinfo = new JSONObject(line);
-                        JSONArray cpinfo = companyinfo.getJSONObject("result").getJSONArray("lane");
+                        JSONObject odsayData = new JSONObject(String.valueOf(sb));
 
-                        for(int i=0; i<cpinfo.length(); i++){
-                            String bN = cpinfo.getJSONObject(i).getString("busNo");
+                        JSONArray real = odsayData.getJSONObject("result").getJSONArray("lane");
+                        JSONArray xyPos = real.getJSONObject(0).getJSONArray("section").getJSONObject(0).getJSONArray("graphPos");
+                        Pathxy[n] = String.valueOf(xyPos);
+                        Log.d("qqtt", "real : " +Pathxy[n]);
 
-                            Log.d("BusCompany11","버스번호 : "+ bN);
-                            if(busNo.equals(bN)) {
-                                name = cpinfo.getJSONObject(i).getString("busCompanyNameKor");
-                                Log.d("BusCompany11","운수회사 명 : "+ name);
-                                return name;
-                            }
-                        }
+
                     }
                     reader.close();
                 }
@@ -61,7 +60,7 @@ public class BusCompany {
         } catch (Exception e) {
 
         }
-        return name;
+
     }
 }
 

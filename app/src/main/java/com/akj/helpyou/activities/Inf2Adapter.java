@@ -3,6 +3,7 @@ package com.akj.helpyou.activities;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -30,8 +31,9 @@ public class Inf2Adapter extends RecyclerView.Adapter<Inf2Adapter.Inf2ViewHolder
     @Override
     public void onBindViewHolder(@NonNull Inf2ViewHolder inf2ViewHolder, int i) {
         Inf2 inf2 = inf2List.get(i);
+        inf2ViewHolder.img.setImageResource(inf2.getImg());
         inf2ViewHolder.vhnum.setText(inf2.getVhnum());
-        inf2ViewHolder.vhnum.setText(inf2.getStartpoint());
+        inf2ViewHolder.startpoint.setText(inf2.getStartpoint());
 
     }
 
@@ -43,11 +45,13 @@ public class Inf2Adapter extends RecyclerView.Adapter<Inf2Adapter.Inf2ViewHolder
     class Inf2ViewHolder extends RecyclerView.ViewHolder{
         TextView vhnum;
         TextView startpoint;
+        ImageView img;
 
         public Inf2ViewHolder(@NonNull View itemView) {
             super(itemView);
             vhnum = itemView.findViewById(R.id.inf2_vhnum);
             startpoint = itemView.findViewById(R.id.inf2_startpoint);
+            img = itemView.findViewById(R.id.inf2_img);
         }
     }
 }
