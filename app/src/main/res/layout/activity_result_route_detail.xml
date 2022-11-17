@@ -106,7 +106,7 @@
                     android:layout_height="50dp"
                     android:text="선택하면 화면 올라감" />
 
-                <LinearLayout
+                <FrameLayout
                     android:id="@+id/frame_inf_d"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -117,8 +117,10 @@
                         android:id="@+id/recyclerView_inf_d"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"/>
-                </LinearLayout>
+                        android:layout_marginTop="10dp" />
+
+
+                </FrameLayout>
             </SlidingDrawer>
         </FrameLayout>
 
