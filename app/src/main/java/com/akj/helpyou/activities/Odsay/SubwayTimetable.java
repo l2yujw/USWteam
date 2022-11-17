@@ -18,7 +18,7 @@ public class SubwayTimetable {
         try {
 
             // ODsay Api Key 정보
-            String apiKey = "KBZOsvKhbug6iLyW4x9sOPH+YLTTWKjn2S9oPW7tXiQ";
+            String apiKey = "odsay_api_key";
 
             String urlInfo = "https://api.odsay.com/v1/api/subwayTimeTable?lang=0&stationID=130&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
           // String urlInfo = "https://api.odsay.com/v1/api/subwayTimeTable?lang=0&stationID="+code+"&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");

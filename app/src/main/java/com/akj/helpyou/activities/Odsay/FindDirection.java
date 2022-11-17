@@ -12,7 +12,7 @@ public class FindDirection extends Thread {
     public void run() {
         try {
             // ODsay Api Key 정보
-            String apiKey = "KBZOsvKhbug6iLyW4x9sOPH+YLTTWKjn2S9oPW7tXiQ";
+            String apiKey = "odsay_api_key";
 
             String urlInfo = "https://api.odsay.com/v1/api/searchPubTransPathT?SX=126.9027279&SY=37.5349277&EX=126.9145430&EY=37.5499421&OPT=0&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
 

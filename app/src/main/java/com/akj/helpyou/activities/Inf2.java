@@ -1,13 +1,19 @@
 package com.akj.helpyou.activities;
 
+import android.media.Image;
+import android.widget.ImageView;
+
+import com.davemorrissey.labs.subscaleview.ImageSource;
+
 public class Inf2 {
-    private int img;
+    int img;
     String vhnum;
     String startpoint;
 
-    public Inf2(String vhnum, String startpoint) {
+    public Inf2(String vhnum, String startpoint, int img) {
         this.vhnum = vhnum;
         this.startpoint = startpoint;
+        this.img = img;
     }
 
     public int getImg() {

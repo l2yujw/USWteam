@@ -1,9 +1,11 @@
 package com.akj.helpyou.activities;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -155,23 +157,23 @@ public class ResultRouteActivity extends AppCompatActivity {
                 if(traffic[resjj][i] == 3) {  // 도보값만 저장
                     // 검색출발지
                     if(i == 0){
-                        Inf2 inf2 = new Inf2("도보", startRoute);
+                        Inf2 inf2 = new Inf2("도보", startRoute, R.drawable.ic_outline_directions_walk_24);
                         inf2List.add(inf2);
                     }
                     else{
                         startName[resjj][i] = endName[resjj][i-1];
-                        Inf2 inf2 = new Inf2("도보", startName[resjj][i]);
+                        Inf2 inf2 = new Inf2("도보", startName[resjj][i],R.drawable.ic_outline_directions_walk_24);
                         inf2List.add(inf2);
                     }
                 }
                 if(traffic[resjj][i] == 2) {  // 버스값만 저장
                     // 이동수단 번호
-                    Inf2 inf2 = new Inf2(trafficNum[resjj][i], startName[resjj][i]);
+                    Inf2 inf2 = new Inf2(trafficNum[resjj][i], startName[resjj][i], R.drawable.ic_outline_directions_bus_24);
                     inf2List.add(inf2);
                 }
                 if(traffic[resjj][i] == 1) {  // 지하철 값만 저장
                     //이동수단 번호
-                    Inf2 inf2 = new Inf2(trafficNum[resjj][i], startName[resjj][i]);
+                    Inf2 inf2 = new Inf2(trafficNum[resjj][i], startName[resjj][i], R.drawable.ic_outline_subway_24);
                     inf2List.add(inf2);
                 }
             }

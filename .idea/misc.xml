@@ -90,6 +90,12 @@
         <entry key="..\:/USWteam/app/src/main/res/layout/item_inf2.xml" value="0.22826086956521738" />
         <entry key="..\:/USWteam/app/src/main/res/layout/subway_subsitute3dimage.xml" value="0.2" />
         <entry key="..\:/USWteam/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.1235" />
+        <entry key="..\:/Users/hwang/AndroidStudioProjects/USWteam2/app/src/main/res/drawable/ic_outline_directions_bus_24.xml" value="0.2165" />
+        <entry key="..\:/Users/hwang/AndroidStudioProjects/USWteam2/app/src/main/res/drawable/ic_outline_directions_walk_24.xml" value="0.2165" />
+        <entry key="..\:/Users/hwang/AndroidStudioProjects/USWteam2/app/src/main/res/layout/activity_main.xml" value="0.17527173913043478" />
+        <entry key="..\:/Users/hwang/AndroidStudioProjects/USWteam2/app/src/main/res/layout/activity_result_road.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/hwang/AndroidStudioProjects/USWteam2/app/src/main/res/layout/item_inf.xml" value="0.25364583333333335" />
+        <entry key="..\:/Users/hwang/AndroidStudioProjects/USWteam2/app/src/main/res/layout/item_inf2.xml" value="0.25364583333333335" />
       </map>
     </option>
   </component>

@@ -16,7 +16,7 @@ public class BusCompany {
         String name = null;
         try {
             // ODsay Api Key 정보
-            String apiKey = "KBZOsvKhbug6iLyW4x9sOPH+YLTTWKjn2S9oPW7tXiQ";
+            String apiKey = "odsay_api_key";
 
             String urlInfo = "https://api.odsay.com/v1/api/searchBusLane?lang=0&busNo="+busNo+"&CID="+citycode+"&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
 
