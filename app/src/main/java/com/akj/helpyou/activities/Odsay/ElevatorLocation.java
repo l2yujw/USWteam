@@ -22,10 +22,10 @@ public class ElevatorLocation {
             String Sxy = null;
             String Exy = null;
             // ODsay Api Key 정보
-            String apiKey = "715345784a79687733384a674e4345";
+            String apiKey = "756a7746487968773539456a4b4549";
 
-            String urlBuilder = "http://openapi.seoul.go.kr:8088/715345784a79687733384a674e4345/json/tbTraficElvtr/1/643/"+URLEncoder.encode(apiKey, "UTF-8");;
-
+            String urlBuilder = "http://openapi.seoul.go.kr:8088/715345784a79687733384a674e4345/json/tbTraficElvtr/1/643/";
+            Log.d("qqww", "qqww : " + sName + " " + eName);
             // http 연결
             URL url = new URL(urlBuilder.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -47,27 +47,30 @@ public class ElevatorLocation {
             }
             JSONObject elvtData = new JSONObject(String.valueOf(sb));
             JSONArray row = elvtData.getJSONObject("tbTraficElvtr").getJSONArray("row");
+            Log.d("qqww", "qqww : " + row);
 
             for(int i=0; i<row.length(); i++) {
                 String SWNM = row.getJSONObject(i).getString("SW_NM");
 
+
                 if (sName.equals(SWNM)){
                     Sxy = row.getJSONObject(i).getString("NODE_WKT");
+                    String Sx = Sxy.substring(6,22);
+                    String Sy = Sxy.substring(24,40);
+                    xy[0] = Sx;
+                    xy[1] = Sy;
                 }
                 if (eName.equals(SWNM)){
                     Exy = row.getJSONObject(i).getString("NODE_WKT");
+                    String Ex = Exy.substring(6,22);
+                    String Ey = Exy.substring(24,40);
+                    xy[2] = Ex;
+                    xy[3] = Ey;
                 }
             }
 
-            String Sx = Sxy.substring(6,22);
-            String Sy = Sxy.substring(24,40);
-            String Ex = Exy.substring(6,22);
-            String Ey = Exy.substring(24,40);
-
-            xy[0] = Sx;
-            xy[1] = Sy;
-            xy[2] = Ex;
-            xy[3] = Ey;
+            Log.d("qwq ", "SX : "+ xy[0] + " SY : " + xy[1] + " EX : " + xy[2] + " EY : " +xy[3]);
+            //SubwayName.run();
             return xy;
 
         } catch (ProtocolException e) {

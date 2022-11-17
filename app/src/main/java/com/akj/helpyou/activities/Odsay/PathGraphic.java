@@ -1,20 +1,25 @@
 package com.akj.helpyou.activities.Odsay;
+
 import android.util.Log;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
-// 길찾기 - odsay Json 받아오는 자바 파일 - JasponParser에서 파싱
 
-public class FindDirection extends Thread {
-    public void run() {
+public class PathGraphic {
+
+    public static void run(String mapObj, int n) {
         try {
+            String[] Pathxy = new String[20];
             // ODsay Api Key 정보
             String apiKey = "KBZOsvKhbug6iLyW4x9sOPH+YLTTWKjn2S9oPW7tXiQ";
 
-            String urlInfo = "https://api.odsay.com/v1/api/searchPubTransPathT?SX=126.9027279&SY=37.5349277&EX=126.9145430&EY=37.5499421&OPT=0&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
+            String urlInfo = "https://api.odsay.com/v1/api/loadLane?lang=0&mapObject=126:37@" + mapObj + "&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
 
             // http 연결
             URL url = new URL(urlInfo);
@@ -27,18 +32,26 @@ public class FindDirection extends Thread {
                 int resCode = conn.getResponseCode();
                 int HTTP_OK = HttpURLConnection.HTTP_OK;
 
-                if(resCode == HttpURLConnection.HTTP_OK){
+                if (resCode == HttpURLConnection.HTTP_OK) {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
                     String line = null;
+                    StringBuilder sb = new StringBuilder();
                     while (true) {
                         line = reader.readLine();
+                        sb.append(line);
+                        Log.d("BusTimetable", "line : " + line);
 
-                        Log.d("JsonParsing", "line : " + line);
-
-                        if(line == null){
+                        if (line == null) {
                             break;
                         }
-                         JsonParser.jsonParser(line);
+                        JSONObject odsayData = new JSONObject(String.valueOf(sb));
+
+                        JSONArray real = odsayData.getJSONObject("result").getJSONArray("lane");
+                        JSONArray xyPos = real.getJSONObject(0).getJSONArray("section").getJSONObject(0).getJSONArray("graphPos");
+                        Pathxy[n] = String.valueOf(xyPos);
+                        Log.d("qqtt", "real : " +Pathxy[n]);
+
+
                     }
                     reader.close();
                 }
@@ -47,5 +60,7 @@ public class FindDirection extends Thread {
         } catch (Exception e) {
 
         }
+
     }
 }
+
