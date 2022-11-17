@@ -115,17 +115,16 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
             subwayWaycode[j][i] = dataset.getSubwayWaycode(j,i);
         }
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_route_detail);
 
-        RecyclerView rvInfD = findViewById(R.id.recyclerView_inf_d);
+        RecyclerView rvInfd = findViewById(R.id.recyclerView_inf_d);
         LinearLayoutManager layoutManager = new LinearLayoutManager(ResultRouteDetailActivity.this);
         InfDAdapter infDAdapter = new InfDAdapter(buildInfDList());
-        rvInfD.setAdapter(infDAdapter);
-        rvInfD.setLayoutManager(layoutManager);
+        rvInfd.setAdapter(infDAdapter);
+        rvInfd.setLayoutManager(layoutManager);
         //resj에 고정 포지션값 받아오기
         //출발지 도착지에 값 입력
         //지도연결
@@ -136,66 +135,19 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
 
     private List<InfD> buildInfDList() {
         List<InfD> infDList = new ArrayList<>();
-        /*for (int i=0; i<10; i++) {
-            InfD infD = new InfD("Item "+i,"time","cost", buildInfD2List());
-            infDList.add(infD);
-        }*/
-
-        String today = null;
-        String[][] resultTime = new String[5][1];
-        Date date = new Date();
-        SimpleDateFormat sdformat = new SimpleDateFormat("hh:mm");
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        for (int j=0; j<resj; j++) {//얘는 한번만 적용
-            cal.add(Calendar.MINUTE, totalTime[j][0]);
-            today = sdformat.format(cal.getTime());
-            InfD infD = new InfD("Item ","time","cost", buildInfD2List());
-            infDList.add(infD);
+        for (int i=0; i<5; i++) {
+            InfD infd = new InfD("Item ","dd ","dd ","dd ","dd ", buildInfD2List());
+            infDList.add(infd);
         }
-
         return infDList;
-    }//dddd
+    }
     // 그안에 존재하는 하위 아이템 박스(3개씩 보이는 아이템들)
-    private List<InfD2> buildInfD2List() {//여기서 도보 지하철 이런거 적용
+    private List<InfD2> buildInfD2List() {
         List<InfD2> infD2List = new ArrayList<>();
-        /*for (int i=0; i<3; i++) {
-            InfD2 infD2 = new InfD2("Sub Item "+i, "Description "+i,"","","","");
+        for (int i=0; i<3; i++) {
+            InfD2 infD2 = new InfD2("Sub Item "+i);
             infD2List.add(infD2);
-        }*/
-
-        Intent intent = getIntent();
-        String startRoute = intent.getStringExtra("startText2");
-        String endRoute = intent.getStringExtra("endText2");
-        Log.d("www"," " + startRoute);
-        List<InfD2> inf2List = new ArrayList<>();
-        for (int i=0; i<resi[resjj]+1; i++) {
-            if(traffic[resjj][i] == 3) {  // 도보값만 저장
-                // 검색출발지
-                if(i == 0){
-                    InfD2 infD2 = new InfD2("Sub Item "+i, "Description "+i,"","","","");
-                    infD2List.add(infD2);
-                }
-                else{
-                    startName[resjj][i] = endName[resjj][i-1];
-                    InfD2 infD2 = new InfD2("Sub Item "+i, "Description "+i,"","","","");
-                    infD2List.add(infD2);
-                }
-            }
-            if(traffic[resjj][i] == 2) {  // 버스값만 저장
-                // 이동수단 번호
-                InfD2 infD2 = new InfD2("Sub Item "+i, "Description "+i,"","","","");
-                infD2List.add(infD2);
-            }
-            if(traffic[resjj][i] == 1) {  // 지하철 값만 저장
-                //이동수단 번호
-                InfD2 infD2 = new InfD2("Sub Item "+i, "Description "+i,"","","","");
-                infD2List.add(infD2);
-            }
         }
-        resjj++;
-
-
         return infD2List;
     }
 }

@@ -1,5 +1,6 @@
 package com.akj.helpyou.activities;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,19 +26,21 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
     @Override
     public InfDViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_infd, viewGroup, false);
-        return new InfDAdapter.InfDViewHolder(view);
+        return new InfDViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull InfDViewHolder infDViewHolder, int i) {
         InfD infD = infDList.get(i);
-        infDViewHolder.duration_time.setText(infD.getDuration_time());
-        infDViewHolder.result_time.setText(infD.getResult_time());
-        infDViewHolder.cost.setText(infD.getCost());
+        infDViewHolder.vh.setText(infD.getVh());
+        infDViewHolder.startpoint.setText(infD.getStartpoint());
+        infDViewHolder.endpoint.setText(infD.getEndpoint());
+        infDViewHolder.details.setText(infD.getDetails());
+        infDViewHolder.etc.setText(infD.getEtc());
 
         // 자식 레이아웃 매니저 설정
         LinearLayoutManager layoutManager = new LinearLayoutManager(
-                infDViewHolder.rvInfD.getContext(),
+                infDViewHolder.rvInfD2.getContext(),
                 LinearLayoutManager.VERTICAL,
                 false
         );
@@ -46,9 +49,9 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
         // 자식 어답터 설정
         InfD2Adapter infD2Adapter = new InfD2Adapter(infD.getInfD2List());
 
-        infDViewHolder.rvInfD.setLayoutManager(layoutManager);
-        infDViewHolder.rvInfD.setAdapter(infD2Adapter);
-        infDViewHolder.rvInfD.setRecycledViewPool(viewPool);
+        infDViewHolder.rvInfD2.setLayoutManager(layoutManager);
+        infDViewHolder.rvInfD2.setAdapter(infD2Adapter);
+        infDViewHolder.rvInfD2.setRecycledViewPool(viewPool);
     }
 
     @Override
@@ -58,18 +61,29 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
 
     class InfDViewHolder extends RecyclerView.ViewHolder{
 
-        private TextView duration_time;
-        private TextView result_time;
-        private TextView cost;
-        private RecyclerView rvInfD;
+        private TextView vh;
+        private TextView startpoint;
+        private TextView endpoint;
+        private TextView details;
+        private TextView etc;
+        private RecyclerView rvInfD2;
 
         public InfDViewHolder(@NonNull View itemView) {
             super(itemView);
-            duration_time = itemView.findViewById(R.id.infd_duration_time);
-            result_time = itemView.findViewById(R.id.infd_result_time);
-            cost = itemView.findViewById(R.id.infd_cost);
+            vh = itemView.findViewById(R.id.infd_vh);
+            startpoint = itemView.findViewById(R.id.infd_startpoint);
+            endpoint = itemView.findViewById(R.id.infd_endpoint);
+            details = itemView.findViewById(R.id.infd_details);
+            etc = itemView.findViewById(R.id.infd_etc);
+
+            details.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    v.setBackgroundColor(Color.BLUE);
+                }
+            });
             // 자식아이템 영역
-            rvInfD = itemView.findViewById(R.id.recyclerView_infd2);
+            rvInfD2 = itemView.findViewById(R.id.recyclerView_infd2);
         }
     }
 }

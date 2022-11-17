@@ -14,55 +14,11 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/infd2_vh"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="도보"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/infd2_startpoint"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="출발역"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/infd2_marker"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="->" />
-
-            <TextView
-                android:id="@+id/infd2_destination"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="도착역" />
-
-            <LinearLayout
+                android:id="@+id/infd2_stop"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/infd2_vhnum"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="버스번호" />
-
-                <TextView
-                    android:id="@+id/infd2_details"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="세부내용" />
-
-                <TextView
-                    android:id="@+id/infd2_duration_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="소요시간" />
-
-            </LinearLayout>
+                android:layout_height="match_parent"
+                android:text="정류장"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
