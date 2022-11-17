@@ -17,7 +17,7 @@ public class PathGraphic {
         try {
             String[] Pathxy = new String[20];
             // ODsay Api Key 정보
-            String apiKey = "KBZOsvKhbug6iLyW4x9sOPH+YLTTWKjn2S9oPW7tXiQ";
+            String apiKey = "odsay_api_key";
 
             String urlInfo = "https://api.odsay.com/v1/api/loadLane?lang=0&mapObject=126:37@" + mapObj + "&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
 
