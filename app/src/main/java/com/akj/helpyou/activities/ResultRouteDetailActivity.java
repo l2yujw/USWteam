@@ -32,6 +32,7 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
     public static String[][] startName = new String[5][20];
     public static Time time = new Time();
 
+
     //도보시
     public static String[][] distance = new String[5][20]; // 걷는 거리
     public static int[][] walkSectionTime = new int[5][20]; // 도보 이동 시간

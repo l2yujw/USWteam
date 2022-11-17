@@ -1,6 +1,9 @@
 package com.akj.helpyou.activities;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,8 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
 
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
     private List<InfD> infDList;
+
+    private boolean checkClick = true;
 
     InfDAdapter(List<InfD> infDList){
         this.infDList = infDList;
@@ -60,6 +65,7 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
     }
 
     class InfDViewHolder extends RecyclerView.ViewHolder{
+        Context context;
 
         private TextView vh;
         private TextView startpoint;
@@ -75,15 +81,23 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
             endpoint = itemView.findViewById(R.id.infd_endpoint);
             details = itemView.findViewById(R.id.infd_details);
             etc = itemView.findViewById(R.id.infd_etc);
+            // 자식아이템 영역
+            rvInfD2 = itemView.findViewById(R.id.recyclerView_infd2);
 
             details.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    v.setBackgroundColor(Color.BLUE);
+                    Log.d("check2"," 1111");
+                    if(checkClick) {
+                        rvInfD2.setVisibility(View.VISIBLE);
+                        checkClick=false;
+                    }
+                    else{
+                        rvInfD2.setVisibility(View.GONE);
+                        checkClick=true;
+                    }
                 }
             });
-            // 자식아이템 영역
-            rvInfD2 = itemView.findViewById(R.id.recyclerView_infd2);
         }
     }
 }
