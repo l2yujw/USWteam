@@ -1,5 +1,7 @@
 package com.akj.helpyou.activities.Odsay;
 
+import static com.akj.helpyou.BuildConfig.odsay_api_key;
+
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -16,7 +18,7 @@ public class BusCompany {
         String name = null;
         try {
             // ODsay Api Key 정보
-            String apiKey = "odsay_api_key";
+            String apiKey = odsay_api_key;
 
             String urlInfo = "https://api.odsay.com/v1/api/searchBusLane?lang=0&busNo="+busNo+"&CID="+citycode+"&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
 
