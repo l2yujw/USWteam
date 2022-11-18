@@ -21,7 +21,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".SubwayTimeActivity"
+            android:name=".tivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -47,6 +47,7 @@
         <activity android:name=".activities.ResultRouteActivity" />
         <activity android:name=".activities.search.SearchActivity" />
         <activity android:name=".activities.ResultRouteDetailActivity" />
+        <activity android:name=".activities.SubwayDetailActivity" />
         <activity android:name=".activities.Substitute3dImageActivity" />
         <meta-data
             android:name="com.kakao.sdk.AppKey"

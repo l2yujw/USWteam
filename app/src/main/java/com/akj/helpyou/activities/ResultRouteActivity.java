@@ -55,8 +55,8 @@ public class ResultRouteActivity extends AppCompatActivity {
     public static String[][] startSubwayTel = new String[5][20]; // 출발역 전화번호
     public static String[][] endSubwayTel = new String[5][20]; // 도착역 전화번호
 
-//    public static String startRoute;
-//    public static String endRoute;
+    public static String startRoute;
+    public static String endRoute;
 
 
     public static void resdata (ArrayList<DataKeyword> data, int j, int i, int k, int trafficType){
@@ -121,7 +121,10 @@ public class ResultRouteActivity extends AppCompatActivity {
             public void onItemClick(View v, int position) {
                 Intent intent = new Intent(getApplicationContext(), ResultRouteDetailActivity.class);
                 //눌린 포지션 전송
-                Log.d("pos"," "+position);
+                intent.putExtra("position", position);
+                intent.putExtra("startRoute", startRoute);
+                intent.putExtra("endRoute", endRoute);
+                Log.d("posss"," "+position);
                 startActivity(intent);
             }
         });
@@ -149,7 +152,8 @@ public class ResultRouteActivity extends AppCompatActivity {
 
     private List<Inf2> buildInf2List() {
         Intent intent = getIntent();
-        String startRoute = intent.getStringExtra("startText1");
+        startRoute = intent.getStringExtra("startText1");
+        endRoute = intent.getStringExtra("endText1");
         Log.d("www"," " + startRoute);
         List<Inf2> inf2List = new ArrayList<>();
 

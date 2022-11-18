@@ -155,9 +155,6 @@ public class FindRoadActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), ResultRouteActivity.class);
                     intent.putExtra("startText1", startpoint);
                     intent.putExtra("endText1", endpoint);
-                    Intent intent2 = new Intent(getApplicationContext(), ResultRouteDetailActivity.class);
-                    intent2.putExtra("startText2", startpoint);
-                    intent2.putExtra("endText2", endpoint);
                     startActivity(intent);
                 }
             }

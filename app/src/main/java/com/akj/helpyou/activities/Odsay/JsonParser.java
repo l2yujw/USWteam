@@ -33,7 +33,7 @@ public class JsonParser extends Activity {
 
 
             Integer trafficCount = path.getJSONObject(0).getJSONArray("subPath").length();
-
+            int[][] count = new int[10][100];
             int i=0;
             int g= 0;
             for(int j=0; j<path.length(); j++) {
@@ -69,6 +69,7 @@ public class JsonParser extends Activity {
                         int CityCode = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getJSONArray("lane").getJSONObject(0).getInt("busCityCode");
 
                         JSONArray pass = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getJSONObject("passStopList").getJSONArray("stations");
+                        count[j][i] = path.length();
 
                         for(int z=0; z<pass.length(); z++) {
                                 Pass[j][i][z] = pass.getJSONObject(z).getString("stationName");
@@ -116,7 +117,7 @@ public class JsonParser extends Activity {
                             Pass[j][i][z] = pass.getJSONObject(z).getString("stationName");
 
                         }
-
+                        count[j][i] = path.length();
 
                         Tel = Subwaytell.run(startcode, endcode);
                         Log.d("TEL", "Start_tell : " + Tel[0] + " End_tell : "+ Tel[1]);
@@ -135,7 +136,7 @@ public class JsonParser extends Activity {
                     }
                     g--;
                     ResultRouteActivity.resdata(trafficDataList, j, i, g, trafficType);
-                    ResultRouteDetailActivity.resdata2(trafficDataList, j, i, g, trafficType, Pass);
+                    ResultRouteDetailActivity.resdata2(trafficDataList, j, i, g, trafficType, Pass, count);
                     g++;
 
 

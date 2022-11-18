@@ -264,7 +264,9 @@ public class SubwayMapActivity extends AppCompatActivity {
                     Destination = targetStation;
                     Toast.makeText(getApplicationContext(), Destination, Toast.LENGTH_SHORT).show();
                 } else if (item == timetableItem) {
-                    // 지하철 time table 레이아웃 전환
+                    Intent intent = new Intent(getApplicationContext(), SubwayDetailActivity.class);
+                    intent.putExtra("targetStation", targetStation);
+                    startActivity(intent);
                 } else if (item == viewItem) {
                     Intent intent = new Intent(getApplicationContext(), Substitute3dImageActivity.class);
                     intent.putExtra("targetStation", targetStation);
