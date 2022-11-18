@@ -1,5 +1,7 @@
 package com.akj.helpyou.activities.Odsay;
 
+import static com.akj.helpyou.BuildConfig.odsay_api_key;
+
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -17,7 +19,7 @@ public class PathGraphic {
         try {
             String[] Pathxy = new String[20];
             // ODsay Api Key 정보
-            String apiKey = "odsay_api_key";
+            String apiKey = odsay_api_key;
 
             String urlInfo = "https://api.odsay.com/v1/api/loadLane?lang=0&mapObject=126:37@" + mapObj + "&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
 

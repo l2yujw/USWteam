@@ -1,5 +1,7 @@
 package com.akj.helpyou.activities.Odsay;
 
+import static com.akj.helpyou.BuildConfig.odsay_api_key;
+
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -18,7 +20,7 @@ public class SubwayTimetable {
         try {
 
             // ODsay Api Key 정보
-            String apiKey = "odsay_api_key";
+            String apiKey = odsay_api_key;
 
             String urlInfo = "https://api.odsay.com/v1/api/subwayTimeTable?lang=0&stationID=130&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
           // String urlInfo = "https://api.odsay.com/v1/api/subwayTimeTable?lang=0&stationID="+code+"&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");

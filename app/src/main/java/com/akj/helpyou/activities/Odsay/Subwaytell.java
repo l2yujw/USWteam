@@ -1,5 +1,7 @@
 package com.akj.helpyou.activities.Odsay;
 
+import static com.akj.helpyou.BuildConfig.odsay_api_key;
+
 import android.util.Log;
 
 import org.json.JSONObject;
@@ -15,7 +17,7 @@ public class Subwaytell {
         String[] tel = new String[2];
         try {
             // ODsay Api Key 정보
-            String apiKey = "odsay_api_key";
+            String apiKey = odsay_api_key;
 
             String urlInfo = "https://api.odsay.com/v1/api/subwayStationInfo?lang=0&stationID="+startid+"&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
 
