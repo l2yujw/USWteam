@@ -6,16 +6,18 @@ public class InfD {
     private String vh;
     private String startpoint;
     private String endpoint;
-    private String details;
+    private String time;
     private String etc;
+    private String details;
     private List<InfD2> infD2List;
 
-    public InfD(String vh, String startpoint, String endpoint, String details, String etc, List<InfD2> infD2List) {
+    public InfD(String vh, String startpoint, String endpoint, String time, String etc, String details, List<InfD2> infD2List) {
         this.vh = vh;
         this.startpoint = startpoint;
         this.endpoint = endpoint;
-        this.details = details;
+        this.time = time;
         this.etc = etc;
+        this.details = details;
         this.infD2List = infD2List;
     }
 
@@ -43,12 +45,12 @@ public class InfD {
         this.endpoint = endpoint;
     }
 
-    public String getDetails() {
-        return details;
+    public String getTime() {
+        return time;
     }
 
-    public void setDetails(String details) {
-        this.details = details;
+    public void setTime(String time) {
+        this.time = time;
     }
 
     public String getEtc() {
@@ -57,6 +59,14 @@ public class InfD {
 
     public void setEtc(String etc) {
         this.etc = etc;
+    }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
     }
 
     public List<InfD2> getInfD2List() {

@@ -137,7 +137,7 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
     private List<InfD> buildInfDList() {
         List<InfD> infDList = new ArrayList<>();
         for (int i=0; i<5; i++) {
-            InfD infd = new InfD("Item ","dd ","dd ","dd ","dd ", buildInfD2List());
+            InfD infd = new InfD("Item ","dd ","dd ","d","dd ","dd ", buildInfD2List());
             infDList.add(infd);
         }
         return infDList;
