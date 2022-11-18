@@ -35,10 +35,10 @@ public class FindRoadActivity extends AppCompatActivity {
     private TextView startText;
     private TextView endText;
 
-    private Double start_x;
-    private Double start_y;
-    private Double end_x;
-    private Double end_y;
+    public Double start_x;
+    public Double start_y;
+    public Double end_x;
+    public Double end_y;
 
     DBHelper dbHelper;
     DBHelper2 dbHelper2;
@@ -148,6 +148,7 @@ public class FindRoadActivity extends AppCompatActivity {
                 }
                 else{
                     Toast.makeText(getApplicationContext(),start_x+" / "+start_y+" / "+end_x+" / "+end_y,Toast.LENGTH_SHORT).show();
+                    Log.e("startendxy", "start_x : " + start_x + " start_y : " + start_y + " || end_x : " + end_x + " end_y: " + end_y);
                     dbHelper.insert(startpoint,endpoint,time.set);
                     dbHelper2.insert(startpoint,time.set);
                     dbHelper2.insert(endpoint,time.set);
@@ -159,6 +160,10 @@ public class FindRoadActivity extends AppCompatActivity {
                     intent2.putExtra("startText2", startpoint);
                     intent2.putExtra("endText2", endpoint);
                     startActivity(intent);
+
+                    Intent toDetail = new Intent(getApplicationContext(), ResultRouteDetailActivity.class);
+                    toDetail.putExtra("toDetail_x", start_x);
+                    toDetail.putExtra("toDetail_y", start_y);
                 }
             }
         });
