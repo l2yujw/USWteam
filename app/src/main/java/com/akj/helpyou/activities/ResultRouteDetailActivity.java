@@ -51,7 +51,7 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
     public static int[][] subwayWaycode = new int[5][20];; // 1:상행 2:하행
     public static String[][] startSubwayTel = new String[5][20]; // 출발역 전화번호
     public static String[][] endSubwayTel = new String[5][20]; // 도착역 전화번호
-    public static int[][] count;
+    public static int[][] Count = new int[5][1000];
     // 지하철or 버스 경유 정차명
     public static String[][][] passName = new String[5][20][100];  // [j][i][z] j/i는 그전에 썻던 그대로 위치값 z는 경유 정차 갯수
     // ex) [j][i][0]~[j][i][k]는 [j][i]가 버스일때 해당 버스 출발지부터 도착지까지의 경유 정류장이름이 들어가있음
@@ -61,9 +61,9 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
 //    public static String endRoute;
 
     public static int i;
-    public static void resdata2 (ArrayList<DataKeyword> data, int j, int i, int k, int trafficType, String[][][] Pass, int[][] pass){
+    public static void resdata2 (ArrayList<DataKeyword> data, int j, int i, int k, int trafficType, String[][][] Pass, int[][] count){
         Dataset dataset = new Dataset(data, j, i, k, trafficType);
-        count[j][i] = pass[j][i];
+        Count[j][i] = count[j][i];
         passName = Pass;
         for(int z=0; z<100; z++){
             if(passName[j][i][z] != null){
@@ -180,7 +180,7 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
         int position = intent.getIntExtra("position",0);
         List<InfD2> infD2List = new ArrayList<>();
         if (traffic[position][i] != 3) {
-            for (int z = 0; z < passName.length; z++) {
+            for (int z = 0; z < Count[position][i]; z++) {
 
                     InfD2 infD2 = new InfD2(passName[position][i][z]);
                     infD2List.add(infD2);

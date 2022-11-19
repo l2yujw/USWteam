@@ -40,7 +40,7 @@ public class FindDirection extends Thread {
                         if(line == null){
                             break;
                         }
-                         JsonParser.jsonParser(line);
+                        JsonParser.jsonParser(line);
                     }
                     reader.close();
                 }

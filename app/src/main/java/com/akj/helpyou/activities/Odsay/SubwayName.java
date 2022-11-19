@@ -49,9 +49,7 @@ public class SubwayName {
             JSONObject elvtData = new JSONObject(String.valueOf(sb));
             JSONArray row = elvtData.getJSONObject("SearchInfoBySubwayNameService").getJSONArray("row");
             Log.d("qqww", "qqww : " + row);
-            for(int i=0; i<10; i++){
-                Code[i] = null;
-            }
+
             for(int i=0 ; i<row.length(); i++) {
                 Code[i] = row.getJSONObject(i).getString("FR_CODE");
             }

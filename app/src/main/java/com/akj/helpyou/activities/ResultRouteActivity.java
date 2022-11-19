@@ -16,6 +16,7 @@ import com.akj.helpyou.activities.FindRoad.Time;
 import com.akj.helpyou.activities.Odsay.DataKeyword;
 import com.akj.helpyou.activities.Odsay.Dataset;
 
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -58,9 +59,24 @@ public class ResultRouteActivity extends AppCompatActivity {
     public static String startRoute;
     public static String endRoute;
 
+    public static String[] MapObj = new String[10];
+    public static int[] Type = new int[10];
+    public static int z=0;
+    public static int p=0;
 
     public static void resdata (ArrayList<DataKeyword> data, int j, int i, int k, int trafficType){
         Dataset dataset = new Dataset(data, j, i, k, trafficType);
+//        if(mapobj[j][i] != null) {
+//            MapObj[z] = mapobj[j][i];
+//            Log.d("mapobj","mapobj : " + MapObj[z]);
+//            z++;
+//        }
+//        if(trafficType != 3) {
+//            Type[p] = trafficType;
+//            Log.d("mapobj","Type : " + Type[p]);
+//            p++;
+//        }
+
         if(i==0) {
             totalFee[j][0] = dataset.gettotalFee(j,i);
             totalTime[j][0] = dataset.gettotalTime(j,i);
@@ -119,6 +135,8 @@ public class ResultRouteActivity extends AppCompatActivity {
         infAdapter.setOnItemClickListener(new InfAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
+
+
                 Intent intent = new Intent(getApplicationContext(), ResultRouteDetailActivity.class);
                 //눌린 포지션 전송
                 intent.putExtra("position", position);
