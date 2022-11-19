@@ -23,7 +23,7 @@ import java.net.URLEncoder;
 public class PathGraphic {
 
     public static void run(String mapObj[][], int type[][], int j, int i) {
-        Double[][][] MapXY = new Double[10][10][1000];
+        double[][][] MapXY = new double[10][10][1000];
         int [][] count = new int[10][10];
 
         try {
@@ -59,8 +59,8 @@ public class PathGraphic {
                                 JSONArray xyPos = real.getJSONObject(0).getJSONArray("section").getJSONObject(0).getJSONArray("graphPos");
                                 int l = 0;
                                 for (int h = 0; h < xyPos.length(); h++) {
-                                    Double x = xyPos.getJSONObject(h).getDouble("x");
-                                    Double y = xyPos.getJSONObject(h).getDouble("y");
+                                    double x = xyPos.getJSONObject(h).getDouble("x");
+                                    double y = xyPos.getJSONObject(h).getDouble("y");
                                     x = 126 + x;
                                     y = 37 + y;
                                     MapXY[j][i][l++] = x;

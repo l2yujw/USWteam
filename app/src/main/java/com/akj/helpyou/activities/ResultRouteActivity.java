@@ -66,16 +66,7 @@ public class ResultRouteActivity extends AppCompatActivity {
 
     public static void resdata (ArrayList<DataKeyword> data, int j, int i, int k, int trafficType){
         Dataset dataset = new Dataset(data, j, i, k, trafficType);
-//        if(mapobj[j][i] != null) {
-//            MapObj[z] = mapobj[j][i];
-//            Log.d("mapobj","mapobj : " + MapObj[z]);
-//            z++;
-//        }
-//        if(trafficType != 3) {
-//            Type[p] = trafficType;
-//            Log.d("mapobj","Type : " + Type[p]);
-//            p++;
-//        }
+
 
         if(i==0) {
             totalFee[j][0] = dataset.gettotalFee(j,i);
@@ -123,21 +114,22 @@ public class ResultRouteActivity extends AppCompatActivity {
             subwayWaycode[j][i] = dataset.getSubwayWaycode(j,i);
         }
     }
-    public static Double [][][]Mapxy = new Double[10][10][1000];
+    public static double [][][]Mapxy = new double[10][10][1000];
     public static int [][] Mtype = new int[10][10];
     public static int [][] MCount = new int[10][10];
     public static int n = 0;
-    public static void MapLineData (Double [][][]MapXY, int [][]type, int [][]count, int j, int i){
-        Mapxy = MapXY;
-        for(n=0; n<10; n++) {
-            Mtype[j][n] = type[j][i];
+    public static void MapLineData (double [][][]MapXY, int [][]type, int [][]count, int j, int i){
+
+
+        Mapxy[j][n] = MapXY[j][i];
+        Mtype[j][n] = type[j][i];
+        MCount[j][n] = count[j][i];
+
+        for(int l=0; l<MCount[j][n]; l++){
+            Mapxy[j][n][l] = MapXY[j][i][l];
         }
-        for(n=0; n<10; n++) {
-            Mapxy[j][n] = MapXY[j][i];
-        }
-        for(n=0; n<10; n++) {
-            MCount[j][n] = count[j][i];
-        }
+
+        n++;
 
     }
 
@@ -153,6 +145,7 @@ public class ResultRouteActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View v, int position) {
 
+                ResultRouteDetailActivity.MapData(Mapxy[position], Mtype[position], MCount[position]);
                 //MapLine(Mapxy[position], Mtype[position], MCount[position]); 받을때 Mapxy[][], type[], count[] 이렇게 받으면됌
                 // mapxy, type은 저번에 메모장에 적은 그대로 하면 되고 count의 경우 x,y좌표 길이임. count[] < 인덱스도 type이랑 mapxy[] <이랑 같음
 

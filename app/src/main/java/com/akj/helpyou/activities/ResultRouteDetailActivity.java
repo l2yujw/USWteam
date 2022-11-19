@@ -121,6 +121,15 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
             subwayWaycode[j][i] = dataset.getSubwayWaycode(j,i);
         }
     }
+    public static double [][] detailMapxy = new double[10][1000];
+    public static int [] detailMtype = new int[10];
+    public static int [] detailMcount = new int[10];
+
+    public static void MapData(double[][] mapxy, int[] MType, int[] MCount){
+        detailMapxy = mapxy;
+        detailMtype = MType;
+        detailMcount = MCount;
+    }
 
     private MapView mapView;
     private ViewGroup mapViewContainer;
