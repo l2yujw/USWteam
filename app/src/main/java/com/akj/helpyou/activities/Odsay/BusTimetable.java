@@ -1,5 +1,7 @@
 package com.akj.helpyou.activities.Odsay;
 // 버스 시간 받아오는 Json
+import static com.akj.helpyou.BuildConfig.odsay_api_key;
+
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -21,7 +23,7 @@ public class BusTimetable  {
             int sec;
             String low;
             // ODsay Api Key 정보
-            String apiKey = "KBZOsvKhbug6iLyW4x9sOPH+YLTTWKjn2S9oPW7tXiQ";
+            String apiKey = odsay_api_key;
 
             String urlInfo = "https://api.odsay.com/v1/api/realtimeStation?lang=0&stationID="+ code +"&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
 

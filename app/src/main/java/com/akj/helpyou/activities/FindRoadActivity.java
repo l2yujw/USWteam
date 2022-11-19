@@ -20,6 +20,7 @@ import com.akj.helpyou.activities.FindRoad.ListFragment;
 import com.akj.helpyou.activities.FindRoad.ListFragment2;
 import com.akj.helpyou.activities.FindRoad.ListFragment3;
 import com.akj.helpyou.activities.FindRoad.Time;
+import com.akj.helpyou.activities.Odsay.FindDirection;
 import com.akj.helpyou.activities.search.SearchActivity;
 import com.google.android.material.tabs.TabLayout;
 
@@ -35,10 +36,10 @@ public class FindRoadActivity extends AppCompatActivity {
     private TextView startText;
     private TextView endText;
 
-    private Double start_x;
-    private Double start_y;
-    private Double end_x;
-    private Double end_y;
+    public Double start_x;
+    public Double start_y;
+    public Double end_x;
+    public Double end_y;
 
     DBHelper dbHelper;
     DBHelper2 dbHelper2;
@@ -147,10 +148,20 @@ public class FindRoadActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"좌표 없음",Toast.LENGTH_SHORT).show();
                 }
                 else{
-                    Toast.makeText(getApplicationContext(),start_x+" / "+start_y+" / "+end_x+" / "+end_y,Toast.LENGTH_SHORT).show();
+
+                    FindDirection runThread = new FindDirection();
+                    FindDirection.xtdata(start_x,start_y,end_x,end_y);
+                    runThread.start();
+
                     dbHelper.insert(startpoint,endpoint,time.set);
                     dbHelper2.insert(startpoint,time.set);
                     dbHelper2.insert(endpoint,time.set);
+
+                    try {
+                        runThread.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     //reset();
                     Intent intent = new Intent(getApplicationContext(), ResultRouteActivity.class);
                     intent.putExtra("startText1", startpoint);
@@ -159,6 +170,12 @@ public class FindRoadActivity extends AppCompatActivity {
                     intent2.putExtra("startText2", startpoint);
                     intent2.putExtra("endText2", endpoint);
                     startActivity(intent);
+
+
+                    Intent toDetail = new Intent(getApplicationContext(), ResultRouteDetailActivity.class);
+                    toDetail.putExtra("toDetail_x", start_x);
+                    toDetail.putExtra("toDetail_y", start_y);
+
                 }
             }
         });
@@ -192,6 +209,7 @@ public class FindRoadActivity extends AppCompatActivity {
             end_x = data.getExtras().getDouble("returnValue_x");
             end_y = data.getExtras().getDouble("returnValue_y");
         }
+
     }
 
     public void reset(){

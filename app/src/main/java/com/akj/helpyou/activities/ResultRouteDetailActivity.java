@@ -7,11 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ViewGroup;
 
 import com.akj.helpyou.R;
 import com.akj.helpyou.activities.FindRoad.Time;
 import com.akj.helpyou.activities.Odsay.DataKeyword;
 import com.akj.helpyou.activities.Odsay.Dataset;
+
+import net.daum.mf.map.api.MapPoint;
+import net.daum.mf.map.api.MapView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -116,10 +120,25 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
             subwayWaycode[j][i] = dataset.getSubwayWaycode(j,i);
         }
     }
+
+    private MapView mapView;
+    private ViewGroup mapViewContainer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_route_detail);
+
+        Intent intent = getIntent();
+        double start_x = intent.getDoubleExtra("toDetail_x", 0);
+        double start_y = intent.getDoubleExtra("toDetail_y", 0);
+        MapPoint centerpoint = MapPoint.mapPointWithGeoCoord(start_x, start_y);
+
+
+        mapView = new MapView(this);
+        mapViewContainer = findViewById(R.id.detailMap);
+        mapViewContainer.addView(mapView);
+        mapView.setMapCenterPointAndZoomLevel(centerpoint, 4, true);
+
 
         RecyclerView rvInfd = findViewById(R.id.recyclerView_inf_d);
         LinearLayoutManager layoutManager = new LinearLayoutManager(ResultRouteDetailActivity.this);
