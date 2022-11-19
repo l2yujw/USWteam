@@ -20,6 +20,7 @@ import com.akj.helpyou.activities.FindRoad.ListFragment;
 import com.akj.helpyou.activities.FindRoad.ListFragment2;
 import com.akj.helpyou.activities.FindRoad.ListFragment3;
 import com.akj.helpyou.activities.FindRoad.Time;
+import com.akj.helpyou.activities.Odsay.FindDirection;
 import com.akj.helpyou.activities.search.SearchActivity;
 import com.google.android.material.tabs.TabLayout;
 
@@ -147,6 +148,11 @@ public class FindRoadActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"좌표 없음",Toast.LENGTH_SHORT).show();
                 }
                 else{
+
+                    FindDirection runThread = new FindDirection();
+                    FindDirection.xtdata(start_x,start_y,end_x,end_y);
+                    runThread.start();
+
                     Toast.makeText(getApplicationContext(),start_x+" / "+start_y+" / "+end_x+" / "+end_y,Toast.LENGTH_SHORT).show();
                     Log.e("startendxy", "start_x : " + start_x + " start_y : " + start_y + " || end_x : " + end_x + " end_y: " + end_y);
                     dbHelper.insert(startpoint,endpoint,time.set);
@@ -161,9 +167,11 @@ public class FindRoadActivity extends AppCompatActivity {
                     intent2.putExtra("endText2", endpoint);
                     startActivity(intent);
 
+
                     Intent toDetail = new Intent(getApplicationContext(), ResultRouteDetailActivity.class);
                     toDetail.putExtra("toDetail_x", start_x);
                     toDetail.putExtra("toDetail_y", start_y);
+
                 }
             }
         });
@@ -197,6 +205,7 @@ public class FindRoadActivity extends AppCompatActivity {
             end_x = data.getExtras().getDouble("returnValue_x");
             end_y = data.getExtras().getDouble("returnValue_y");
         }
+
     }
 
     public void reset(){

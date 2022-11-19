@@ -67,9 +67,6 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        FindDirection BusThread = new FindDirection();
-        BusThread.start();
-
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         //플로팅 액션 버튼 생성

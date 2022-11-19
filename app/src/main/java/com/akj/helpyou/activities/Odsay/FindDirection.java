@@ -15,16 +15,22 @@ import java.net.URLEncoder;
 
 
 public class FindDirection extends Thread {
-    FindRoadActivity findRoadActivity = new FindRoadActivity();
+
+    public static String start_x;
+    public static String start_y;
+    public static String end_x;
+    public static String end_y;
+
+    public static void xtdata(double start_X, double start_Y, double end_X, double end_Y){
+        start_x = String.valueOf(start_X);
+        start_y = String.valueOf(start_Y);
+        end_x = String.valueOf(end_X);
+        end_y = String.valueOf(end_Y);
+    }
 
     public void run() {
         try {
-            // ODsay Api Key 정보
             String apiKey = odsay_api_key;
-            String start_x = findRoadActivity.start_x.toString();
-            String start_y = findRoadActivity.start_y.toString();
-            String end_x = findRoadActivity.end_x.toString();
-            String end_y = findRoadActivity.end_y.toString();
 
             Log.e("findxy", "start_x : " + start_x + " start_y : " + start_y + " || end_x : " + end_x + " end_y: " + end_y);
 
