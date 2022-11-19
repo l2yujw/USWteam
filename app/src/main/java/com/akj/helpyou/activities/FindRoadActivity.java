@@ -153,11 +153,15 @@ public class FindRoadActivity extends AppCompatActivity {
                     FindDirection.xtdata(start_x,start_y,end_x,end_y);
                     runThread.start();
 
-                    Toast.makeText(getApplicationContext(),start_x+" / "+start_y+" / "+end_x+" / "+end_y,Toast.LENGTH_SHORT).show();
-                    Log.e("startendxy", "start_x : " + start_x + " start_y : " + start_y + " || end_x : " + end_x + " end_y: " + end_y);
                     dbHelper.insert(startpoint,endpoint,time.set);
                     dbHelper2.insert(startpoint,time.set);
                     dbHelper2.insert(endpoint,time.set);
+
+                    try {
+                        runThread.join();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                     //reset();
                     Intent intent = new Intent(getApplicationContext(), ResultRouteActivity.class);
                     intent.putExtra("startText1", startpoint);
