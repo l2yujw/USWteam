@@ -17,14 +17,16 @@ import java.net.URL;
 
 public class SubwayName {
     // 이름을 받아오면 지하철 코드와 호선정보 넘기기
-    public static void run() {
-        String []Code = new String[5];
+    public static String[] run(String sName) {
+        String []Code = new String[10];
+
         String []LineNum = new String[5];
         try {
 
+            Log.d("qqww","qqww0 : " + sName);
+
             // ODsay Api Key 정보
-            String urlBuilder = "http://openAPI.seoul.go.kr:8088/756a7746487968773539456a4b4549/json/SearchInfoBySubwayNameService/1/5/동대문역사문화공원/";
-        //  String urlBuilder = "http://openAPI.seoul.go.kr:8088/756a7746487968773539456a4b4549/json/SearchInfoBySubwayNameService/1/5/sName/";
+            String urlBuilder = "http://openAPI.seoul.go.kr:8088/756a7746487968773539456a4b4549/json/SearchInfoBySubwayNameService/1/5/"+sName+"/";
             // http 연결
             URL url = new URL(urlBuilder.toString());
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -46,12 +48,18 @@ public class SubwayName {
             }
             JSONObject elvtData = new JSONObject(String.valueOf(sb));
             JSONArray row = elvtData.getJSONObject("SearchInfoBySubwayNameService").getJSONArray("row");
-            Log.d("qqee", "qqee : " + row);
+            Log.d("qqww", "qqww : " + row);
+
             for(int i=0 ; i<row.length(); i++) {
                 Code[i] = row.getJSONObject(i).getString("FR_CODE");
-                LineNum[i] = row.getJSONObject(i).getString("LINE_NUM");
             }
-
+            for(int i=row.length(); i<row.length()*2; i++){
+                Code[i] = row.getJSONObject(i).getString("LINE_NUM");
+            }
+            for(int i=0; i<Code.length; i++){
+                Log.d("qqww","qqww1 : "+Code[i]);
+            }
+            return Code;
 
         } catch (ProtocolException e) {
             e.printStackTrace();
@@ -64,6 +72,7 @@ public class SubwayName {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return Code;
     }
 }
 

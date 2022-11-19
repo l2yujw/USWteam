@@ -40,8 +40,9 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
         infDViewHolder.vh.setText(infD.getVh());
         infDViewHolder.startpoint.setText(infD.getStartpoint());
         infDViewHolder.endpoint.setText(infD.getEndpoint());
-        infDViewHolder.details.setText(infD.getDetails());
+        infDViewHolder.time.setText(infD.getTime());
         infDViewHolder.etc.setText(infD.getEtc());
+        infDViewHolder.details.setText(infD.getDetails());
 
         // 자식 레이아웃 매니저 설정
         LinearLayoutManager layoutManager = new LinearLayoutManager(
@@ -70,8 +71,9 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
         private TextView vh;
         private TextView startpoint;
         private TextView endpoint;
-        private TextView details;
+        private TextView time;
         private TextView etc;
+        private TextView details;
         private RecyclerView rvInfD2;
 
         public InfDViewHolder(@NonNull View itemView) {
@@ -79,8 +81,9 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
             vh = itemView.findViewById(R.id.infd_vh);
             startpoint = itemView.findViewById(R.id.infd_startpoint);
             endpoint = itemView.findViewById(R.id.infd_endpoint);
-            details = itemView.findViewById(R.id.infd_details);
+            time = itemView.findViewById(R.id.infd_time);
             etc = itemView.findViewById(R.id.infd_etc);
+            details = itemView.findViewById(R.id.infd_details);
             // 자식아이템 영역
             rvInfD2 = itemView.findViewById(R.id.recyclerView_infd2);
 

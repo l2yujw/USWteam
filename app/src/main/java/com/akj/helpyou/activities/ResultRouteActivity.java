@@ -16,6 +16,7 @@ import com.akj.helpyou.activities.FindRoad.Time;
 import com.akj.helpyou.activities.Odsay.DataKeyword;
 import com.akj.helpyou.activities.Odsay.Dataset;
 
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,12 +56,27 @@ public class ResultRouteActivity extends AppCompatActivity {
     public static String[][] startSubwayTel = new String[5][20]; // 출발역 전화번호
     public static String[][] endSubwayTel = new String[5][20]; // 도착역 전화번호
 
-//    public static String startRoute;
-//    public static String endRoute;
+    public static String startRoute;
+    public static String endRoute;
 
+    public static String[] MapObj = new String[10];
+    public static int[] Type = new int[10];
+    public static int z=0;
+    public static int p=0;
 
     public static void resdata (ArrayList<DataKeyword> data, int j, int i, int k, int trafficType){
         Dataset dataset = new Dataset(data, j, i, k, trafficType);
+//        if(mapobj[j][i] != null) {
+//            MapObj[z] = mapobj[j][i];
+//            Log.d("mapobj","mapobj : " + MapObj[z]);
+//            z++;
+//        }
+//        if(trafficType != 3) {
+//            Type[p] = trafficType;
+//            Log.d("mapobj","Type : " + Type[p]);
+//            p++;
+//        }
+
         if(i==0) {
             totalFee[j][0] = dataset.gettotalFee(j,i);
             totalTime[j][0] = dataset.gettotalTime(j,i);
@@ -107,6 +123,23 @@ public class ResultRouteActivity extends AppCompatActivity {
             subwayWaycode[j][i] = dataset.getSubwayWaycode(j,i);
         }
     }
+    public static Double [][][]Mapxy = new Double[10][10][1000];
+    public static int [][] Mtype = new int[10][10];
+    public static int [][] MCount = new int[10][10];
+    public static int n = 0;
+    public static void MapLineData (Double [][][]MapXY, int [][]type, int [][]count, int j, int i){
+        Mapxy = MapXY;
+        for(n=0; n<10; n++) {
+            Mtype[j][n] = type[j][i];
+        }
+        for(n=0; n<10; n++) {
+            Mapxy[j][n] = MapXY[j][i];
+        }
+        for(n=0; n<10; n++) {
+            MCount[j][n] = count[j][i];
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -119,9 +152,16 @@ public class ResultRouteActivity extends AppCompatActivity {
         infAdapter.setOnItemClickListener(new InfAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                Intent intent = new Intent(getApplicationContext(), ResultRouteDetailActivity.class);
+
+                //MapLine(Mapxy[position], Mtype[position], MCount[position]); 받을때 Mapxy[][], type[], count[] 이렇게 받으면됌
+                // mapxy, type은 저번에 메모장에 적은 그대로 하면 되고 count의 경우 x,y좌표 길이임. count[] < 인덱스도 type이랑 mapxy[] <이랑 같음
+
+               Intent intent = new Intent(getApplicationContext(), ResultRouteDetailActivity.class);
                 //눌린 포지션 전송
-                Log.d("pos"," "+position);
+                intent.putExtra("position", position);
+                intent.putExtra("startRoute", startRoute);
+                intent.putExtra("endRoute", endRoute);
+                Log.d("posss"," "+position);
                 startActivity(intent);
             }
         });
@@ -149,7 +189,8 @@ public class ResultRouteActivity extends AppCompatActivity {
 
     private List<Inf2> buildInf2List() {
         Intent intent = getIntent();
-        String startRoute = intent.getStringExtra("startText1");
+        startRoute = intent.getStringExtra("startText1");
+        endRoute = intent.getStringExtra("endText1");
         Log.d("www"," " + startRoute);
         List<Inf2> inf2List = new ArrayList<>();
 

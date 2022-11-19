@@ -47,7 +47,7 @@ public class ElevatorLocation {
             }
             JSONObject elvtData = new JSONObject(String.valueOf(sb));
             JSONArray row = elvtData.getJSONObject("tbTraficElvtr").getJSONArray("row");
-            Log.d("qqww", "qqww : " + row);
+           // Log.d("qqww", "qqww : " + row);
 
             for(int i=0; i<row.length(); i++) {
                 String SWNM = row.getJSONObject(i).getString("SW_NM");

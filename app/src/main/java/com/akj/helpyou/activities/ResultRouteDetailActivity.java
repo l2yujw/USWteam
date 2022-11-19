@@ -55,7 +55,7 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
     public static int[][] subwayWaycode = new int[5][20];; // 1:상행 2:하행
     public static String[][] startSubwayTel = new String[5][20]; // 출발역 전화번호
     public static String[][] endSubwayTel = new String[5][20]; // 도착역 전화번호
-
+    public static int[][] Count = new int[5][1000];
     // 지하철or 버스 경유 정차명
     public static String[][][] passName = new String[5][20][100];  // [j][i][z] j/i는 그전에 썻던 그대로 위치값 z는 경유 정차 갯수
     // ex) [j][i][0]~[j][i][k]는 [j][i]가 버스일때 해당 버스 출발지부터 도착지까지의 경유 정류장이름이 들어가있음
@@ -64,9 +64,10 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
 //    public static String startRoute;
 //    public static String endRoute;
 
-
-    public static void resdata2 (ArrayList<DataKeyword> data, int j, int i, int k, int trafficType, String[][][] Pass){
+    public static int i;
+    public static void resdata2 (ArrayList<DataKeyword> data, int j, int i, int k, int trafficType, String[][][] Pass, int[][] count){
         Dataset dataset = new Dataset(data, j, i, k, trafficType);
+        Count[j][i] = count[j][i];
         passName = Pass;
         for(int z=0; z<100; z++){
             if(passName[j][i][z] != null){
@@ -154,19 +155,56 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
     }
 
     private List<InfD> buildInfDList() {
+        Intent intent = getIntent();
+        int position = intent.getIntExtra("position",0);
         List<InfD> infDList = new ArrayList<>();
-        for (int i=0; i<5; i++) {
-            InfD infd = new InfD("Item ","dd ","dd ","dd ","dd ", buildInfD2List());
-            infDList.add(infd);
+        String startRoute = intent.getStringExtra("startRoute");
+        String endRoute = intent.getStringExtra("endRoute");
+
+        for ( i=0; i<resi[position]+1; i++) {
+            if(traffic[position][i] == 3) {  // 도보값만 저장
+                // 검색출발지
+                if(i == 0){
+                    endName[position][i] = startName[position][i+1];
+                    InfD infd = new InfD("도보  ",startRoute+"  ",endName[position][i]+"  ",walkSectionTime[position][i] + "분  ","           ","", buildInfD2List());
+                    infDList.add(infd);
+                }
+                else if(i==resi[position]){
+                    startName[position][i] = endName[position][i-1];
+                    InfD infd = new InfD("도보  ",startName[position][i]+"  ",endRoute+"  ",walkSectionTime[position][i] + "분  ","           ","", buildInfD2List());
+                    infDList.add(infd);
+                }
+                else{
+                    startName[position][i] = endName[position][i-1];
+                    InfD infd = new InfD("도보  ",startName[position][i]+"  ",endName[position][i]+"  ",walkSectionTime[position][i] + "분  ","dd "," ", buildInfD2List());
+                    infDList.add(infd);
+                }
+            }
+            if(traffic[position][i] == 2) {  // 버스값만 저장
+                // 이동수단 번호
+                InfD infd = new InfD("버스  ",startName[position][i]+"  ",endName[position][i]+"  ",busSectionTime[position][i] + "분  ","dd           ","상세보기 ", buildInfD2List());
+                infDList.add(infd);
+            }
+            if(traffic[position][i] == 1) {  // 지하철 값만 저장
+                //이동수단 번호
+                InfD infd = new InfD("지하철  ",startName[position][i]+"  ",endName[position][i]+"  ",subwaySectionTime[position][i] + "분  ","출발역 : "+startSubwayTel[position][i]+"   \n도착역 : "+endSubwayTel[position][i],"      상세보기 ", buildInfD2List());
+                infDList.add(infd);
+            }
         }
         return infDList;
     }
     // 그안에 존재하는 하위 아이템 박스(3개씩 보이는 아이템들)
     private List<InfD2> buildInfD2List() {
+        Intent intent = getIntent();
+        int position = intent.getIntExtra("position",0);
         List<InfD2> infD2List = new ArrayList<>();
-        for (int i=0; i<3; i++) {
-            InfD2 infD2 = new InfD2("Sub Item "+i);
-            infD2List.add(infD2);
+        if (traffic[position][i] != 3) {
+            for (int z = 0; z < Count[position][i]; z++) {
+
+                    InfD2 infD2 = new InfD2(passName[position][i][z]);
+                    infD2List.add(infD2);
+
+            }
         }
         return infD2List;
     }
