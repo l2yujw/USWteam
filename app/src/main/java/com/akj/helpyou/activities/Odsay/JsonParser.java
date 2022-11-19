@@ -113,6 +113,7 @@ public class JsonParser extends Activity {
                         mapObj[j][i] = path.getJSONObject(j).getJSONObject("info").getString("mapObj");
                         Log.d("qqtt", "mapobj : " +mapObj);
 
+                       // PathGraphic.run(mapObj,g);
 
                         JSONArray pass = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getJSONObject("passStopList").getJSONArray("stations");
                         Log.d("qwe","qwe : " +pass);
