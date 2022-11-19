@@ -16,9 +16,9 @@ public class JsonParser extends Activity {
 
     public static void jsonParser(String resultJson) {
 //
-        int[] Type = new int[10];
+        int[][] Type = new int[10][10];
         String [][][] Pass = new String[5][20][1000];
-        String[] mapObj = new String[10];
+        String[][] mapObj = new String[10][10];
         ArrayList<DataKeyword> trafficDataList = new ArrayList<>();
         String []Tel = new String[2];
         String []XY = new String[4];
@@ -36,7 +36,7 @@ public class JsonParser extends Activity {
             int[][] count = new int[10][100];
             int i=0;
             int g= 0;
-            int p=0;
+
             for(int j=0; j<path.length(); j++) {
 
                 String totalTime = path.getJSONObject(j).getJSONObject("info").getString("totalTime");
@@ -76,10 +76,10 @@ public class JsonParser extends Activity {
 
                         }
                         // 노선 그래픽 데이터 좌표 불러오기
-                        mapObj[p] = path.getJSONObject(j).getJSONObject("info").getString("mapObj");
+                        mapObj[j][i] = path.getJSONObject(j).getJSONObject("info").getString("mapObj");
                         //그래픽데이터 타입 저장
-                        Type[p] = trafficType;
-                        p++;
+                        Type[j][i] = trafficType;
+
 
                         BCompany = BusCompany.run(busNo, CityCode); //버스회사 받아옴. 엑셀로 버스회사 매칭되는거 전화번호 값 받아오기 설정필요
 
@@ -109,10 +109,10 @@ public class JsonParser extends Activity {
                         Integer endcode = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getInt("endID");
                         Integer wayCode = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getInt("wayCode");
 
-                        Type[p] = trafficType;
-                        mapObj[p] = path.getJSONObject(j).getJSONObject("info").getString("mapObj");
+                        Type[j][i] = trafficType;
+                        mapObj[j][i] = path.getJSONObject(j).getJSONObject("info").getString("mapObj");
                         Log.d("qqtt", "mapobj : " +mapObj);
-                        p++;
+
 
                         JSONArray pass = path.getJSONObject(j).getJSONArray("subPath").getJSONObject(i).getJSONObject("passStopList").getJSONArray("stations");
                         Log.d("qwe","qwe : " +pass);
@@ -139,12 +139,13 @@ public class JsonParser extends Activity {
                     }
 
                     g--;
+                    PathGraphic.run(mapObj,Type, j,i);
                     ResultRouteActivity.resdata(trafficDataList, j, i, g, trafficType);
                     ResultRouteDetailActivity.resdata2(trafficDataList, j, i, g, trafficType, Pass, count);
                     g++;
                 }
             }
-            PathGraphic.run(mapObj,Type);
+
 
         } catch (JSONException jsonException) {
             jsonException.printStackTrace();

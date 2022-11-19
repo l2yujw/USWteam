@@ -123,6 +123,23 @@ public class ResultRouteActivity extends AppCompatActivity {
             subwayWaycode[j][i] = dataset.getSubwayWaycode(j,i);
         }
     }
+    public static Double [][][]Mapxy = new Double[10][10][1000];
+    public static int [][] Mtype = new int[10][10];
+    public static int [][] MCount = new int[10][10];
+    public static int n = 0;
+    public static void MapLineData (Double [][][]MapXY, int [][]type, int [][]count, int j, int i){
+        Mapxy = MapXY;
+        for(n=0; n<10; n++) {
+            Mtype[j][n] = type[j][i];
+        }
+        for(n=0; n<10; n++) {
+            Mapxy[j][n] = MapXY[j][i];
+        }
+        for(n=0; n<10; n++) {
+            MCount[j][n] = count[j][i];
+        }
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -136,8 +153,10 @@ public class ResultRouteActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View v, int position) {
 
+                //MapLine(Mapxy[position], Mtype[position], MCount[position]); 받을때 Mapxy[][], type[], count[] 이렇게 받으면됌
+                // mapxy, type은 저번에 메모장에 적은 그대로 하면 되고 count의 경우 x,y좌표 길이임. count[] < 인덱스도 type이랑 mapxy[] <이랑 같음
 
-                Intent intent = new Intent(getApplicationContext(), ResultRouteDetailActivity.class);
+               Intent intent = new Intent(getApplicationContext(), ResultRouteDetailActivity.class);
                 //눌린 포지션 전송
                 intent.putExtra("position", position);
                 intent.putExtra("startRoute", startRoute);
