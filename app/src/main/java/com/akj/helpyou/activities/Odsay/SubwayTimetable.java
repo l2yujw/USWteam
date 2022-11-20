@@ -4,6 +4,8 @@ import static com.akj.helpyou.BuildConfig.odsay_api_key;
 
 import android.util.Log;
 
+import com.akj.helpyou.activities.SubwayDetailActivity;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -13,17 +15,22 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class SubwayTimetable {
-  //  public static String[] run(int code, String num)
-    public static void run(String code){
+public class SubwayTimetable extends Thread {
+
+    public static String Scode;
+
+    public static void SubwayCode(String code) {
+        Scode = code;
+    }
+
+    public void run(){
         String[][] SubwayTime = new String[2][25];  // [상/하행][시간]
         try {
 
             // ODsay Api Key 정보
             String apiKey = odsay_api_key;
 
-            String urlInfo = "https://api.odsay.com/v1/api/subwayTimeTable?lang=0&stationID=130&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
-          // String urlInfo = "https://api.odsay.com/v1/api/subwayTimeTable?lang=0&stationID="+code+"&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
+            String urlInfo = "https://api.odsay.com/v1/api/subwayTimeTable?lang=0&stationID="+Scode+"&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
             // http 연결
             URL url = new URL(urlInfo);
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
@@ -70,6 +77,7 @@ public class SubwayTimetable {
                             Log.d("qtq " , k +"시 : " + SubwayTime[1][k]);
                             k++;
                         }
+                        SubwayDetailActivity.SubwayTime(SubwayTime);
                     }
                     reader.close();
                 }

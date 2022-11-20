@@ -20,6 +20,7 @@ import com.akj.helpyou.activities.FindRoad.ListFragment;
 import com.akj.helpyou.activities.FindRoad.ListFragment2;
 import com.akj.helpyou.activities.FindRoad.ListFragment3;
 import com.akj.helpyou.activities.Odsay.SubwayName;
+import com.akj.helpyou.activities.Odsay.SubwayTimetable;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ public class SubwayDetailActivity extends AppCompatActivity {
     public static String[] code = new String[5];
     public static  String[] LineName = new String[5];
 
+    public static int checkLine = 0;
 
     public static void subwayLine(String [] Line, String[] Code){
         for(int i=0; i<5; i++){
@@ -42,6 +44,11 @@ public class SubwayDetailActivity extends AppCompatActivity {
                 code[i] = Code[i];
             }
         }
+    }
+
+    public static String[][] SubwayTimeTable = new String[2][25];
+    public static void SubwayTime(String [][] subwaytime){
+        SubwayTimeTable = subwaytime;
     }
 
     @Override
@@ -84,6 +91,21 @@ public class SubwayDetailActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager3 = new LinearLayoutManager(SubwayDetailActivity.this, HORIZONTAL,false);
         RecyclerView rvLine = findViewById(R.id.recyclerView_subwayd_line);
         SubwayDStationAdapter subwayDStationAdapter = new SubwayDStationAdapter(buildSubwayDStationList());
+        subwayDStationAdapter.setOnItemClickListener(new SubwayDStationAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                checkLine = position;
+
+                SubwayTimetable subwayTimetable = new SubwayTimetable();
+                SubwayTimetable.SubwayCode(code[position]);
+                subwayTimetable.start();
+                try {
+                    subwayTimetable.join();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
         rvLine.setAdapter(subwayDStationAdapter);
         rvLine.setLayoutManager(layoutManager3);
 
@@ -93,16 +115,19 @@ public class SubwayDetailActivity extends AppCompatActivity {
     }
     private  List<SubwayDTime> buildSubwayDTimeListUp(){
         List<SubwayDTime> subwayDTimeListUp = new ArrayList<>();
-        SubwayDTime subwayDTimeUp = new SubwayDTime("dd:dd","출발","도착");
-        subwayDTimeListUp.add(subwayDTimeUp);
-
+        for(int i=5; i<25; i++) {
+            SubwayDTime subwayDTimeUp = new SubwayDTime(i+"시\n"+SubwayTimeTable[0][i], "출발", "도착");
+            Log.d("zzxxcc","zzxxcc : " + SubwayTimeTable[0][i]);
+            subwayDTimeListUp.add(subwayDTimeUp);
+        }
         return subwayDTimeListUp;
     }
     private  List<SubwayDTime> buildSubwayDTimeListDown(){
         List<SubwayDTime> subwayDTimeListDown = new ArrayList<>();
-        SubwayDTime subwayDTimeDown = new SubwayDTime("dd:dd","출발","도착");
-        subwayDTimeListDown.add(subwayDTimeDown);
-
+        for(int i=5; i<25; i++) {
+            SubwayDTime subwayDTimeDown = new SubwayDTime(i+"시\n"+SubwayTimeTable[1][i], "출발", "도착");
+            subwayDTimeListDown.add(subwayDTimeDown);
+        }
         return subwayDTimeListDown;
     }
 
