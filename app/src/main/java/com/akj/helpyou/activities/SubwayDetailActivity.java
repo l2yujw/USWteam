@@ -104,8 +104,6 @@ public class SubwayDetailActivity extends AppCompatActivity {
         rvLine.setLayoutManager(layoutManager3);
 
 
-
-
     }
     private  List<SubwayDTime> buildSubwayDTimeListUp(){
         List<SubwayDTime> subwayDTimeListUp = new ArrayList<>();
