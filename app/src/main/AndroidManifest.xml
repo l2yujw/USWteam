@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.akj.helpyou">
+    package="com.akj.transport3">
     <!-- 인터넷, 위치 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -21,7 +21,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".activities.SplashActivity"
+            android:name="com.akj.transport3.activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,19 +29,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MainActivity" />
-        <activity android:name=".activities.FindRoadActivity" />
-        <activity android:name=".activities.RecentAreaActivity" />
-        <activity android:name=".activities.RecentRouteActivity" />
-        <activity android:name=".activities.RecentBookmarkActivity" />
-        <activity android:name=".activities.BookmarkActivity" />
-        <activity android:name=".activities.SettingActivity" />
-        <activity android:name=".activities.SubwayMapActivity" />
-        <activity android:name=".activities.ResultRouteActivity" />
-        <activity android:name=".activities.search.SearchActivity" />
-        <activity android:name=".activities.ResultRouteDetailActivity" />
-        <activity android:name=".activities.SubwayDetailActivity" />
-        <activity android:name=".activities.Substitute3dImageActivity" />
+        <activity android:name="com.akj.transport3.activities.MainActivity" />
+        <activity android:name="com.akj.transport3.activities.FindRoadActivity" />
+        <activity android:name="com.akj.transport3.activities.RecentAreaActivity" />
+        <activity android:name="com.akj.transport3.activities.RecentRouteActivity" />
+        <activity android:name="com.akj.transport3.activities.RecentBookmarkActivity" />
+        <activity android:name="com.akj.transport3.activities.BookmarkActivity" />
+        <activity android:name="com.akj.transport3.activities.SettingActivity" />
+        <activity android:name="com.akj.transport3.activities.SubwayMapActivity" />
+        <activity android:name="com.akj.transport3.activities.ResultRouteActivity" />
+        <activity android:name="com.akj.transport3.activities.search.SearchActivity" />
+        <activity android:name="com.akj.transport3.activities.ResultRouteDetailActivity" />
+        <activity android:name="com.akj.transport3.activities.SubwayDetailActivity" />
+        <activity android:name="com.akj.transport3.activities.Substitute3dImageActivity" />
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="ba736be77629e672fce65d7bb072ed17" />
