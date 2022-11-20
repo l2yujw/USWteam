@@ -20,7 +20,16 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
     private List<InfD> infDList;
 
-    private boolean checkClick = true;
+    private InfDAdapter.OnItemClickListener mListener = null ;
+
+    public interface OnItemClickListener {
+        void onItemClick(View v, int position) ;
+    }
+
+    // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
+    public void setOnItemClickListener(InfDAdapter.OnItemClickListener listener) {
+        this.mListener = listener ;
+    }
 
     InfDAdapter(List<InfD> infDList){
         this.infDList = infDList;
@@ -88,14 +97,12 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
             details.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Log.d("check2"," 1111");
-                    if(checkClick) {
-                        rvInfD2.setVisibility(View.VISIBLE);
-                        checkClick=false;
-                    }
-                    else{
-                        rvInfD2.setVisibility(View.GONE);
-                        checkClick=true;
+                    int position = getAdapterPosition();
+
+                    if(position != RecyclerView.NO_POSITION){
+                        if(mListener !=null){
+                            mListener.onItemClick(v,position);
+                        }
                     }
                 }
             });

@@ -4,10 +4,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.akj.helpyou.R;
@@ -158,6 +160,8 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
     private MapPolyline mapPolyline4;
     private MapPolyline mapPolyline5;
 
+    private static boolean[][] checkNum = {{true},{true},{true},{true},{true},{true},{true},{true}};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -177,8 +181,22 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
         mapDraw(detailMapxy, detailMtype, detailMcount);
 
         RecyclerView rvInfd = findViewById(R.id.recyclerView_inf_d);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) RecyclerView rvInfd2 = findViewById(R.id.recyclerView_infd2);
         LinearLayoutManager layoutManager = new LinearLayoutManager(ResultRouteDetailActivity.this);
         InfDAdapter infDAdapter = new InfDAdapter(buildInfDList());
+        infDAdapter.setOnItemClickListener(new InfDAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(View v, int position) {
+                if(checkNum[position][0]){
+                    rvInfd2.setVisibility(View.GONE);
+                    checkNum[position][0] = false;
+                }
+                else{
+                    rvInfd2.setVisibility(View.VISIBLE);
+                    checkNum[position][0] = true;
+                }
+            }
+        });
         rvInfd.setAdapter(infDAdapter);
         rvInfd.setLayoutManager(layoutManager);
         //resj에 고정 포지션값 받아오기

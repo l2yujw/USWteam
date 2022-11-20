@@ -13,6 +13,8 @@
 
         <TextView
             android:id="@+id/subwayd_station"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -20,11 +22,16 @@
             android:textColor="@color/black"
             android:textSize="30dp"
             android:textStyle="bold" />
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:background="#000000" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView_subwayd_line"
             android:layout_width="match_parent"
-            android:layout_height="40dp"/>
+            android:layout_height="wrap_content" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -35,17 +42,20 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="상행"
+                android:background="@drawable/rectangle_frame"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="15dp"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:textAlignment="center"
+                android:layout_weight="1"
+                android:background="@drawable/rectangle_frame"
                 android:text="하행"
+                android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="15dp"
                 android:textStyle="bold" />
@@ -59,14 +69,18 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_subwayd_up"
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+            <View
+                android:layout_width="1dp"
+                android:layout_height="wrap_content"
+                android:background="@color/Black" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_subwayd_down"
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
         </LinearLayout>
 
