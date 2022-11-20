@@ -119,7 +119,7 @@ public class SubwayDetailActivity extends AppCompatActivity {
     private  List<SubwayDTime> buildSubwayDTimeListDown(){
         List<SubwayDTime> subwayDTimeListDown = new ArrayList<>();
         for(int i=5; i<25; i++) {
-            SubwayDTime subwayDTimeDown = new SubwayDTime(i+"시", SubwayTimeTable[0][i]);
+            SubwayDTime subwayDTimeDown = new SubwayDTime(i+"시", i + " : " + SubwayTimeTable[0][i]);
             subwayDTimeListDown.add(subwayDTimeDown);
         }
         return subwayDTimeListDown;
