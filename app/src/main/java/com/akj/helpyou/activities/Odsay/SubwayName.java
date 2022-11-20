@@ -2,6 +2,8 @@ package com.akj.helpyou.activities.Odsay;
 
 import android.util.Log;
 
+import com.akj.helpyou.activities.SubwayDetailActivity;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,10 +17,16 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-public class SubwayName {
+public class SubwayName extends Thread {
+
+    public static String sName;
+    public static void subwayname(String sname){
+        sName = sname;
+    }
+
     // 이름을 받아오면 지하철 코드와 호선정보 넘기기
-    public static String[] run(String sName) {
-        String []Code = new String[10];
+    public void run() {
+        String []Code = new String[5];
 
         String []LineNum = new String[5];
         try {
@@ -53,13 +61,14 @@ public class SubwayName {
             for(int i=0 ; i<row.length(); i++) {
                 Code[i] = row.getJSONObject(i).getString("FR_CODE");
             }
-            for(int i=row.length(); i<row.length()*2; i++){
-                Code[i] = row.getJSONObject(i).getString("LINE_NUM");
+            for(int i=0 ; i<row.length(); i++) {
+                LineNum[i] = row.getJSONObject(i).getString("LINE_NUM");
             }
             for(int i=0; i<Code.length; i++){
                 Log.d("qqww","qqww1 : "+Code[i]);
             }
-            return Code;
+            SubwayDetailActivity.subwayLine(LineNum,Code);
+
 
         } catch (ProtocolException e) {
             e.printStackTrace();
@@ -72,7 +81,7 @@ public class SubwayName {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return Code;
+
     }
 }
 

@@ -32,6 +32,18 @@ public class SubwayDetailActivity extends AppCompatActivity {
     public static String[] code = new String[5];
     public static  String[] LineName = new String[5];
 
+
+    public static void subwayLine(String [] Line, String[] Code){
+        for(int i=0; i<5; i++){
+            if(Line[i] != null){
+                LineName[i] = Line[i];
+            }
+            if(Code[i] != null){
+                code[i] = Code[i];
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,17 +51,18 @@ public class SubwayDetailActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String targetStation = intent.getStringExtra("targetStation");
 
-        String[] codeLineName = new String[10];
-        codeLineName = SubwayName.run(targetStation);
 
-        for(int i=0; i<codeLineName.length/2; i++){
-            code[i] = codeLineName[i];
-            Log.d("qqww","qqww2 : "+code[i]);
+        SubwayName subwayName = new SubwayName();
+        SubwayName.subwayname(targetStation);
+        subwayName.start();
+
+        try {
+            subwayName.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
-        for(int i=codeLineName.length/2; i<codeLineName.length; i++){
-            LineName[i] = codeLineName[i];
-            Log.d("qqww","qqww3 : "+LineName[i]);
-        }
+
+
 
         setContentView(R.layout.activity_subway_detail);
 
