@@ -134,6 +134,14 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
         detailMapxy = mapxy;
         detailMtype = MType;
         detailMcount = MCount;
+
+        for(int i=0; i<30; i++){
+            Log.d("hjhjhj","type : " + detailMtype[i]);
+            Log.d("hjhjhj","count : " + detailMcount[i]);
+            for(int j=0; j<MCount[i]; j++){
+                Log.d("hjhjhj","xy : " + detailMapxy[i][j]);
+            }
+        }
     }
 
     private MapView mapView;

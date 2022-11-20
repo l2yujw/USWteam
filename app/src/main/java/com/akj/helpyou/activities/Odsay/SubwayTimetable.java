@@ -54,7 +54,7 @@ public class SubwayTimetable extends Thread {
                             break;
                         }
                         JSONObject odsayData = new JSONObject(String.valueOf(sb));
-                 //       String sName = odsayData.getJSONObject("result").getString("laneName");
+                        //       String sName = odsayData.getJSONObject("result").getString("laneName");
                         JSONObject real = odsayData.getJSONObject("result").getJSONObject("OrdList").getJSONObject("up");
                         JSONArray time = real.getJSONArray("time");
                         Log.d("qtq " ,"qtq : " + real);

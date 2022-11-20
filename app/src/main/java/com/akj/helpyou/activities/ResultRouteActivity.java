@@ -57,10 +57,6 @@ public class ResultRouteActivity extends AppCompatActivity {
     public static String startRoute;
     public static String endRoute;
 
-    public static String[] MapObj = new String[10];
-    public static int[] Type = new int[10];
-    public static int z=0;
-    public static int p=0;
 
     public static void resdata (ArrayList<DataKeyword> data, int j, int i, int k, int trafficType){
         Dataset dataset = new Dataset(data, j, i, k, trafficType);
@@ -112,22 +108,16 @@ public class ResultRouteActivity extends AppCompatActivity {
             subwayWaycode[j][i] = dataset.getSubwayWaycode(j,i);
         }
     }
-    public static double [][][]Mapxy = new double[10][10][1000];
-    public static int [][] Mtype = new int[10][10];
-    public static int [][] MCount = new int[10][10];
-    public static int n = 0;
+    public static double [][][]Mapxy = new double[5][10][1000];
+    public static int [][] Mtype = new int[5][30];
+    public static int [][] MCount = new int[5][30];
+
     public static void MapLineData (double [][][]MapXY, int [][]type, int [][]count, int j, int i){
 
+        Mtype[j][i] = type[j][i];
+        MCount[j][i] = count[j][i];
+        Mapxy[j][i] = MapXY[j][i];
 
-        Mapxy[j][n] = MapXY[j][i];
-        Mtype[j][n] = type[j][i];
-        MCount[j][n] = count[j][i];
-
-        for(int l=0; l<MCount[j][n]; l++){
-            Mapxy[j][n][l] = MapXY[j][i][l];
-        }
-
-        n++;
 
     }
 
@@ -147,7 +137,7 @@ public class ResultRouteActivity extends AppCompatActivity {
                 //MapLine(Mapxy[position], Mtype[position], MCount[position]); 받을때 Mapxy[][], type[], count[] 이렇게 받으면됌
                 // mapxy, type은 저번에 메모장에 적은 그대로 하면 되고 count의 경우 x,y좌표 길이임. count[] < 인덱스도 type이랑 mapxy[] <이랑 같음
 
-               Intent intent = new Intent(getApplicationContext(), ResultRouteDetailActivity.class);
+                Intent intent = new Intent(getApplicationContext(), ResultRouteDetailActivity.class);
                 //눌린 포지션 전송
                 intent.putExtra("position", position);
                 intent.putExtra("startRoute", startRoute);
@@ -185,31 +175,31 @@ public class ResultRouteActivity extends AppCompatActivity {
         Log.d("www"," " + startRoute);
         List<Inf2> inf2List = new ArrayList<>();
 
-            for (int i=0; i<resi[resjj]+1; i++) {
-                if(traffic[resjj][i] == 3) {  // 도보값만 저장
-                    // 검색출발지
-                    if(i == 0){
-                        Inf2 inf2 = new Inf2("도보", startRoute, R.drawable.ic_outline_directions_walk_24);
-                        inf2List.add(inf2);
-                    }
-                    else{
-                        startName[resjj][i] = endName[resjj][i-1];
-                        Inf2 inf2 = new Inf2("도보", startName[resjj][i],R.drawable.ic_outline_directions_walk_24);
-                        inf2List.add(inf2);
-                    }
-                }
-                if(traffic[resjj][i] == 2) {  // 버스값만 저장
-                    // 이동수단 번호
-                    Inf2 inf2 = new Inf2(trafficNum[resjj][i], startName[resjj][i], R.drawable.ic_outline_directions_bus_24);
+        for (int i=0; i<resi[resjj]+1; i++) {
+            if(traffic[resjj][i] == 3) {  // 도보값만 저장
+                // 검색출발지
+                if(i == 0){
+                    Inf2 inf2 = new Inf2("도보", startRoute, R.drawable.ic_outline_directions_walk_24);
                     inf2List.add(inf2);
                 }
-                if(traffic[resjj][i] == 1) {  // 지하철 값만 저장
-                    //이동수단 번호
-                    Inf2 inf2 = new Inf2(trafficNum[resjj][i], startName[resjj][i], R.drawable.ic_outline_subway_24);
+                else{
+                    startName[resjj][i] = endName[resjj][i-1];
+                    Inf2 inf2 = new Inf2("도보", startName[resjj][i],R.drawable.ic_outline_directions_walk_24);
                     inf2List.add(inf2);
                 }
             }
-            resjj++;
+            if(traffic[resjj][i] == 2) {  // 버스값만 저장
+                // 이동수단 번호
+                Inf2 inf2 = new Inf2(trafficNum[resjj][i], startName[resjj][i], R.drawable.ic_outline_directions_bus_24);
+                inf2List.add(inf2);
+            }
+            if(traffic[resjj][i] == 1) {  // 지하철 값만 저장
+                //이동수단 번호
+                Inf2 inf2 = new Inf2(trafficNum[resjj][i], startName[resjj][i], R.drawable.ic_outline_subway_24);
+                inf2List.add(inf2);
+            }
+        }
+        resjj++;
         return inf2List;
     }
 }//content에 recyclerview 적용 아이템 생성 text적용 그 안에 recyclerview 적용 아이템 3칸 적용
