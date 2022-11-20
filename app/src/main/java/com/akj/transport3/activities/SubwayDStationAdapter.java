@@ -16,6 +16,17 @@ public class SubwayDStationAdapter extends RecyclerView.Adapter<SubwayDStationAd
 
     private List<SubwayDStation> subwayDStationList;
 
+    private SubwayDStationAdapter.OnItemClickListener mListener = null ;
+
+    public interface OnItemClickListener {
+        void onItemClick(View v, int position) ;
+    }
+
+    // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
+    public void setOnItemClickListener(SubwayDStationAdapter.OnItemClickListener listener) {
+        this.mListener = listener ;
+    }
+
     SubwayDStationAdapter(List<SubwayDStation> subwayDStationList){
         this.subwayDStationList = subwayDStationList;
     }
@@ -44,6 +55,20 @@ public class SubwayDStationAdapter extends RecyclerView.Adapter<SubwayDStationAd
             super(itemView);
 
             line = itemView.findViewById(R.id.subwayd_line);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+
+                    if(position != RecyclerView.NO_POSITION){
+                        if(mListener !=null){
+                            mListener.onItemClick(v,position);
+                        }
+                    }
+
+                }
+            });
         }
     }
 
