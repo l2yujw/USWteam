@@ -4,23 +4,42 @@ import android.annotation.SuppressLint
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.webkit.WebResourceRequest
 import android.webkit.WebResourceResponse
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.webkit.WebViewAssetLoader
 import com.akj.helpyou.R
+import org.w3c.dom.Text
 
 private const val BASE_URL = "https://appassets.androidplatform.net/assets/www"
 
 class Viewer : AppCompatActivity() {
     private lateinit var webView: WebView
-
+    private var targetStation:String?=""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_viewer)
 
+        if (intent.hasExtra("targetStation")) {
+            targetStation = intent.getStringExtra("targetStation")
+        } else {
+            Toast.makeText(applicationContext, "targetStation 검색 실패", Toast.LENGTH_SHORT).show()
+
+        }
+        val btn_back = findViewById<ImageView>(R.id.btn_back)
+        val targetStationtext = findViewById<TextView>(R.id.targetStationName)
+
+        btn_back.setOnClickListener(View.OnClickListener {
+            finish()
+        })
+
+        targetStationtext.text = targetStation
         // Setup webView
         initWebView()
     }
@@ -68,7 +87,7 @@ class Viewer : AppCompatActivity() {
     }
 
     private fun loadObjModel() {
-        val action = "javascript:loadModel('$BASE_URL/models/','yeo','base')"
+        val action = "javascript:loadModel('$BASE_URL/models/','${targetStation}','base')"
         webView.loadUrl(action)
     }
 }
