@@ -64,7 +64,7 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
         // 자식 어답터 설정
         InfD2Adapter infD2Adapter = new InfD2Adapter(infD.getInfD2List());
         infDViewHolder.rvInfD2.setLayoutManager(layoutManager);
-        infDViewHolder.etc.setOnClickListener(new View.OnClickListener() {
+        infDViewHolder.details.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(checkNum[i][0]){
