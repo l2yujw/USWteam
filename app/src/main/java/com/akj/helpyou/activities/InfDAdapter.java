@@ -1,7 +1,6 @@
 package com.akj.helpyou.activities;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,14 +21,25 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
 
     private InfDAdapter.OnItemClickListener mListener = null ;
 
+    private InfDAdapter.OnItemClickListener2 mListener2 = null ;
+
     public interface OnItemClickListener {
         void onItemClick(View v, int position) ;
+    }
+
+    public interface OnItemClickListener2 {
+        void onItemClick2(View v, int position) ;
     }
 
     // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
     public void setOnItemClickListener(InfDAdapter.OnItemClickListener listener) {
         this.mListener = listener ;
     }
+
+    public void setOnItemClickListener2(OnItemClickListener2 listener2) {
+        this.mListener2 = listener2 ;
+    }
+
 
     InfDAdapter(List<InfD> infDList){
         this.infDList = infDList;
@@ -93,6 +103,19 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
             details = itemView.findViewById(R.id.infd_details);
             // 자식아이템 영역
             rvInfD2 = itemView.findViewById(R.id.recyclerView_infd2);
+
+            etc.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int position = getAdapterPosition();
+
+                    if(position != RecyclerView.NO_POSITION){
+                        if(mListener2 !=null){
+                            mListener2.onItemClick2(v,position);
+                        }
+                    }
+                }
+            });
 
             details.setOnClickListener(new View.OnClickListener() {
                 @Override

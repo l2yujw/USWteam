@@ -197,6 +197,12 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
                 }
             }
         });
+        infDAdapter.setOnItemClickListener2(new InfDAdapter.OnItemClickListener2() {
+            @Override
+            public void onItemClick2(View v, int position) {
+                //여기에 전화연결하는거
+            }
+        });
         rvInfd.setAdapter(infDAdapter);
         rvInfd.setLayoutManager(layoutManager);
         //resj에 고정 포지션값 받아오기

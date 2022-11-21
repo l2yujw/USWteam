@@ -33,10 +33,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginEnd="5dp"
+                    android:background="@drawable/round_corner_blue"
                     android:text="출발지"
                     android:textAlignment="center"
                     android:gravity="center"
-                    android:textColor="@color/white"
+                    android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
@@ -58,6 +59,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="검색"
+                    android:textColor="@color/black"
+                    android:background="@drawable/round_corner_skyblue"
                     android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
@@ -98,6 +101,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:background="@drawable/round_corner_skyblue"
+                android:textColor="@color/black"
                 android:enabled="false"
                 android:text="이전"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -110,6 +115,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:enabled="false"
+                android:background="@drawable/round_corner_skyblue"
+                android:textColor="@color/black"
                 android:text="다음"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />

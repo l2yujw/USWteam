@@ -17,57 +17,82 @@
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
             android:orientation="vertical">
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="12dp"
-                android:orientation="vertical">
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:id="@+id/infd_vh"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/Black"
-                        android:text="도보"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/infd_startpoint"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/Black"
-                        android:text="출발역"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:id="@+id/infd_marker"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/Black"
-                        android:text="->" />
-
-                    <TextView
-                        android:id="@+id/infd_endpoint"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/Black"
-                        android:text="도착역" />
-
-                    <TextView
-                        android:id="@+id/infd_time"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/Black"
-                        android:text="시간" />
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:orientation="vertical">
 
                     <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/infd_vh"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/Black"
+                            android:layout_marginLeft="5dp"
+                            android:text="도보"
+                            android:textSize="17dp"
+                            android:layout_marginRight="5dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/infd_startpoint"
+                            android:layout_width="0dp"
+                            android:layout_weight="1"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/Black"
+                            android:layout_gravity="right"
+                            android:text="출발역"
+                            android:textSize="17dp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/infd_marker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/Black"
+                            android:textSize="17dp"
+                            android:textStyle="bold"
+                            android:text="->" />
+
+                        <TextView
+                            android:id="@+id/infd_endpoint"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/Black"
+                            android:textSize="17dp"
+                            android:textStyle="bold"
+                            android:text="도착역" />
+
+                        <TextView
+                            android:id="@+id/infd_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/Black"
+                            android:textSize="17dp"
+                            android:textStyle="bold"
+                            android:text="시간" />
+
+
+                    </LinearLayout>
+                    <View
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                        android:layout_height="1dp"
+                        android:background="@color/Gray" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp">
 
                         <TextView
                             android:id="@+id/infd_etc"
@@ -76,18 +101,23 @@
                             android:textColor="@color/Black"
                             android:text="기타기능" />
 
-                        <TextView
-                            android:id="@+id/infd_details"
-                            android:layout_width="60dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="right"
-                            android:textColor="@color/Black"
-                            android:text="세부내용" />
-
-
                     </LinearLayout>
-                 </LinearLayout>
+
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/infd_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2dp"
+                    android:gravity="center"
+                    android:background="@drawable/round_corner_skyblue"
+                    android:text="상세보기"
+                    android:textStyle="bold"
+                    android:textColor="@color/Black" />
             </LinearLayout>
+
+
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
