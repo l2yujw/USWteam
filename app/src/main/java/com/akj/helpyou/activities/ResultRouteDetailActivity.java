@@ -294,7 +294,6 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
                 // 검색출발지
                 if (i == 0) {
                     endName[position][i] = startName[position][i + 1];
-
                     InfD infd = new InfD("도보  ", startRoute , endName[position][i] + "  ", walkSectionTime[position][i] + "분  ", "           ", "", buildInfD2List());
                     infDList.add(infd);
                 } else if (i == resi[position]) {
