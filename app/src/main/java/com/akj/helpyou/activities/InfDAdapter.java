@@ -19,25 +19,17 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
     private List<InfD> infDList;
 
-    private InfDAdapter.OnItemClickListener mListener = null ;
+    private static boolean[][] checkNum = {{true},{true},{true},{true},{true},{true},{true},{true}};
 
-    private InfDAdapter.OnItemClickListener2 mListener2 = null ;
+    private InfDAdapter.OnItemClickListener mListener = null ;
 
     public interface OnItemClickListener {
         void onItemClick(View v, int position) ;
     }
 
-    public interface OnItemClickListener2 {
-        void onItemClick2(View v, int position) ;
-    }
-
     // OnItemClickListener 리스너 객체 참조를 어댑터에 전달하는 메서드
     public void setOnItemClickListener(InfDAdapter.OnItemClickListener listener) {
         this.mListener = listener ;
-    }
-
-    public void setOnItemClickListener2(OnItemClickListener2 listener2) {
-        this.mListener2 = listener2 ;
     }
 
 
@@ -71,8 +63,21 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
 
         // 자식 어답터 설정
         InfD2Adapter infD2Adapter = new InfD2Adapter(infD.getInfD2List());
-
         infDViewHolder.rvInfD2.setLayoutManager(layoutManager);
+        infDViewHolder.etc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(checkNum[i][0]){
+                    infDViewHolder.rvInfD2.setVisibility(View.GONE);
+                    checkNum[i][0] = false;
+                }
+                else{
+                    infDViewHolder.rvInfD2.setVisibility(View.VISIBLE);
+                    checkNum[i][0] = true;
+                }
+            }
+        });
+
         infDViewHolder.rvInfD2.setAdapter(infD2Adapter);
         infDViewHolder.rvInfD2.setRecycledViewPool(viewPool);
     }
@@ -104,18 +109,6 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
             // 자식아이템 영역
             rvInfD2 = itemView.findViewById(R.id.recyclerView_infd2);
 
-            etc.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    int position = getAdapterPosition();
-
-                    if(position != RecyclerView.NO_POSITION){
-                        if(mListener2 !=null){
-                            mListener2.onItemClick2(v,position);
-                        }
-                    }
-                }
-            });
 
             details.setOnClickListener(new View.OnClickListener() {
                 @Override

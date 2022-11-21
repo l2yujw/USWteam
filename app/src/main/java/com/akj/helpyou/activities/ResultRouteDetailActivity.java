@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.akj.helpyou.R;
 import com.akj.helpyou.activities.FindRoad.Time;
@@ -110,7 +111,7 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
             endName[j][i] = dataset.getEndBusName(j, i);
             busID[j][i] = dataset.getBusID(j, i);
             busStationCount[j][i] = dataset.getBusStationCount(j, i);
-            busLow[j][i] = dataset.getBusID(j, i);
+            busLow[j][i] = dataset.getBusLow(j, i);
         }
         if (traffic[j][i] == 1) {  // 지하철 값만 저장
             //이동수단 번호
@@ -186,21 +187,9 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
         infDAdapter.setOnItemClickListener(new InfDAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
-                if(checkNum[position][0]){
-                    findViewById(R.id.recyclerView_infd2).setVisibility(View.GONE);
-                    checkNum[position][0] = false;
-                }
-                else{
-                    findViewById(R.id.recyclerView_infd2).setVisibility(View.VISIBLE);
-                    checkNum[position][0] = true;
-                }
+
             }
-        });
-        infDAdapter.setOnItemClickListener2(new InfDAdapter.OnItemClickListener2() {
-            @Override
-            public void onItemClick2(View v, int position) {
-                //여기에 전화연결하는거
-            }
+
         });
         rvInfd.setAdapter(infDAdapter);
         rvInfd.setLayoutManager(layoutManager);
@@ -305,26 +294,28 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
                 // 검색출발지
                 if (i == 0) {
                     endName[position][i] = startName[position][i + 1];
-                    InfD infd = new InfD("도보  ", startRoute + "  ", endName[position][i] + "  ", walkSectionTime[position][i] + "분  ", "           ", "", buildInfD2List());
+
+                    InfD infd = new InfD("도보  ", startRoute , endName[position][i] + "  ", walkSectionTime[position][i] + "분  ", "           ", "", buildInfD2List());
                     infDList.add(infd);
                 } else if (i == resi[position]) {
                     startName[position][i] = endName[position][i - 1];
-                    InfD infd = new InfD("도보  ", startName[position][i] + "  ", endRoute + "  ", walkSectionTime[position][i] + "분  ", "           ", "", buildInfD2List());
+                    InfD infd = new InfD("도보  ", startName[position][i] , endRoute + "  ", walkSectionTime[position][i] + "분  ", "           ", "", buildInfD2List());
                     infDList.add(infd);
                 } else {
                     startName[position][i] = endName[position][i - 1];
-                    InfD infd = new InfD("도보  ", startName[position][i] + "  ", endName[position][i] + "  ", walkSectionTime[position][i] + "분  ", "dd ", " ", buildInfD2List());
+                    endName[position][i] = startName[position][i+1];
+                    InfD infd = new InfD("도보  ", startName[position][i] , endName[position][i] + "  ", walkSectionTime[position][i] + "분  ", " ", " ", buildInfD2List());
                     infDList.add(infd);
                 }
             }
             if (traffic[position][i] == 2) {  // 버스값만 저장
                 // 이동수단 번호
-                InfD infd = new InfD("버스  ", startName[position][i] + "  ", endName[position][i] + "  ", busSectionTime[position][i] + "분  ", "dd           ", "상세보기 ", buildInfD2List());
+                InfD infd = new InfD("버스번호 : "+trafficNum[position][i] +" ", startName[position][i]  , endName[position][i] + "  ", busSectionTime[position][i] + "분  ", " 저상(Y/N) : "+busLow[position][i]+ "        ", "상세보기 ", buildInfD2List());
                 infDList.add(infd);
             }
             if (traffic[position][i] == 1) {  // 지하철 값만 저장
                 //이동수단 번호
-                InfD infd = new InfD("지하철  ", startName[position][i] + "  ", endName[position][i] + "  ", subwaySectionTime[position][i] + "분  ", "출발역 : " + startSubwayTel[position][i] + "   \n도착역 : " + endSubwayTel[position][i], "      상세보기 ", buildInfD2List());
+                InfD infd = new InfD(trafficNum[position][i]+"  ", startName[position][i] , endName[position][i] + "  ", subwaySectionTime[position][i] + "분  ", "출발역 : " + startSubwayTel[position][i] + "   \n도착역 : " + endSubwayTel[position][i], "상세보기 ", buildInfD2List());
                 infDList.add(infd);
             }
         }
