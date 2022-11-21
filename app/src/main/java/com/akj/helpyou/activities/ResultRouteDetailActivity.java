@@ -181,18 +181,17 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
         mapDraw(detailMapxy, detailMtype, detailMcount);
 
         RecyclerView rvInfd = findViewById(R.id.recyclerView_inf_d);
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) RecyclerView rvInfd2 = findViewById(R.id.recyclerView_infd2);
         LinearLayoutManager layoutManager = new LinearLayoutManager(ResultRouteDetailActivity.this);
         InfDAdapter infDAdapter = new InfDAdapter(buildInfDList());
         infDAdapter.setOnItemClickListener(new InfDAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View v, int position) {
                 if(checkNum[position][0]){
-                    rvInfd2.setVisibility(View.GONE);
+                    findViewById(R.id.recyclerView_infd2).setVisibility(View.GONE);
                     checkNum[position][0] = false;
                 }
                 else{
-                    rvInfd2.setVisibility(View.VISIBLE);
+                    findViewById(R.id.recyclerView_infd2).setVisibility(View.VISIBLE);
                     checkNum[position][0] = true;
                 }
             }
