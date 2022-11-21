@@ -33,6 +33,7 @@ public class InfDAdapter extends RecyclerView.Adapter<InfDAdapter.InfDViewHolder
     }
 
 
+
     InfDAdapter(List<InfD> infDList){
         this.infDList = infDList;
     }

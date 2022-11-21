@@ -47,7 +47,8 @@ public class SubwayDetailActivity extends AppCompatActivity {
     public static void SubwayTime(String [][] subwaytime){
         SubwayTimeTable = subwaytime;
     }
-
+    SubwayDTimeAdapter subwayDTimeAdapter;
+    SubwayDTimeAdapter subwayDTimeAdapterDown;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,15 +76,11 @@ public class SubwayDetailActivity extends AppCompatActivity {
 
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(SubwayDetailActivity.this);
         RecyclerView rvUp = findViewById(R.id.recyclerView_subwayd_up);
-        SubwayDTimeAdapter subwayDTimeAdapter = new SubwayDTimeAdapter(buildSubwayDTimeListUp());
-        rvUp.setAdapter(subwayDTimeAdapter);
-        rvUp.setLayoutManager(layoutManager1);
+        subwayDTimeAdapter = new SubwayDTimeAdapter(buildSubwayDTimeListUp());
 
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(SubwayDetailActivity.this);
         RecyclerView rvDown = findViewById(R.id.recyclerView_subwayd_down);
-        SubwayDTimeAdapter subwayDTimeAdapterDown = new SubwayDTimeAdapter(buildSubwayDTimeListDown());
-        rvDown.setAdapter(subwayDTimeAdapterDown);
-        rvDown.setLayoutManager(layoutManager2);
+        subwayDTimeAdapterDown = new SubwayDTimeAdapter(buildSubwayDTimeListDown());
 
         LinearLayoutManager layoutManager3 = new LinearLayoutManager(SubwayDetailActivity.this, HORIZONTAL,false);
         RecyclerView rvLine = findViewById(R.id.recyclerView_subwayd_line);
@@ -113,8 +110,18 @@ public class SubwayDetailActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
+                subwayDTimeAdapter.notifyDataSetChanged();
+                subwayDTimeAdapterDown.notifyDataSetChanged();
             }
         });
+
+        rvUp.setAdapter(subwayDTimeAdapter);
+        rvUp.setLayoutManager(layoutManager1);
+
+        rvDown.setAdapter(subwayDTimeAdapterDown);
+        rvDown.setLayoutManager(layoutManager2);
+
         rvLine.setAdapter(subwayDStationAdapter);
         rvLine.setLayoutManager(layoutManager3);
 

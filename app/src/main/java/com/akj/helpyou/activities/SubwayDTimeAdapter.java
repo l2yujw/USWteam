@@ -34,6 +34,10 @@ public class SubwayDTimeAdapter extends RecyclerView.Adapter<SubwayDTimeAdapter.
         timeViewHolder.startTime.setText(subwayDTime.getStartTime());
     }
 
+    public void setSubwayDTimeList(List<SubwayDTime> subwayDTimeList){
+        this.subwayDTimeList = subwayDTimeList;
+        notifyDataSetChanged();
+    }
     @Override
     public int getItemCount() {
         return subwayDTimeList.size();
