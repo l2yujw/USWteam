@@ -92,7 +92,7 @@ public class FindRoadActivity extends AppCompatActivity {
         tabs.addTab(tabs.newTab().setText("최근 경로"));
         tabs.addTab(tabs.newTab().setText("즐겨찾기"));
 
-        tabs.setTabTextColors(Color.rgb(0,0,0),Color.rgb(255,0,0));
+        tabs.setTabTextColors(Color.rgb(0,0,0),Color.rgb(0,0,255));
 
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override

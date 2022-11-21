@@ -28,7 +28,7 @@ public class SubwayDetailActivity extends AppCompatActivity {
     public static  String[] LineName = new String[5];
 
 
-    private static boolean[][] checkNum = {{true},{true},{true},{true},{true},{true},{true},{true}};
+    private static boolean[][] checkNum = {{false},{false},{false},{false},{false},{false},{false},{false}};
 
     public static int checkLine = 0;
 
