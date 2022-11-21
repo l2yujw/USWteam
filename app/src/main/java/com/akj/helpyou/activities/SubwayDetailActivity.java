@@ -27,6 +27,9 @@ public class SubwayDetailActivity extends AppCompatActivity {
     public static String[] code = new String[5];
     public static  String[] LineName = new String[5];
 
+
+    private static boolean[][] checkNum = {{false},{false},{false},{false},{false},{false},{false},{false}};
+
     public static int checkLine = 0;
 
     public static void subwayLine(String [] Line, String[] Code){
@@ -44,7 +47,8 @@ public class SubwayDetailActivity extends AppCompatActivity {
     public static void SubwayTime(String [][] subwaytime){
         SubwayTimeTable = subwaytime;
     }
-
+    SubwayDTimeAdapter subwayDTimeAdapter;
+    SubwayDTimeAdapter subwayDTimeAdapterDown;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,15 +76,11 @@ public class SubwayDetailActivity extends AppCompatActivity {
 
         LinearLayoutManager layoutManager1 = new LinearLayoutManager(SubwayDetailActivity.this);
         RecyclerView rvUp = findViewById(R.id.recyclerView_subwayd_up);
-        SubwayDTimeAdapter subwayDTimeAdapter = new SubwayDTimeAdapter(buildSubwayDTimeListUp());
-        rvUp.setAdapter(subwayDTimeAdapter);
-        rvUp.setLayoutManager(layoutManager1);
+        subwayDTimeAdapter = new SubwayDTimeAdapter(buildSubwayDTimeListUp());
 
         LinearLayoutManager layoutManager2 = new LinearLayoutManager(SubwayDetailActivity.this);
         RecyclerView rvDown = findViewById(R.id.recyclerView_subwayd_down);
-        SubwayDTimeAdapter subwayDTimeAdapterDown = new SubwayDTimeAdapter(buildSubwayDTimeListDown());
-        rvDown.setAdapter(subwayDTimeAdapterDown);
-        rvDown.setLayoutManager(layoutManager2);
+        subwayDTimeAdapterDown = new SubwayDTimeAdapter(buildSubwayDTimeListDown());
 
         LinearLayoutManager layoutManager3 = new LinearLayoutManager(SubwayDetailActivity.this, HORIZONTAL,false);
         RecyclerView rvLine = findViewById(R.id.recyclerView_subwayd_line);
@@ -89,6 +89,18 @@ public class SubwayDetailActivity extends AppCompatActivity {
             @Override
             public void onItemClick(View v, int position) {
                 checkLine = position;
+                if(checkNum[position][0]){
+                    rvUp.setVisibility(View.GONE);
+                    rvDown.setVisibility(View.GONE);
+                    checkNum[position][0] = false;
+                }
+                else{
+                    rvUp.setVisibility(View.VISIBLE);
+                    rvDown.setVisibility(View.VISIBLE);
+                    checkNum[position][0] = true;
+                }
+
+                Log.d("dddd"," "+position);
 
                 SubwayTimetable subwayTimetable = new SubwayTimetable();
                 SubwayTimetable.SubwayCode(code[position]);
@@ -98,19 +110,27 @@ public class SubwayDetailActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
+                subwayDTimeAdapter.notifyDataSetChanged();
+                subwayDTimeAdapterDown.notifyDataSetChanged();
             }
         });
+
+        rvUp.setAdapter(subwayDTimeAdapter);
+        rvUp.setLayoutManager(layoutManager1);
+
+        rvDown.setAdapter(subwayDTimeAdapterDown);
+        rvDown.setLayoutManager(layoutManager2);
+
         rvLine.setAdapter(subwayDStationAdapter);
         rvLine.setLayoutManager(layoutManager3);
-
-
 
 
     }
     private  List<SubwayDTime> buildSubwayDTimeListUp(){
         List<SubwayDTime> subwayDTimeListUp = new ArrayList<>();
         for(int i=5; i<25; i++) {
-            SubwayDTime subwayDTimeUp = new SubwayDTime(i+"시\n"+SubwayTimeTable[0][i], "출발", "도착");
+            SubwayDTime subwayDTimeUp = new SubwayDTime(i+"시", SubwayTimeTable[0][i]);
             Log.d("zzxxcc","zzxxcc : " + SubwayTimeTable[0][i]);
             subwayDTimeListUp.add(subwayDTimeUp);
         }
@@ -119,7 +139,7 @@ public class SubwayDetailActivity extends AppCompatActivity {
     private  List<SubwayDTime> buildSubwayDTimeListDown(){
         List<SubwayDTime> subwayDTimeListDown = new ArrayList<>();
         for(int i=5; i<25; i++) {
-            SubwayDTime subwayDTimeDown = new SubwayDTime(i+"시\n"+SubwayTimeTable[1][i], "출발", "도착");
+            SubwayDTime subwayDTimeDown = new SubwayDTime(i+"시", SubwayTimeTable[0][i]);
             subwayDTimeListDown.add(subwayDTimeDown);
         }
         return subwayDTimeListDown;

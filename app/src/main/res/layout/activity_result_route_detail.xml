@@ -30,8 +30,9 @@
                 <Button
                     android:id="@+id/handle"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:text="선택하면 화면 올라감" />
+                    android:layout_height="30dp"
+                    android:background="@color/skyblue"
+                    android:text="상세 경로" />
 
                 <FrameLayout
                     android:id="@+id/frame_inf_d"
@@ -45,7 +46,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp" />
-
 
                 </FrameLayout>
             </SlidingDrawer>
