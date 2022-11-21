@@ -70,6 +70,7 @@
                 android:id="@+id/recyclerView_subwayd_up"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:visibility="gone"
                 android:layout_weight="1" />
             <View
                 android:layout_width="1dp"
@@ -78,6 +79,7 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recyclerView_subwayd_down"
+                android:visibility="gone"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
