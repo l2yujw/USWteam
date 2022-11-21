@@ -18,13 +18,27 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
                 <View
-                    android:layout_marginLeft="20dp"
                     android:layout_width="3dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:background="#000000" />
+                <View
+                    android:layout_width="10dp"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@drawable/ic_outline_circle_24" />
 
+                <View
+                    android:layout_width="3dp"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:layout_gravity="center"
+                    android:background="#000000" />
             </LinearLayout>
 
 
