@@ -31,7 +31,6 @@ import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -69,6 +68,8 @@ public class SubwayMapActivity extends AppCompatActivity {
     public String Destination = null;
     // 검색창
     private SearchView searchView;
+
+    private String uriString = "android://app.application.viewer/assets/www/models/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -266,10 +267,9 @@ public class SubwayMapActivity extends AppCompatActivity {
                     startActivity(intent);
                 } else if (item == viewItem) {
 
-
-                    if (targetStation.equals("여의나루") ||
-                            targetStation.equals("수원") ||
-                            targetStation.equals("신길")) {
+                    if (targetStation.equals("수원") ||
+                            targetStation.equals("신길") ||
+                            targetStation.equals("여의나루")) {
 
                         Intent intent = new Intent(getApplicationContext(), Viewer.class);
                         intent.putExtra("targetStation", targetStation);
@@ -279,6 +279,8 @@ public class SubwayMapActivity extends AppCompatActivity {
                         Intent intent = new Intent(getApplicationContext(), Substitute3dImageActivity.class);
                         intent.putExtra("targetStation", targetStation);
                         startActivity(intent);
+
+
                     }
 
                 }
