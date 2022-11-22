@@ -31,6 +31,7 @@ import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -68,8 +69,6 @@ public class SubwayMapActivity extends AppCompatActivity {
     public String Destination = null;
     // 검색창
     private SearchView searchView;
-
-    private String uriString = "android://app.application.viewer/assets/www/models/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -266,21 +265,22 @@ public class SubwayMapActivity extends AppCompatActivity {
                     intent.putExtra("targetStation", targetStation);
                     startActivity(intent);
                 } else if (item == viewItem) {
-                    try {
-                        if(Arrays.asList(getResources().getAssets().list("")).contains(targetStation)){
-                            Toast.makeText(getApplicationContext(),"1",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(),Viewer.class);
-                            intent.putExtra("targetStation",targetStation);
-                            startActivity(intent);
-                        }else {
-                            Toast.makeText(getApplicationContext(),"2",Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(getApplicationContext(), Substitute3dImageActivity.class);
-                            intent.putExtra("targetStation", targetStation);
-                            startActivity(intent);
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
+
+
+                    if (targetStation.equals("여의나루") ||
+                            targetStation.equals("수원") ||
+                            targetStation.equals("신길")) {
+
+                        Intent intent = new Intent(getApplicationContext(), Viewer.class);
+                        intent.putExtra("targetStation", targetStation);
+                        startActivity(intent);
+                    } else {
+
+                        Intent intent = new Intent(getApplicationContext(), Substitute3dImageActivity.class);
+                        intent.putExtra("targetStation", targetStation);
+                        startActivity(intent);
                     }
+
                 }
             }
         });
