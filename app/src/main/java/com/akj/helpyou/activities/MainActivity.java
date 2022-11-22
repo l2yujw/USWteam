@@ -72,15 +72,6 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
         FloatingActionButton fab_btn1 = (FloatingActionButton) findViewById(R.id.fab_location);
         FloatingActionButton fab_btn2 = (FloatingActionButton) findViewById(R.id.fab_elctric_station);
         FloatingActionButton fab_btn3 = (FloatingActionButton) findViewById(R.id.fab_call);
-        FloatingActionButton fab_test = (FloatingActionButton) findViewById(R.id.fab_test);
-
-
-        fab_test.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Viewer.class));
-            }
-        });
 
         // 현재 위치로 이동 및 표시
 
