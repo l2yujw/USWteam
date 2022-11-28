@@ -266,23 +266,17 @@ public class SubwayMapActivity extends AppCompatActivity {
                     intent.putExtra("targetStation", targetStation);
                     startActivity(intent);
                 } else if (item == viewItem) {
-
                     if (targetStation.equals("수원") ||
                             targetStation.equals("신길") ||
                             targetStation.equals("여의나루")) {
-
                         Intent intent = new Intent(getApplicationContext(), Viewer.class);
                         intent.putExtra("targetStation", targetStation);
                         startActivity(intent);
                     } else {
-
                         Intent intent = new Intent(getApplicationContext(), Substitute3dImageActivity.class);
                         intent.putExtra("targetStation", targetStation);
                         startActivity(intent);
-
-
                     }
-
                 }
             }
         });

@@ -74,9 +74,6 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
         FloatingActionButton fab_btn3 = (FloatingActionButton) findViewById(R.id.fab_call);
 
 
-
-
-
         // 현재 위치로 이동 및 표시
 
         fab_btn1.setOnClickListener(new View.OnClickListener() {
@@ -206,6 +203,9 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
         double latitude = 0.0;
         double longitude = 0.0;
 
+        //double latitude = 37.2103;
+        //double longitude = 126.9758;
+
         latitude = loc_Current.getLatitude(); //위도
         longitude = loc_Current.getLongitude(); //경도
 
@@ -215,12 +215,16 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
 
         double finalLatitude = latitude;
         double finalLongitude = longitude;
+
         Thread thread = new Thread() {
             @Override
             public void run() {
                 Log.d(LOG_TAG, "run: " + finalLatitude + " / " + finalLongitude);
                 List<Chargestation> list = db.ChargestationDao().FindStationin1(finalLatitude, finalLongitude);//근처 리스트 리턴
                 Log.d(LOG_TAG, "run: " + list);
+                if(list.size()==0){
+                    Toast.makeText(getApplicationContext(),"반경 5km내 충전시설 없음",Toast.LENGTH_SHORT).show();
+                }
                 for (int i = 0; i < list.size(); i++) {
                     MapPoint mappoint = MapPoint.mapPointWithGeoCoord(list.get(i).getLat(),
                             list.get(i).getLng());
@@ -239,7 +243,7 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
         thread.start();
 
 
-        mapView.setMapCenterPointAndZoomLevel(centerpoint, 4, true);
+        mapView.setMapCenterPointAndZoomLevel(centerpoint, 6, true);
 
 
     }

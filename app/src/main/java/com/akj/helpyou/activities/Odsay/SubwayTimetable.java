@@ -15,7 +15,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public class SubwayTimetable extends Thread implements Runnable{
+public class SubwayTimetable extends Thread {
 
     public static String Scode;
 

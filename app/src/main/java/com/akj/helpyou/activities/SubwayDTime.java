@@ -2,11 +2,13 @@ package com.akj.helpyou.activities;
 
 public class SubwayDTime {
     private String startTime;
-    private String startMinute;
+    private String startPoint;
+    private String endPoint;
 
-    public SubwayDTime(String startTime, String startMinute) {
+    public SubwayDTime(String startTime, String startPoint, String endPoint) {
         this.startTime = startTime;
-        this.startMinute = startMinute;
+        this.startPoint = startPoint;
+        this.endPoint = endPoint;
     }
 
     public String getStartTime() {
@@ -17,11 +19,19 @@ public class SubwayDTime {
         this.startTime = startTime;
     }
 
-    public String getStartMinute() {
-        return startMinute;
+    public String getStartPoint() {
+        return startPoint;
     }
 
-    public void setStartMinute(String startMinute) {
-        this.startMinute = startMinute;
+    public void setStartPoint(String startPoint) {
+        this.startPoint = startPoint;
+    }
+
+    public String getEndPoint() {
+        return endPoint;
+    }
+
+    public void setEndPoint(String endPoint) {
+        this.endPoint = endPoint;
     }
 }

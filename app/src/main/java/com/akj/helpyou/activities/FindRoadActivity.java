@@ -3,7 +3,10 @@ package com.akj.helpyou.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,6 +25,10 @@ import com.akj.helpyou.activities.FindRoad.Time;
 import com.akj.helpyou.activities.Odsay.FindDirection;
 import com.akj.helpyou.activities.search.SearchActivity;
 import com.google.android.material.tabs.TabLayout;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FindRoadActivity extends AppCompatActivity {
 
@@ -92,7 +99,7 @@ public class FindRoadActivity extends AppCompatActivity {
         tabs.addTab(tabs.newTab().setText("최근 경로"));
         tabs.addTab(tabs.newTab().setText("즐겨찾기"));
 
-        tabs.setTabTextColors(Color.rgb(0,0,0),Color.rgb(0,0,255));
+        tabs.setTabTextColors(Color.rgb(0,0,0),Color.rgb(255,0,0));
 
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -138,6 +145,30 @@ public class FindRoadActivity extends AppCompatActivity {
 
                 String startpoint = startText.getText().toString();
                 String endpoint = endText.getText().toString();
+
+                Geocoder geocoder = new Geocoder(FindRoadActivity.this);
+                List<Address> start_address = null;
+                List<Address> end_address = null;
+                try {
+                    start_address = geocoder.getFromLocationName(startpoint,5);
+                    end_address = geocoder.getFromLocationName(endpoint,5);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if(start_address==null){
+                    Toast.makeText(getApplicationContext(), "시작 주소 검색 오류", Toast.LENGTH_SHORT).show();
+                }else if(end_address==null){
+                    Toast.makeText(getApplicationContext(), "도착 주소 검색 오류", Toast.LENGTH_SHORT).show();
+                }else{
+                    Log.d(TAG, "start_address: "+start_address.get(0));
+                    Log.d(TAG, "end_address: "+end_address.get(0));
+
+                    start_x = start_address.get(0).getLongitude();
+                    start_y = start_address.get(0).getLatitude();
+                    end_x = end_address.get(0).getLongitude();
+                    end_y = end_address.get(0).getLatitude();
+                }
 
                 if(startpoint.equals("") || endpoint.equals("")){
                     Toast.makeText(getApplicationContext(), "입력을 다 해주세요", Toast.LENGTH_SHORT).show();
@@ -210,4 +241,6 @@ public class FindRoadActivity extends AppCompatActivity {
         startText.setText("");
         endText.setText("");
     }
+
+
 }

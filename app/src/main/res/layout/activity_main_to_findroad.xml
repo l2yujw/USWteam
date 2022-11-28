@@ -23,7 +23,6 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/round_corner_blue"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -33,9 +32,8 @@
 
                     <TextView
                         android:id="@+id/textView1"
-                        android:layout_width="wrap_content"
+                        android:layout_width="56dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
                         android:layout_gravity="center"
                         android:text="@string/start"
                         android:textColor="@color/black"
@@ -47,16 +45,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_gravity="center"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="5dp"
                         android:layout_weight="1"
                         android:background="#F3F3F3"
                         android:duplicateParentState="false"
                         android:ems="15"
-                        android:gravity="center_vertical"
+                        android:paddingStart="5dp"
                         android:hint=" 출발지를 검색해 주세요."
-                        android:inputType="textPersonName"
-                        android:paddingStart="5dp" />
+                        android:gravity="center_vertical"
+                        android:inputType="textPersonName"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -67,9 +63,8 @@
 
                     <TextView
                         android:id="@+id/textView2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="56dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="5dp"
                         android:text="@string/end"
                         android:textAlignment="textStart"
                         android:textColor="@color/black"
@@ -81,8 +76,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
                         android:layout_weight="1"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginLeft="5dp"
                         android:background="#F3F3F3"
                         android:editable="false"
                         android:ems="15"
@@ -104,7 +97,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="7"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
                     android:orientation="horizontal">
 
                     <RadioButton
@@ -140,12 +132,11 @@
 
                 </RadioGroup>
                 <ImageButton
-                    android:layout_marginTop="5dp"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:src="@drawable/ic_baseline_my_location_24"
-                    android:background="@drawable/round_corner_button"/>
+                    android:background="@color/colorBlueMain"/>
             </LinearLayout>
 
             <Button
@@ -154,41 +145,28 @@
                 android:layout_height="0dp"
                 android:layout_marginVertical="8dp"
                 android:layout_weight="1"
-                android:background="@drawable/round_corner_button"
+                android:background="@drawable/whitebttn"
+                android:backgroundTint="@color/colorBlueMain"
                 android:onClick="onClickedSearch"
-                android:text="길 찾 기"
-                android:textSize="20dp"
+                android:text="길찾기"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <LinearLayout
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabs"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/round_corner_blue"
-            android:layout_margin="5dp"
-            android:orientation="vertical">
-
-            <com.google.android.material.tabs.TabLayout
-                android:id="@+id/tabs"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                app:tabMode="fixed"
-                app:tabGravity="fill"
-                app:tabTextColor="@color/colorAccent"
-                app:tabTextAppearance="@style/tab_text"
-                android:elevation="1dp"
-                />
-
-            <FrameLayout
-                android:id="@+id/container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                />
-
-        </LinearLayout>
-
-
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            app:tabMode="fixed"
+            app:tabGravity="fill"
+            app:tabTextColor="@color/colorAccent"
+            android:elevation="1dp"
+            />
+        <FrameLayout
+            android:id="@+id/container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 
