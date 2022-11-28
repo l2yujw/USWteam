@@ -20,7 +20,6 @@ public class InfD2Adapter extends RecyclerView.Adapter<InfD2Adapter.InfD2ViewHol
         this.infD2List = infD2List;
     }
 
-
     @NonNull
     @Override
     public InfD2ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {

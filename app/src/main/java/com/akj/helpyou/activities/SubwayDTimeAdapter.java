@@ -30,14 +30,11 @@ public class SubwayDTimeAdapter extends RecyclerView.Adapter<SubwayDTimeAdapter.
     @Override
     public void onBindViewHolder(@NonNull TimeViewHolder timeViewHolder, int i) {
         SubwayDTime subwayDTime = subwayDTimeList.get(i);
-        timeViewHolder.startMinute.setText(subwayDTime.getStartMinute());
+        timeViewHolder.startPoint.setText(subwayDTime.getStartPoint());
+        timeViewHolder.endPoint.setText(subwayDTime.getEndPoint());
         timeViewHolder.startTime.setText(subwayDTime.getStartTime());
     }
 
-    public void setSubwayDTimeList(List<SubwayDTime> subwayDTimeList){
-        this.subwayDTimeList = subwayDTimeList;
-        notifyDataSetChanged();
-    }
     @Override
     public int getItemCount() {
         return subwayDTimeList.size();
@@ -45,13 +42,15 @@ public class SubwayDTimeAdapter extends RecyclerView.Adapter<SubwayDTimeAdapter.
 
     class TimeViewHolder extends RecyclerView.ViewHolder {
         TextView startTime;
-        TextView startMinute;
+        TextView startPoint;
+        TextView endPoint;
 
         public TimeViewHolder(@NonNull View itemView) {
             super(itemView);
 
             startTime = itemView.findViewById(R.id.subwayd_starttime);
-            startMinute = itemView.findViewById(R.id.subwayd_startMinute);
+            startPoint = itemView.findViewById(R.id.subwayd_start);
+            endPoint = itemView.findViewById(R.id.subwayd_end);
         }
     }
 
