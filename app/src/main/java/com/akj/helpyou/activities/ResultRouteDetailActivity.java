@@ -290,13 +290,13 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
                     infDList.add(infd);
                 } else {
                     startName[position][i] = endName[position][i - 1];
-                    InfD infd = new InfD("도보  ", startName[position][i] + "  ", endName[position][i] + "  ", walkSectionTime[position][i] + "분  ", " 저상(Y/N) : "+busLow[position][i]+ "   ", " ", buildInfD2List());
+                    InfD infd = new InfD("도보  ", startName[position][i] + "  ", endName[position][i] + "  ", walkSectionTime[position][i] + "분  ", " ", " ", buildInfD2List());
                     infDList.add(infd);
                 }
             }
             if (traffic[position][i] == 2) {  // 버스값만 저장
                 // 이동수단 번호
-                InfD infd = new InfD("버스  ", startName[position][i] + "  ", endName[position][i] + "  ", busSectionTime[position][i] + "분  ", "dd           ", "상세보기 ", buildInfD2List());
+                InfD infd = new InfD("버스  ", startName[position][i] + "  ", endName[position][i] + "  ", busSectionTime[position][i] + "분  ", " 저상(Y/N) : "+busLow[position][i]+ "     ", "상세보기 ", buildInfD2List());
                 infDList.add(infd);
             }
             if (traffic[position][i] == 1) {  // 지하철 값만 저장
