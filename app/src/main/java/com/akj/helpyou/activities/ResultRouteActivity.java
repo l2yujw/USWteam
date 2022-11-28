@@ -91,7 +91,7 @@ public class ResultRouteActivity extends AppCompatActivity {
             endName[j][i] = dataset.getEndBusName(j,i);
             busID[j][i] = dataset.getBusID(j,i);
             busStationCount[j][i] = dataset.getBusStationCount(j,i);
-            busLow[j][i] = dataset.getBusID(j,i);
+            busLow[j][i] = dataset.getBusLow(j,i);
         }
         if(traffic[j][i] == 1) {  // 지하철 값만 저장
             //이동수단 번호

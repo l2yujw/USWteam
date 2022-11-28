@@ -108,7 +108,7 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
             endName[j][i] = dataset.getEndBusName(j, i);
             busID[j][i] = dataset.getBusID(j, i);
             busStationCount[j][i] = dataset.getBusStationCount(j, i);
-            busLow[j][i] = dataset.getBusID(j, i);
+            busLow[j][i] = dataset.getBusLow(j, i);
         }
         if (traffic[j][i] == 1) {  // 지하철 값만 저장
             //이동수단 번호
@@ -290,7 +290,7 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
                     infDList.add(infd);
                 } else {
                     startName[position][i] = endName[position][i - 1];
-                    InfD infd = new InfD("도보  ", startName[position][i] + "  ", endName[position][i] + "  ", walkSectionTime[position][i] + "분  ", "dd ", " ", buildInfD2List());
+                    InfD infd = new InfD("도보  ", startName[position][i] + "  ", endName[position][i] + "  ", walkSectionTime[position][i] + "분  ", " 저상(Y/N) : "+busLow[position][i]+ "   ", " ", buildInfD2List());
                     infDList.add(infd);
                 }
             }
