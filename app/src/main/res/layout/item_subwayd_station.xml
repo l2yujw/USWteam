@@ -6,7 +6,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp">
+        android:layout_margin="8dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -18,8 +18,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
+                android:textColor="@color/Black"
+                android:background="@drawable/round_corner"
                 android:text="1호선"
-                android:textSize="20dp"
+                android:textSize="25dp"
                 android:textStyle="bold" />
 
         </LinearLayout>

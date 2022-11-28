@@ -3,45 +3,49 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 xmlns:app="http://schemas.android.com/apk/res-auto"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content">
+
     <androidx.cardview.widget.CardView
-        android:layout_width="wrap_content"
+        android:layout_width="185dp"
         android:layout_height="wrap_content"
-        android:layout_margin="12dp">
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="3dp">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@drawable/rectangle_frame"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/subwayd_starttime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:text="00:00"
+                android:textColor="@color/Black"
+                android:textSize="16dp"
                 android:textStyle="bold" />
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.3dp"
+                android:background="@color/Black" />
+
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
-                    android:id="@+id/subwayd_start"
+                    android:id="@+id/subwayd_startMinute"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="수원역" />
-                <TextView
-                    android:id="@+id/subwayd_marker"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="->" />
-                <TextView
-                    android:id="@+id/subwayd_end"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="서울역" />
+                    android:layout_margin="5dp"
+                    android:text="35"
+                    android:textColor="@color/Black"
+                    android:textSize="12dp"
+                    android:textStyle="bold" />
+
 
             </LinearLayout>
 
