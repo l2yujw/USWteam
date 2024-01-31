@@ -35,16 +35,16 @@
         </activity>
         <activity android:name=".activities.MainActivity" />
         <activity android:name=".activities.FindRoadActivity" />
-        <activity android:name=".activities.RecentAreaActivity" />
-        <activity android:name=".activities.RecentRouteActivity" />
-        <activity android:name=".activities.RecentBookmarkActivity" />
+        <activity android:name=".activities.recent.RecentAreaActivity" />
+        <activity android:name=".activities.recent.RecentRouteActivity" />
+        <activity android:name=".activities.recent.RecentBookmarkActivity" />
         <activity android:name=".activities.BookmarkActivity" />
         <activity android:name=".activities.SettingActivity" />
-        <activity android:name=".activities.SubwayMapActivity" />
-        <activity android:name=".activities.ResultRouteActivity" />
+        <activity android:name=".activities.subway.SubwayMapActivity" />
+        <activity android:name=".activities.result.ResultRouteActivity" />
         <activity android:name=".activities.search.SearchActivity" />
-        <activity android:name=".activities.ResultRouteDetailActivity" />
-        <activity android:name=".activities.SubwayDetailActivity" />
+        <activity android:name=".activities.result.ResultRouteDetailActivity" />
+        <activity android:name=".activities.subway.SubwayDetailActivity" />
         <activity android:name=".activities.Substitute3dImageActivity" />
 
         <meta-data

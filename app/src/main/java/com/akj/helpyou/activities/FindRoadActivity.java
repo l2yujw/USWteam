@@ -16,18 +16,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.akj.helpyou.R;
-import com.akj.helpyou.activities.FindRoad.DBHelper;
-import com.akj.helpyou.activities.FindRoad.DBHelper2;
-import com.akj.helpyou.activities.FindRoad.ListFragment;
-import com.akj.helpyou.activities.FindRoad.ListFragment2;
-import com.akj.helpyou.activities.FindRoad.ListFragment3;
-import com.akj.helpyou.activities.FindRoad.Time;
-import com.akj.helpyou.activities.Odsay.FindDirection;
+import com.akj.helpyou.activities.findroad.DBHelper;
+import com.akj.helpyou.activities.findroad.DBHelper2;
+import com.akj.helpyou.activities.findroad.ListFragment;
+import com.akj.helpyou.activities.findroad.ListFragment2;
+import com.akj.helpyou.activities.findroad.ListFragment3;
+import com.akj.helpyou.activities.findroad.Time;
+import com.akj.helpyou.activities.odsay.FindDirection;
+import com.akj.helpyou.activities.result.ResultRouteActivity;
+import com.akj.helpyou.activities.result.ResultRouteDetailActivity;
 import com.akj.helpyou.activities.search.SearchActivity;
 import com.google.android.material.tabs.TabLayout;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class FindRoadActivity extends AppCompatActivity {

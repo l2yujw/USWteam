@@ -27,6 +27,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.akj.helpyou.DB.Chargestation;
 import com.akj.helpyou.DB.ChargestationDatabase;
 import com.akj.helpyou.R;
+import com.akj.helpyou.activities.subway.SubwayMapActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
                 if (PointToAddress == null) {
                     Toast.makeText(getApplicationContext(), "다시 한번 눌러주세요", Toast.LENGTH_SHORT).show();
                 } else {
-                    CalltexiDialog dialog = new CalltexiDialog(MainActivity.this);
+                    CalltaxiDialog dialog = new CalltaxiDialog(MainActivity.this);
                     dialog.calltexiAddress = PointToAddress;
                     dialog.show();
                 }
