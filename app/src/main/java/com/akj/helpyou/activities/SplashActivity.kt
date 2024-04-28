@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.akj.helpyou.R
+import com.akj.helpyou.activities.main.MainActivity
 
 class SplashActivity : AppCompatActivity() {
 
@@ -109,7 +110,7 @@ class SplashActivity : AppCompatActivity() {
     }
 
     private fun goToMain() {
-        startActivity(Intent(this,MainActivity::class.java))
+        startActivity(Intent(this, MainActivity::class.java))
         finish()
     }
 

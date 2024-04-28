@@ -1,4 +1,4 @@
-package com.akj.helpyou.DB;
+package com.akj.helpyou.db.chargestation;
 
 import android.content.Context;
 import android.database.Cursor;

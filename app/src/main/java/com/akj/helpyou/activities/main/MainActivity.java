@@ -1,7 +1,9 @@
-package com.akj.helpyou.activities;
+package com.akj.helpyou.activities.main;
+
+import static net.daum.mf.map.api.MapReverseGeoCoder.*;
+import static net.daum.mf.map.api.MapView.*;
 
 import android.Manifest;
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -12,21 +14,22 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import com.akj.helpyou.DB.Chargestation;
-import com.akj.helpyou.DB.ChargestationDatabase;
+import com.akj.helpyou.db.chargestation.ChargeStation;
+import com.akj.helpyou.db.chargestation.ChargeStationDatabase;
 import com.akj.helpyou.R;
+import com.akj.helpyou.activities.BookmarkActivity;
+import com.akj.helpyou.activities.FindRoadActivity;
+import com.akj.helpyou.activities.SettingActivity;
 import com.akj.helpyou.activities.subway.SubwayMapActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
@@ -40,28 +43,22 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-public class MainActivity extends AppCompatActivity implements MapView.CurrentLocationEventListener, MapView.MapViewEventListener, MapView.POIItemEventListener {
+public class MainActivity extends AppCompatActivity implements CurrentLocationEventListener, MapViewEventListener, POIItemEventListener {
 
     private Toolbar toolbar;                                 // 상단 툴바
     private DrawerLayout drawerLayout;                       // 네비게이션 드로우
     private NavigationView navigationView;                   // 네비게이션 드로우
-    private Button btnfindroad;                              // 길찾기 버튼
+    private Button btnFindRoad;                              // 길찾기 버튼
     private static final String LOG_TAG = "MainActivity";
     private MapView mapView;
     private ViewGroup mapViewContainer;
-    private static final int GPS_ENABLE_REQUEST_CODE = 2001;
-    private static final int PERMISSIONS_REQUEST_CODE = 100;
     private LocationManager lm;
-    String[] REQUIRED_PERMISSIONS = {Manifest.permission.ACCESS_FINE_LOCATION};
-    private Location loc_Current;
-    private boolean fab_location_state = true;
-    public double fab_latitude = 0.0;
-    public double fab_longitude = 0.0;
-    public String PointToAddress;
+    private Location locCurrent;
+    private boolean fabLocationState = true;
+    public double fabLatitude = 0.0;
+    public double fabLongitude = 0.0;
+    public String pointToAddress;
 
-
-
-    @SuppressLint("WrongConstant")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,72 +67,18 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
         lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
         //플로팅 액션 버튼 생성
-        FloatingActionButton fab_btn1 = (FloatingActionButton) findViewById(R.id.fab_location);
-        FloatingActionButton fab_btn2 = (FloatingActionButton) findViewById(R.id.fab_elctric_station);
-        FloatingActionButton fab_btn3 = (FloatingActionButton) findViewById(R.id.fab_call);
+        FloatingActionButton fabBtnLocation = (FloatingActionButton) findViewById(R.id.fab_location);
+        FloatingActionButton fabBtnStation = (FloatingActionButton) findViewById(R.id.fab_elctric_station);
+        FloatingActionButton fabBtnCall = (FloatingActionButton) findViewById(R.id.fab_call);
 
 
-        // 현재 위치로 이동 및 표시
-
-        fab_btn1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (fab_location_state) {
-                    mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
-                    fab_location_state = false;
-                } else {
-                    mapView.setCurrentLocationTrackingMode(MapView.CurrentLocationTrackingMode.TrackingModeOff);
-                    fab_location_state = true;
-                }
-
-            }
-
-
-        });
-
-        // 현위치 기준 주변 전동 휠체어 충전소 위치 마크 표시
-        fab_btn2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //api에서 충전소 리스트 불러와서 가까운 순서로 정렬
-                findelectricstation();
-            }
-        });
-
-        fab_btn3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                fab_latitude = loc_Current.getLatitude(); //위도
-                fab_longitude = loc_Current.getLongitude(); //경도
-                MapPoint currentpoint = MapPoint.mapPointWithGeoCoord(fab_latitude, fab_longitude);
-                MapReverseGeoCoder reverseGeoCoder = new MapReverseGeoCoder("b71bf16d2f21ac2a4c5efa68ddd32e3f", currentpoint, new MapReverseGeoCoder.ReverseGeoCodingResultListener() {
-                    @Override
-                    public void onReverseGeoCoderFoundAddress(MapReverseGeoCoder mapReverseGeoCoder, String s) {
-                        PointToAddress = s;
-                    }
-
-                    @Override
-                    public void onReverseGeoCoderFailedToFindAddress(MapReverseGeoCoder mapReverseGeoCoder) {
-                        Toast.makeText(getApplicationContext(),"주소변환 실패", Toast.LENGTH_SHORT).show();
-                    }
-                }, MainActivity.this);
-                reverseGeoCoder.startFindingAddress();
-                reverseGeoCoder.startFindingAddress();
-                if (PointToAddress == null) {
-                    Toast.makeText(getApplicationContext(), "다시 한번 눌러주세요", Toast.LENGTH_SHORT).show();
-                } else {
-                    CalltaxiDialog dialog = new CalltaxiDialog(MainActivity.this);
-                    dialog.calltexiAddress = PointToAddress;
-                    dialog.show();
-                }
-            }
-        });
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Toast.makeText(this, "권한 없음", Toast.LENGTH_SHORT).show();
             return;
         }
-        loc_Current = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
+        locCurrent = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         // 맵뷰 생성
         mapView = new MapView(this);
         mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
@@ -155,98 +98,125 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
         // 툴바 생성 완료 + menu 버튼 생성 + 네비게이션 뷰 생성 완료
 
         // 길찾기 버튼 클릭시
-        btnfindroad = (Button) findViewById(R.id.findRoad);
-        btnfindroad.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), FindRoadActivity.class);
+        btnFindRoad = (Button) findViewById(R.id.findRoad);
+        btnFindRoad.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), FindRoadActivity.class);
 
-                startActivity(intent);
+            startActivity(intent);
+        });
+
+        //현재 위치로 이동 및 표시
+        fabBtnLocation.setOnClickListener(view -> {
+            if (fabLocationState) {
+                mapView.setCurrentLocationTrackingMode(CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
+                fabLocationState = false;
+            } else {
+                mapView.setCurrentLocationTrackingMode(CurrentLocationTrackingMode.TrackingModeOff);
+                fabLocationState = true;
+            }
+        });
+
+        //현위치 기준 주변 전동 휠체어 충전소 위치 마크 표시
+        fabBtnStation.setOnClickListener(view -> {
+            //api에서 충전소 리스트 불러와서 가까운 순서로 정렬
+            findElectricStation();
+        });
+
+        //전화
+        fabBtnCall.setOnClickListener(view -> {
+            fabLatitude = locCurrent.getLatitude(); //위도
+            fabLongitude = locCurrent.getLongitude(); //경도
+            MapPoint currentPoint = MapPoint.mapPointWithGeoCoord(fabLatitude, fabLongitude);
+            MapReverseGeoCoder reverseGeoCoder = new MapReverseGeoCoder("b71bf16d2f21ac2a4c5efa68ddd32e3f", currentPoint, new ReverseGeoCodingResultListener() {
+                @Override
+                public void onReverseGeoCoderFoundAddress(MapReverseGeoCoder mapReverseGeoCoder, String s) {
+                    pointToAddress = s;
+                }
+                @Override
+                public void onReverseGeoCoderFailedToFindAddress(MapReverseGeoCoder mapReverseGeoCoder) {
+                    Toast.makeText(getApplicationContext(),"주소 변환 실패", Toast.LENGTH_SHORT).show();
+                }
+            }, MainActivity.this);
+
+            reverseGeoCoder.startFindingAddress();
+
+            if (pointToAddress == null) {
+                Toast.makeText(getApplicationContext(), "다시 한번 눌러주세요", Toast.LENGTH_SHORT).show();
+            } else {
+                CallTaxiDialog dialog = new CallTaxiDialog(MainActivity.this);
+                dialog.callTaxiAddress = pointToAddress;
+                dialog.show();
             }
         });
 
         // 네비게이션 뷰 안 메뉴 선택시 뜨는 창
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                menuItem.setChecked(true);
-                drawerLayout.closeDrawers();
+        navigationView.setNavigationItemSelectedListener(menuItem -> {
+            menuItem.setChecked(true);
+            drawerLayout.closeDrawers();
 
-                int id = menuItem.getItemId();
-                //메인 홈 선택시 -> 새창으로 안뜨게 하기 + 다른 창에서도 메뉴바 선택할 수 있게 할까?
-                if (id == R.id.item_mainhome) {
-
-                }
-                //즐겨찾기 선택시
-                if (id == R.id.item_bookmark) {
-                    startActivity(new Intent(getApplicationContext(), BookmarkActivity.class));
-                }
-                //지하철 노선도 선택시
-                if (id == R.id.item_subway_map) {
-                    startActivity(new Intent(getApplicationContext(), SubwayMapActivity.class));
-                }
-                //설정 선택시
-                if (id == R.id.item_setting) {
-                    startActivity(new Intent(getApplicationContext(), SettingActivity.class));
-                }
-
-                return true;
+            int id = menuItem.getItemId();
+            //메인 홈 선택시 -> 새창으로 안뜨게 하기 + 다른 창에서도 메뉴바 선택할 수 있게 할까?
+            if (id == R.id.item_mainhome) {
             }
+            //즐겨찾기 선택시
+            if (id == R.id.item_bookmark) {
+                startActivity(new Intent(getApplicationContext(), BookmarkActivity.class));
+            }
+            //지하철 노선도 선택시
+            if (id == R.id.item_subway_map) {
+                startActivity(new Intent(getApplicationContext(), SubwayMapActivity.class));
+            }
+            //설정 선택시
+            if (id == R.id.item_setting) {
+                startActivity(new Intent(getApplicationContext(), SettingActivity.class));
+            }
+
+            return true;
         });
+    }
 
+    private void findElectricStation() {
+        double latitude;
+        double longitude;
 
-    } // onCreate 마지막 줄
+        latitude = locCurrent.getLatitude(); //위도
+        longitude = locCurrent.getLongitude(); //경도
 
+        MapPoint centerPoint = MapPoint.mapPointWithGeoCoord(latitude, longitude);
 
-    private void findelectricstation() {
-        //경기도 소재 데이터는 20년 12월 기준, 서울시 소재 데이터는 22년 10월 기준
-
-        double latitude = 0.0;
-        double longitude = 0.0;
-
-        //double latitude = 37.2103;
-        //double longitude = 126.9758;
-
-        latitude = loc_Current.getLatitude(); //위도
-        longitude = loc_Current.getLongitude(); //경도
-
-        MapPoint centerpoint = MapPoint.mapPointWithGeoCoord(latitude, longitude);
-
-        ChargestationDatabase db = ChargestationDatabase.Companion.getInstance(getApplicationContext());
+        ChargeStationDatabase db = ChargeStationDatabase.Companion.getInstance(getApplicationContext());
 
         double finalLatitude = latitude;
         double finalLongitude = longitude;
 
-        Thread thread = new Thread() {
-            @Override
-            public void run() {
-                Log.d(LOG_TAG, "run: " + finalLatitude + " / " + finalLongitude);
-                List<Chargestation> list = db.ChargestationDao().FindStationin1(finalLatitude, finalLongitude);//근처 리스트 리턴
-                Log.d(LOG_TAG, "run: " + list);
-                if(list.size()==0){
-                    Toast.makeText(getApplicationContext(),"반경 5km내 충전시설 없음",Toast.LENGTH_SHORT).show();
-                }
-                for (int i = 0; i < list.size(); i++) {
-                    MapPoint mappoint = MapPoint.mapPointWithGeoCoord(list.get(i).getLat(),
-                            list.get(i).getLng());
+        addChargeStationBluePin(db, finalLatitude, finalLongitude);
 
-                    MapPOIItem marker = new MapPOIItem();
-                    marker.setItemName(list.get(i).getAddress());
-                    marker.setMapPoint(mappoint);
-                    marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
+        mapView.setMapCenterPointAndZoomLevel(centerPoint, 6, true);
+    }
 
+    private void addChargeStationBluePin(ChargeStationDatabase db, double finalLatitude, double finalLongitude) {
+        Thread thread = new Thread(() -> {
+            Log.d(LOG_TAG, "run: " + finalLatitude + " / " + finalLongitude);
+            List<ChargeStation> chargeStationList = db.chargeStationDao().findStationIn100km(finalLatitude, finalLongitude);
+            Log.d(LOG_TAG, "run: " + chargeStationList);
 
-                    mapView.addPOIItem(marker);
-
-                }
+            if(chargeStationList.size()==0){
+                Toast.makeText(getApplicationContext(),"반경 5km내 충전 시설 없음",Toast.LENGTH_SHORT).show();
             }
-        };
+
+            for (int i = 0; i < chargeStationList.size(); i++) {
+                MapPoint mappoint = MapPoint.mapPointWithGeoCoord(
+                        chargeStationList.get(i).getLat(),
+                        chargeStationList.get(i).getLng());
+                MapPOIItem marker = new MapPOIItem();
+                marker.setItemName(chargeStationList.get(i).getAddress());
+                marker.setMapPoint(mappoint);
+                marker.setMarkerType(MapPOIItem.MarkerType.BluePin);
+
+                mapView.addPOIItem(marker);
+            }
+        });
         thread.start();
-
-
-        mapView.setMapCenterPointAndZoomLevel(centerpoint, 6, true);
-
-
     }
 
     // 메인 화면에서 사이드바의 메뉴 버튼을 클릭했을 때
@@ -318,7 +288,7 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
             return "주소 미발견";
         }
 
-        return addresses.get(0).getAddressLine(0).toString();
+        return addresses.get(0).getAddressLine(0);
     }
 
 
@@ -376,21 +346,19 @@ public class MainActivity extends AppCompatActivity implements MapView.CurrentLo
 
     @Override
     public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem) {
-        //Toast.makeText(getApplicationContext(), "Clicked " + mapPOIItem.getItemName() + " Callout Balloon", Toast.LENGTH_SHORT).show();
         if (ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
             return;
         }
         Location location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
         double latitude = location.getLatitude(); // 경도
         double longitude = location.getLongitude(); // 위도
-        String startpoint = getCurrentAddress(latitude, longitude);
-        startpoint = startpoint.split("대한민국 ")[1];
+        String startPoint = getCurrentAddress(latitude, longitude);
+        startPoint = startPoint.split("대한민국 ")[1];
         String endpoint = mapPOIItem.getItemName();
 
         Intent intent = new Intent(MainActivity.this, FindRoadActivity.class);
-        intent.putExtra("startPoint", startpoint);
+        intent.putExtra("startPoint", startPoint);
         intent.putExtra("endPoint", endpoint);
         startActivity(intent);
 

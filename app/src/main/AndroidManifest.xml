@@ -33,7 +33,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MainActivity" />
+        <activity android:name=".activities.main.MainActivity" />
         <activity android:name=".activities.FindRoadActivity" />
         <activity android:name=".activities.recent.RecentAreaActivity" />
         <activity android:name=".activities.recent.RecentRouteActivity" />
