@@ -64,13 +64,6 @@ public class MainActivity extends AppCompatActivity implements CurrentLocationEv
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-        //플로팅 액션 버튼 생성
-        FloatingActionButton fabBtnLocation = (FloatingActionButton) findViewById(R.id.fab_location);
-        FloatingActionButton fabBtnStation = (FloatingActionButton) findViewById(R.id.fab_elctric_station);
-        FloatingActionButton fabBtnCall = (FloatingActionButton) findViewById(R.id.fab_call);
-
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -78,13 +71,11 @@ public class MainActivity extends AppCompatActivity implements CurrentLocationEv
             return;
         }
 
+        lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locCurrent = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+
         // 맵뷰 생성
-        mapView = new MapView(this);
-        mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
-        mapViewContainer.addView(mapView);
-        mapView.setMapViewEventListener(this);
-        mapView.setPOIItemEventListener(this);
+        createMapView();
 
         // 툴바 생성
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -98,14 +89,40 @@ public class MainActivity extends AppCompatActivity implements CurrentLocationEv
         // 툴바 생성 완료 + menu 버튼 생성 + 네비게이션 뷰 생성 완료
 
         // 길찾기 버튼 클릭시
+        findRoadButton();
+
+        //현재 위치로 이동 및 표시
+        currentLocationButton();
+
+        //현위치 기준 주변 전동 휠체어 충전소 위치 마크 표시
+        electricStationButton();
+
+        //전화
+        supportCallButton();
+
+        // 네비게이션 뷰 안 메뉴 선택시 뜨는 창
+        createMenuNavigation();
+    }
+
+    private void createMapView() {
+        mapView = new MapView(this);
+        mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
+        mapViewContainer.addView(mapView);
+        mapView.setMapViewEventListener(this);
+        mapView.setPOIItemEventListener(this);
+    }
+
+    private void findRoadButton() {
         btnFindRoad = (Button) findViewById(R.id.findRoad);
         btnFindRoad.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), FindRoadActivity.class);
 
             startActivity(intent);
         });
+    }
 
-        //현재 위치로 이동 및 표시
+    private void currentLocationButton() {
+        FloatingActionButton fabBtnLocation = (FloatingActionButton) findViewById(R.id.fab_location);
         fabBtnLocation.setOnClickListener(view -> {
             if (fabLocationState) {
                 mapView.setCurrentLocationTrackingMode(CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
@@ -115,14 +132,18 @@ public class MainActivity extends AppCompatActivity implements CurrentLocationEv
                 fabLocationState = true;
             }
         });
+    }
 
-        //현위치 기준 주변 전동 휠체어 충전소 위치 마크 표시
+    private void electricStationButton() {
+        FloatingActionButton fabBtnStation = (FloatingActionButton) findViewById(R.id.fab_elctric_station);
         fabBtnStation.setOnClickListener(view -> {
             //api에서 충전소 리스트 불러와서 가까운 순서로 정렬
             findElectricStation();
         });
+    }
 
-        //전화
+    private void supportCallButton() {
+        FloatingActionButton fabBtnCall = (FloatingActionButton) findViewById(R.id.fab_call);
         fabBtnCall.setOnClickListener(view -> {
             fabLatitude = locCurrent.getLatitude(); //위도
             fabLongitude = locCurrent.getLongitude(); //경도
@@ -148,8 +169,9 @@ public class MainActivity extends AppCompatActivity implements CurrentLocationEv
                 dialog.show();
             }
         });
+    }
 
-        // 네비게이션 뷰 안 메뉴 선택시 뜨는 창
+    private void createMenuNavigation() {
         navigationView.setNavigationItemSelectedListener(menuItem -> {
             menuItem.setChecked(true);
             drawerLayout.closeDrawers();
@@ -366,7 +388,6 @@ public class MainActivity extends AppCompatActivity implements CurrentLocationEv
 
     @Override
     public void onCalloutBalloonOfPOIItemTouched(MapView mapView, MapPOIItem mapPOIItem, MapPOIItem.CalloutBalloonButtonType calloutBalloonButtonType) {
-
     }
 
     @Override
