@@ -34,7 +34,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.main.MainActivity" />
-        <activity android:name=".activities.FindRoadActivity" />
+        <activity android:name=".activities.findroad.FindRoadActivity" />
         <activity android:name=".activities.recent.RecentAreaActivity" />
         <activity android:name=".activities.recent.RecentRouteActivity" />
         <activity android:name=".activities.recent.RecentBookmarkActivity" />

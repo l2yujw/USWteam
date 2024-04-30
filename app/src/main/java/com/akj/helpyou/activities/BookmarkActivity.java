@@ -25,7 +25,7 @@ public class BookmarkActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_bookmark);
 
-        tabs = findViewById(R.id.tabs);
+        tabs = findViewById(R.id.tablayout_findroad);
         tabs.addTab(tabs.newTab().setText("장소"));
         tabs.addTab(tabs.newTab().setText("버스"));
         tabs.addTab(tabs.newTab().setText("경로"));

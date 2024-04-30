@@ -28,7 +28,7 @@ import com.akj.helpyou.db.chargestation.ChargeStation;
 import com.akj.helpyou.db.chargestation.ChargeStationDatabase;
 import com.akj.helpyou.R;
 import com.akj.helpyou.activities.BookmarkActivity;
-import com.akj.helpyou.activities.FindRoadActivity;
+import com.akj.helpyou.activities.findroad.FindRoadActivity;
 import com.akj.helpyou.activities.SettingActivity;
 import com.akj.helpyou.activities.subway.SubwayMapActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -78,14 +78,14 @@ public class MainActivity extends AppCompatActivity implements CurrentLocationEv
         createMapView();
 
         // 툴바 생성
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 왼쪽 상단 버튼 만들기
         getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_navigation_common_menu); //왼쪽 상단 버튼 아이콘 지정
 
-        drawerLayout = (DrawerLayout) findViewById(R.id.drawerLayout);
-        navigationView = (NavigationView) findViewById(R.id.navigationView);
+        drawerLayout = findViewById(R.id.drawerlayout_main);
+        navigationView = findViewById(R.id.navigationview_main);
         // 툴바 생성 완료 + menu 버튼 생성 + 네비게이션 뷰 생성 완료
 
         // 길찾기 버튼 클릭시
@@ -106,14 +106,14 @@ public class MainActivity extends AppCompatActivity implements CurrentLocationEv
 
     private void createMapView() {
         mapView = new MapView(this);
-        mapViewContainer = (ViewGroup) findViewById(R.id.map_view);
+        mapViewContainer = findViewById(R.id.framelayout_main_mapview);
         mapViewContainer.addView(mapView);
         mapView.setMapViewEventListener(this);
         mapView.setPOIItemEventListener(this);
     }
 
     private void findRoadButton() {
-        btnFindRoad = (Button) findViewById(R.id.findRoad);
+        btnFindRoad = findViewById(R.id.btn_main_findRoad);
         btnFindRoad.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), FindRoadActivity.class);
 
@@ -122,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements CurrentLocationEv
     }
 
     private void currentLocationButton() {
-        FloatingActionButton fabBtnLocation = (FloatingActionButton) findViewById(R.id.fab_location);
+        FloatingActionButton fabBtnLocation = findViewById(R.id.fab_main_location);
         fabBtnLocation.setOnClickListener(view -> {
             if (fabLocationState) {
                 mapView.setCurrentLocationTrackingMode(CurrentLocationTrackingMode.TrackingModeOnWithoutHeading);
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements CurrentLocationEv
     }
 
     private void electricStationButton() {
-        FloatingActionButton fabBtnStation = (FloatingActionButton) findViewById(R.id.fab_elctric_station);
+        FloatingActionButton fabBtnStation = findViewById(R.id.fab_main_electricstation);
         fabBtnStation.setOnClickListener(view -> {
             //api에서 충전소 리스트 불러와서 가까운 순서로 정렬
             findElectricStation();
@@ -143,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements CurrentLocationEv
     }
 
     private void supportCallButton() {
-        FloatingActionButton fabBtnCall = (FloatingActionButton) findViewById(R.id.fab_call);
+        FloatingActionButton fabBtnCall = findViewById(R.id.fab_main_call);
         fabBtnCall.setOnClickListener(view -> {
             fabLatitude = locCurrent.getLatitude(); //위도
             fabLongitude = locCurrent.getLongitude(); //경도

@@ -1,4 +1,4 @@
-package com.akj.helpyou.activities.findroad;
+package com.akj.helpyou.activities.findroad.fragment;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -7,36 +7,38 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.akj.helpyou.R;
+import com.akj.helpyou.db.search.RecentDatabase;
+import com.akj.helpyou.activities.findroad.adapter.Recent;
+import com.akj.helpyou.activities.findroad.adapter.RecentAdapter;
 
-public class ListFragment2 extends Fragment {
+public class FindRoadRecentFragment extends Fragment {
 
     RecyclerView recyclerView;
-    private AreaAdapter adapter;
+    private RecentAdapter adapter;
 
     TextView area;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_list2, container, false);
+        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_findroad_recent, container, false);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
-        recyclerView = rootView.findViewById(R.id.recyclerView2);
+        recyclerView = rootView.findViewById(R.id.rv_findroad_recent);
 
         recyclerView.setLayoutManager(layoutManager);
 
-        adapter = new AreaAdapter();
+        adapter = new RecentAdapter();
         recyclerView.setAdapter(adapter);
 
-        area = rootView.findViewById(R.id.startpoint2);
+        area = rootView.findViewById(R.id.tv_findroad_recent_start);
 
         getRouteList();
 
@@ -44,29 +46,20 @@ public class ListFragment2 extends Fragment {
     }
 
     private void getRouteList(){
-        println("<<< getRouteList() >>>");
-
         adapter.removeAllItem();
 
-        final DBHelper2 dbHelper2 = new DBHelper2(getActivity().getApplicationContext(), "USER_INFO2.db", null, 1);
+        final RecentDatabase recentDb = new RecentDatabase(getActivity().getApplicationContext(), "recent.db", null, 1);
 
-        Cursor cursor = dbHelper2.getRouteList();
-
-        int count = 0;
+        Cursor cursor = recentDb.getRouteList();
 
         while (cursor.moveToNext()){
-            Area vo = new Area();
+            Recent vo = new Recent();
             vo.setArea(cursor.getString(0));
-            vo.setTimestamp(cursor.getString(1));
+            vo.setTimeStamp(cursor.getString(1));
             adapter.addItem(vo);
-            count++;
         }
 
         adapter.notifyDataSetChanged();
-        println(""+adapter.getItemCount());
     }
 
-    public void println(String msg){
-        Log.d("listFragment2", msg);
-    }
 }

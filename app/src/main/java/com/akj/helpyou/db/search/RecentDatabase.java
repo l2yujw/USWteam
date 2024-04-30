@@ -1,4 +1,4 @@
-package com.akj.helpyou.activities.findroad;
+package com.akj.helpyou.db.search;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -7,16 +7,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
-public class DBHelper2 extends SQLiteOpenHelper {
+public class RecentDatabase extends SQLiteOpenHelper {
 
-
-    public DBHelper2(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
+    public RecentDatabase(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("CREATE TABLE USER_INFO2 (_num INTEGER PRIMARY KEY AUTOINCREMENT, area TEXT, timestamp TEXT );");
+        db.execSQL("CREATE TABLE RECENT (_num INTEGER PRIMARY KEY AUTOINCREMENT, area TEXT, timeStamp TEXT );");
     }
 
     @Override
@@ -24,24 +23,23 @@ public class DBHelper2 extends SQLiteOpenHelper {
 
     }
 
-    public void insert(String area, String timestamp){
+    public void insert(String area, String timeStamp){
         SQLiteDatabase db = getWritableDatabase();
-        db.execSQL("INSERT INTO USER_INFO2 VALUES(null, '" + area + "', '" + timestamp + "');");
+        db.execSQL("INSERT INTO RECENT VALUES(null, '" + area + "', '" + timeStamp + "');");
         db.close();
     }
 
     public void delete(String area){
         SQLiteDatabase db = getWritableDatabase();
 
-        db.execSQL("DELETE FROM USER_INFO2 WHERE area='" + area + "';");
+        db.execSQL("DELETE FROM RECENT WHERE area='" + area + "';");
         db.close();
     }
 
     public Cursor getRouteList(){
         SQLiteDatabase db = getReadableDatabase();
-        String result = "";
 
-        Cursor cursor = db.rawQuery("SELECT area, timestamp FROM USER_INFO2 ORDER BY timestamp", null);
+        Cursor cursor = db.rawQuery("SELECT area, timeStamp FROM RECENT ORDER BY timeStamp", null);
         return cursor;
     }
 }

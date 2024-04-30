@@ -7,7 +7,7 @@
     >
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
+        android:id="@+id/cv_findroad_recent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
@@ -29,7 +29,7 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/startpoint2"
+                    android:id="@+id/tv_findroad_recent_start"
                     android:layout_width="325dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
@@ -41,7 +41,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/when2"
+                    android:id="@+id/tv_findroad_recent_date"
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -55,7 +55,7 @@
 
 
                 <ImageButton
-                    android:id="@+id/delete_search_btn_r2"
+                    android:id="@+id/IBtn_findroad_recent"
                     android:layout_marginTop="5dp"
                     android:layout_width="20dp"
                     android:layout_height="20dp"
@@ -72,8 +72,6 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-
 
 </LinearLayout>
 

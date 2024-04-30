@@ -1,4 +1,4 @@
-package com.akj.helpyou.activities.findroad;
+package com.akj.helpyou.activities.findroad.fragment;
 
 import android.os.Bundle;
 
@@ -12,13 +12,13 @@ import com.akj.helpyou.R;
 
 
 
-public class ListFragment3 extends Fragment {
+public class FindRoadStarFragment extends Fragment {
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_list3, container, false);
+        return inflater.inflate(R.layout.fragment_findroad_star, container, false);
     }
 }

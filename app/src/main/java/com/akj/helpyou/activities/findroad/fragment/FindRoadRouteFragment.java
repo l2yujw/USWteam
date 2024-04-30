@@ -1,4 +1,4 @@
-package com.akj.helpyou.activities.findroad;
+package com.akj.helpyou.activities.findroad.fragment;
 
 import android.database.Cursor;
 import android.os.Bundle;
@@ -14,30 +14,30 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.akj.helpyou.R;
+import com.akj.helpyou.db.search.RouteDatabase;
+import com.akj.helpyou.activities.findroad.adapter.Route;
+import com.akj.helpyou.activities.findroad.adapter.RouteAdapter;
 
 
-public class ListFragment extends Fragment {
+public class FindRoadRouteFragment extends Fragment {
 
     RecyclerView recyclerView;
     private RouteAdapter adapter;
+    TextView tvStart;
 
-    TextView startpoint;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_list, container, false);
 
+        ViewGroup rootView = (ViewGroup) inflater.inflate(R.layout.fragment_findroad_route, container, false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
 
-        recyclerView = rootView.findViewById(R.id.recyclerView1);
-
+        recyclerView = rootView.findViewById(R.id.rv_findroad_route);
         recyclerView.setLayoutManager(layoutManager);
 
         adapter = new RouteAdapter();
         recyclerView.setAdapter(adapter);
-
-        startpoint = rootView.findViewById(R.id.startpoint);
+        tvStart = rootView.findViewById(R.id.tv_findroad_route_start);
 
         getRouteList();
 
@@ -45,30 +45,18 @@ public class ListFragment extends Fragment {
     }
 
     private void getRouteList(){
-        println("<<< ge tRouteList() >>>");
-
         adapter.removeAllItem();
 
-        final DBHelper dbHelper = new DBHelper(getActivity().getApplicationContext(), "USER_INFO.db", null, 1);
+        final RouteDatabase routeDb = new RouteDatabase(getActivity().getApplicationContext(), "route.db", null, 1);
+        Cursor cursor = routeDb.getRouteList();
 
-        Cursor cursor = dbHelper.getRouteList();
-
-        int count = 0;
-
-        while (cursor.moveToNext()){
+        while (cursor.moveToNext()) {
             Route vo = new Route();
-            vo.setStartpoint(cursor.getString(0));
-            vo.setEndpoint(cursor.getString(1));
-            vo.setTimestamp(cursor.getString(2));
+            vo.setStart(cursor.getString(0));
+            vo.setEnd(cursor.getString(1));
+            vo.setTimeStamp(cursor.getString(2));
             adapter.addItem(vo);
-            count++;
         }
-
         adapter.notifyDataSetChanged();
-        println(""+adapter.getItemCount());
-    }
-
-    public void println(String msg){
-        Log.d("listFragment", msg);
     }
 }
