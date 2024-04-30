@@ -170,12 +170,10 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
         double start_y = 127.026027;
         MapPoint centerpoint = MapPoint.mapPointWithGeoCoord(start_x, start_y);
 
-
         mapView = new MapView(this);
         mapViewContainer = findViewById(R.id.detailMap);
         mapViewContainer.addView(mapView);
         mapView.setMapCenterPointAndZoomLevel(centerpoint, 4, true);
-
 
         mapDraw(detailMapxy, detailMtype, detailMcount);
 
@@ -184,12 +182,6 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
         InfDAdapter infDAdapter = new InfDAdapter(buildInfDList());
         rvInfd.setAdapter(infDAdapter);
         rvInfd.setLayoutManager(layoutManager);
-        //resj에 고정 포지션값 받아오기
-        //출발지 도착지에 값 입력
-        //지도연결
-        //슬라이드바에 상세 정보 표시
-        //도보 버스 지하철 이런식으로
-        //리사이클러 뷰로 하나만 필요
     }
 
     private void mapDraw(double[][] detailMapxy, int[] detailMtype, int[] detailMcount) {

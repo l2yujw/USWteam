@@ -66,6 +66,32 @@ public class FindRoadActivity extends AppCompatActivity {
         searchDestination(tvEnd, "도착지", endRequestCode);
 
         // 길찾기 버튼을 누르면 경로를 탐색한다. -> 경로를 알려주는 layout + 대중교통 알림 layout추가
+        setTabLayout();
+
+        routeDb = new RouteDatabase(getApplicationContext(), "route.db", null, 1);
+        recentDb = new RecentDatabase(getApplicationContext(), "recent.db", null, 1);
+
+        findRoadButton();
+
+        //MainActivity에서 마커로 눌러서 와졌을때
+        if(getIntent().hasExtra("startPoint") && getIntent().hasExtra("endPoint")){
+            tvStart.setText(getIntent().getStringExtra("startPoint"));
+            tvEnd.setText(getIntent().getStringExtra("endPoint"));
+
+        }
+    }
+
+    private void searchDestination(TextView tvStart, String destination, int startRequestCode) {
+        tvStart.setOnClickListener(
+                view -> {
+                    Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
+                    intent.putExtra("textView1", destination);
+                    startActivityForResult(intent, startRequestCode);
+                }
+        );
+    }
+
+    private void setTabLayout() {
         recentFragment = new FindRoadRecentFragment();
         routeFragment = new FindRoadRouteFragment();
         starFragment = new FindRoadStarFragment();
@@ -93,7 +119,6 @@ public class FindRoadActivity extends AppCompatActivity {
                 else if(position ==2){
                     selected = starFragment;
                 }
-
                 getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_findroad_container, selected).commit();
             }
 
@@ -106,10 +131,10 @@ public class FindRoadActivity extends AppCompatActivity {
         });
 
         tabs.selectTab(tabs.getTabAt(1));
+    }
 
-        routeDb = new RouteDatabase(getApplicationContext(), "route.db", null, 1);
-        recentDb = new RecentDatabase(getApplicationContext(), "recent.db", null, 1);
-
+    // TODO: FindDirection 정리
+    private void findRoadButton() {
         btnFindRoad = findViewById(R.id.btn_findroad_search);
         btnFindRoad.setOnClickListener(view -> {
             String startPoint = tvStart.getText().toString();
@@ -171,25 +196,7 @@ public class FindRoadActivity extends AppCompatActivity {
 
             }
         });
-
-        //MainActivity에서 마커로 눌러서 와졌을때
-        if(getIntent().hasExtra("startPoint") && getIntent().hasExtra("endPoint")){
-            tvStart.setText(getIntent().getStringExtra("startPoint"));
-            tvEnd.setText(getIntent().getStringExtra("endPoint"));
-
-        }
     }
-
-    private void searchDestination(TextView tvStart, String 출발지, int startRequestCode) {
-        tvStart.setOnClickListener( //출발지 EditText버튼 클릭시
-                view -> {
-                    Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                    intent.putExtra("textView1", 출발지);
-                    startActivityForResult(intent, startRequestCode);
-                }
-        );
-    }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -212,10 +219,5 @@ public class FindRoadActivity extends AppCompatActivity {
             endY = data.getExtras().getDouble("returnValue_y");
         }
 
-    }
-
-    public void reset(){
-        tvStart.setText("");
-        tvEnd.setText("");
     }
 }

@@ -3,16 +3,15 @@ package com.akj.helpyou.activities.result;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.akj.helpyou.R;
-import com.akj.helpyou.activities.Inf.Inf;
-import com.akj.helpyou.activities.Inf.Inf2;
-import com.akj.helpyou.activities.Inf.InfAdapter;
+import com.akj.helpyou.activities.result.adapter.ResultRoute;
+import com.akj.helpyou.activities.result.adapter.ResultRouteInner;
+import com.akj.helpyou.activities.result.adapter.ResultRouteAdapter;
 import com.akj.helpyou.activities.findroad.Time;
 import com.akj.helpyou.activities.odsay.DataKeyword;
 import com.akj.helpyou.activities.odsay.Dataset;
@@ -63,7 +62,6 @@ public class ResultRouteActivity extends AppCompatActivity {
 
     public static void resdata (ArrayList<DataKeyword> data, int j, int i, int k, int trafficType){
         Dataset dataset = new Dataset(data, j, i, k, trafficType);
-
 
         if(i==0) {
             totalFee[j][0] = dataset.gettotalFee(j,i);
@@ -127,78 +125,73 @@ public class ResultRouteActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result_road);
+        setContentView(R.layout.activity_result_route);
 
-        RecyclerView rvInf = findViewById(R.id.recyclerView_inf);
+        RecyclerView rvInf = findViewById(R.id.rv_result_route_external);
         LinearLayoutManager layoutManager = new LinearLayoutManager(ResultRouteActivity.this);
-        InfAdapter infAdapter = new InfAdapter(buildInfList());
-        infAdapter.setOnItemClickListener(new InfAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(View v, int position) {
+        ResultRouteAdapter routeAdapter = new ResultRouteAdapter(buildRouteList());
 
-                ResultRouteDetailActivity.MapData(Mapxy[position], Mtype[position], MCount[position]);
-                //MapLine(Mapxy[position], Mtype[position], MCount[position]); 받을때 Mapxy[][], type[], count[] 이렇게 받으면됌
-                // mapxy, type은 저번에 메모장에 적은 그대로 하면 되고 count의 경우 x,y좌표 길이임. count[] < 인덱스도 type이랑 mapxy[] <이랑 같음
+        routeAdapter.setOnItemClickListener((v, position) -> {
+            ResultRouteDetailActivity.MapData(Mapxy[position], Mtype[position], MCount[position]);
+            //MapLine(Mapxy[position], Mtype[position], MCount[position]); 받을때 Mapxy[][], type[], count[] 이렇게 받으면됌
+            // mapxy, type은 저번에 메모장에 적은 그대로 하면 되고 count의 경우 x,y좌표 길이임. count[] < 인덱스도 type이랑 mapxy[] <이랑 같음
 
-                Intent intent = new Intent(getApplicationContext(), ResultRouteDetailActivity.class);
-                //눌린 포지션 전송
-                intent.putExtra("position", position);
-                intent.putExtra("startRoute", startRoute);
-                intent.putExtra("endRoute", endRoute);
-                Log.d("posss"," "+position);
-                startActivity(intent);
-            }
+            Intent intent = new Intent(getApplicationContext(), ResultRouteDetailActivity.class);
+            intent.putExtra("position", position);
+            intent.putExtra("startRoute", startRoute);
+            intent.putExtra("endRoute", endRoute);
+            startActivity(intent);
         });
-        rvInf.setAdapter(infAdapter);
+
+        rvInf.setAdapter(routeAdapter);
         rvInf.setLayoutManager(layoutManager);
 
     }//adapter 클릭시 detail로 이동 필요 값들을 미리 넣어줌
 
-    private List<Inf> buildInfList() {
-        String today = null;
-        String[][] resultTime = new String[5][1];
+    private List<ResultRoute> buildRouteList() {
+        String today;
         Date date = new Date();
         SimpleDateFormat sdformat = new SimpleDateFormat("hh:mm");
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        List<Inf> infList = new ArrayList<>();
+        List<ResultRoute> infList = new ArrayList<>();
         for (int j=0; j<resj; j++) {
             cal.add(Calendar.MINUTE, totalTime[j][0]);
             today = sdformat.format(cal.getTime());
-            Inf inf = new Inf( Integer.toString(totalTime[j][0]), today, totalFee[j][0], buildInf2List());
+            ResultRoute inf = new ResultRoute( Integer.toString(totalTime[j][0]), today, totalFee[j][0], buildInf2List());
             infList.add(inf);
         }
         return infList;
     }//dddd
 
-    private List<Inf2> buildInf2List() {
+    private List<ResultRouteInner> buildInf2List() {
         Intent intent = getIntent();
         startRoute = intent.getStringExtra("startText1");
         endRoute = intent.getStringExtra("endText1");
         Log.d("www"," " + startRoute);
-        List<Inf2> inf2List = new ArrayList<>();
+        List<ResultRouteInner> inf2List = new ArrayList<>();
 
         for (int i=0; i<resi[resjj]+1; i++) {
             if(traffic[resjj][i] == 3) {  // 도보값만 저장
                 // 검색출발지
                 if(i == 0){
-                    Inf2 inf2 = new Inf2("도보", startRoute, R.drawable.ic_outline_directions_walk_24);
+                    ResultRouteInner inf2 = new ResultRouteInner("도보", startRoute, R.drawable.ic_outline_directions_walk_24);
                     inf2List.add(inf2);
                 }
                 else{
                     startName[resjj][i] = endName[resjj][i-1];
-                    Inf2 inf2 = new Inf2("도보", startName[resjj][i],R.drawable.ic_outline_directions_walk_24);
+                    ResultRouteInner inf2 = new ResultRouteInner("도보", startName[resjj][i],R.drawable.ic_outline_directions_walk_24);
                     inf2List.add(inf2);
                 }
             }
             if(traffic[resjj][i] == 2) {  // 버스값만 저장
                 // 이동수단 번호
-                Inf2 inf2 = new Inf2(trafficNum[resjj][i], startName[resjj][i], R.drawable.ic_outline_directions_bus_24);
+                ResultRouteInner inf2 = new ResultRouteInner(trafficNum[resjj][i], startName[resjj][i], R.drawable.ic_outline_directions_bus_24);
                 inf2List.add(inf2);
             }
             if(traffic[resjj][i] == 1) {  // 지하철 값만 저장
                 //이동수단 번호
-                Inf2 inf2 = new Inf2(trafficNum[resjj][i], startName[resjj][i], R.drawable.ic_outline_subway_24);
+                ResultRouteInner inf2 = new ResultRouteInner(trafficNum[resjj][i], startName[resjj][i], R.drawable.ic_outline_subway_24);
                 inf2List.add(inf2);
             }
         }

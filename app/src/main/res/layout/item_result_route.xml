@@ -24,7 +24,7 @@
                 android:layout_margin="12dp">
 
                 <TextView
-                    android:id="@+id/inf_duration_time"
+                    android:id="@+id/tv_result_route_total"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="31"
@@ -32,49 +32,44 @@
                     android:textSize="25sp" />
 
                 <TextView
-                    android:id="@+id/inf_minute"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/Black"
                     android:text="분" />
 
                 <TextView
-                    android:id="@+id/inf_div"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/Black"
                     android:text=" | " />
 
                 <TextView
-                    android:id="@+id/inf_result_time"
+                    android:id="@+id/tv_result_route_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/Black"
                     android:text="18:09" />
 
                 <TextView
-                    android:id="@+id/inf_arr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/Black"
                     android:text=" 도착" />
 
                 <TextView
-                    android:id="@+id/inf_div2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/Black"
                     android:text=" | " />
 
                 <TextView
-                    android:id="@+id/inf_cost"
+                    android:id="@+id/tv_result_route_cost"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/Black"
                     android:text="1450" />
 
                 <TextView
-                    android:id="@+id/inf_won"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/Black"
@@ -86,7 +81,7 @@
                 android:layout_height="1dp"
                 android:background="#000000" />
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView_inf2"
+                android:id="@+id/rv_result_route"
                 android:layout_marginTop="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

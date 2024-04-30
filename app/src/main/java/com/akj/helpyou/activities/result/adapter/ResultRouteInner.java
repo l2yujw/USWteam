@@ -1,11 +1,11 @@
-package com.akj.helpyou.activities.Inf;
+package com.akj.helpyou.activities.result.adapter;
 
-public class Inf2 {
+public class ResultRouteInner {
     int img;
     String vhnum;
     String startpoint;
 
-    public Inf2(String vhnum, String startpoint, int img) {
+    public ResultRouteInner(String vhnum, String startpoint, int img) {
         this.vhnum = vhnum;
         this.startpoint = startpoint;
         this.img = img;

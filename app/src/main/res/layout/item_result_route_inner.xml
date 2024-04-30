@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
@@ -20,7 +19,7 @@
                 android:background="@drawable/rectangle_frame">
 
                 <ImageView
-                    android:id="@+id/inf2_img"
+                    android:id="@+id/iv_result_route_inner"
                     android:layout_width="60dp"
                     android:layout_height="60dp"/>
                 <LinearLayout
@@ -29,7 +28,7 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/inf2_vhnum"
+                        android:id="@+id/tv_result_route_inner_vehicle"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -39,7 +38,7 @@
                         android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/inf2_startpoint"
+                        android:id="@+id/tv_result_route_inner_start"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
@@ -52,7 +51,6 @@
             </LinearLayout>
 
             <TextView
-                android:id="@+id/inf2_line"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:text="─"
