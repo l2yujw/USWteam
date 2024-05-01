@@ -16,7 +16,7 @@ import java.util.List;
 public class ResultRouteAdapter extends RecyclerView.Adapter<ResultRouteAdapter.ResultRouteViewHolder> {
 
     private RecyclerView.RecycledViewPool viewPool = new RecyclerView.RecycledViewPool();
-    private List<ResultRoute> resultRouteList;
+    private List<ResultRoute> routeList;
 
     private OnItemClickListener mListener = null ;
 
@@ -30,7 +30,7 @@ public class ResultRouteAdapter extends RecyclerView.Adapter<ResultRouteAdapter.
     }
 
     public ResultRouteAdapter(List<ResultRoute> infList){
-        this.resultRouteList = infList;
+        this.routeList = infList;
     }
 
     @NonNull
@@ -42,7 +42,7 @@ public class ResultRouteAdapter extends RecyclerView.Adapter<ResultRouteAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull ResultRouteViewHolder viewHolder, int i) {
-        ResultRoute resultRoute = resultRouteList.get(i);
+        ResultRoute resultRoute = routeList.get(i);
         viewHolder.tvTotal.setText(resultRoute.getTotal());
         viewHolder.tvTime.setText(resultRoute.getTime());
         viewHolder.tvCost.setText(resultRoute.getCost());
@@ -65,7 +65,7 @@ public class ResultRouteAdapter extends RecyclerView.Adapter<ResultRouteAdapter.
 
     @Override
     public int getItemCount() {
-        return resultRouteList.size();
+        return routeList.size();
     }
 
     class ResultRouteViewHolder extends RecyclerView.ViewHolder{

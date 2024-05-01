@@ -15,10 +15,10 @@ import java.util.List;
 
 public class ResultRouteInnerAdapter extends RecyclerView.Adapter<ResultRouteInnerAdapter.ResultRouteInnerViewHolder> {
 
-    private List<ResultRouteInner> resultRouteInnerList;
+    private List<ResultRouteInner> routeInnerList;
 
     ResultRouteInnerAdapter(List<ResultRouteInner> resultRouteInnerList){
-        this.resultRouteInnerList = resultRouteInnerList;
+        this.routeInnerList = resultRouteInnerList;
     }
 
     @NonNull
@@ -30,16 +30,16 @@ public class ResultRouteInnerAdapter extends RecyclerView.Adapter<ResultRouteInn
 
     @Override
     public void onBindViewHolder(@NonNull ResultRouteInnerViewHolder viewHolder, int i) {
-        ResultRouteInner inf2 = resultRouteInnerList.get(i);
-        viewHolder.iv.setImageResource(inf2.getImg());
-        viewHolder.tvVehicle.setText(inf2.getVhnum());
-        viewHolder.tvStart.setText(inf2.getStartpoint());
+        ResultRouteInner routeInner = routeInnerList.get(i);
+        viewHolder.iv.setImageResource(routeInner.getImg());
+        viewHolder.tvVehicle.setText(routeInner.getVehicle());
+        viewHolder.tvStart.setText(routeInner.getStartPoint());
 
     }
 
     @Override
     public int getItemCount() {
-        return resultRouteInnerList.size();
+        return routeInnerList.size();
     }
 
     class ResultRouteInnerViewHolder extends RecyclerView.ViewHolder{

@@ -127,11 +127,73 @@ public class ResultRouteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_route);
 
-        RecyclerView rvInf = findViewById(R.id.rv_result_route_external);
+        RecyclerView rv = findViewById(R.id.rv_result_route_external);
         LinearLayoutManager layoutManager = new LinearLayoutManager(ResultRouteActivity.this);
-        ResultRouteAdapter routeAdapter = new ResultRouteAdapter(buildRouteList());
+        ResultRouteAdapter adapter = new ResultRouteAdapter(buildRouteList());
 
-        routeAdapter.setOnItemClickListener((v, position) -> {
+        adapterClick(adapter);
+
+        rv.setAdapter(adapter);
+        rv.setLayoutManager(layoutManager);
+
+    }//adapter 클릭시 detail로 이동 필요 값들을 미리 넣어줌
+
+    private List<ResultRoute> buildRouteList() {
+        String today;
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm");
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+
+        List<ResultRoute> routeList = new ArrayList<>();
+        for (int j=0; j<resj; j++) {
+            cal.add(Calendar.MINUTE, totalTime[j][0]);
+            today = sdf.format(cal.getTime());
+            ResultRoute route = new ResultRoute(Integer.toString(totalTime[j][0]), today, totalFee[j][0], buildRouteInnerList());
+            routeList.add(route);
+        }
+
+        return routeList;
+    }
+
+    private List<ResultRouteInner> buildRouteInnerList() {
+        Intent intent = getIntent();
+        startRoute = intent.getStringExtra("startText1");
+        endRoute = intent.getStringExtra("endText1");
+        Log.d("www"," " + startRoute);
+        List<ResultRouteInner> routeInnerList = new ArrayList<>();
+
+        for (int i=0; i<resi[resjj]+1; i++) {
+            if(traffic[resjj][i] == 3) {  // 도보값만 저장
+                // 검색출발지
+                if(i == 0){
+                    ResultRouteInner routeInner = new ResultRouteInner("도보", startRoute, R.drawable.ic_outline_directions_walk_24);
+                    routeInnerList.add(routeInner);
+                }
+                else{
+                    startName[resjj][i] = endName[resjj][i-1];
+                    ResultRouteInner routeInner = new ResultRouteInner("도보", startName[resjj][i],R.drawable.ic_outline_directions_walk_24);
+                    routeInnerList.add(routeInner);
+                }
+            }
+            if(traffic[resjj][i] == 2) {  // 버스값만 저장
+                // 이동수단 번호
+                ResultRouteInner routeInner = new ResultRouteInner(trafficNum[resjj][i], startName[resjj][i], R.drawable.ic_outline_directions_bus_24);
+                routeInnerList.add(routeInner);
+            }
+            if(traffic[resjj][i] == 1) {  // 지하철 값만 저장
+                //이동수단 번호
+                ResultRouteInner routeInner = new ResultRouteInner(trafficNum[resjj][i], startName[resjj][i], R.drawable.ic_outline_subway_24);
+                routeInnerList.add(routeInner);
+            }
+        }
+        resjj++;
+
+        return routeInnerList;
+    }
+
+    private void adapterClick(ResultRouteAdapter adapter) {
+        adapter.setOnItemClickListener((v, position) -> {
             ResultRouteDetailActivity.MapData(Mapxy[position], Mtype[position], MCount[position]);
             //MapLine(Mapxy[position], Mtype[position], MCount[position]); 받을때 Mapxy[][], type[], count[] 이렇게 받으면됌
             // mapxy, type은 저번에 메모장에 적은 그대로 하면 되고 count의 경우 x,y좌표 길이임. count[] < 인덱스도 type이랑 mapxy[] <이랑 같음
@@ -142,60 +204,5 @@ public class ResultRouteActivity extends AppCompatActivity {
             intent.putExtra("endRoute", endRoute);
             startActivity(intent);
         });
-
-        rvInf.setAdapter(routeAdapter);
-        rvInf.setLayoutManager(layoutManager);
-
-    }//adapter 클릭시 detail로 이동 필요 값들을 미리 넣어줌
-
-    private List<ResultRoute> buildRouteList() {
-        String today;
-        Date date = new Date();
-        SimpleDateFormat sdformat = new SimpleDateFormat("hh:mm");
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        List<ResultRoute> infList = new ArrayList<>();
-        for (int j=0; j<resj; j++) {
-            cal.add(Calendar.MINUTE, totalTime[j][0]);
-            today = sdformat.format(cal.getTime());
-            ResultRoute inf = new ResultRoute( Integer.toString(totalTime[j][0]), today, totalFee[j][0], buildInf2List());
-            infList.add(inf);
-        }
-        return infList;
-    }//dddd
-
-    private List<ResultRouteInner> buildInf2List() {
-        Intent intent = getIntent();
-        startRoute = intent.getStringExtra("startText1");
-        endRoute = intent.getStringExtra("endText1");
-        Log.d("www"," " + startRoute);
-        List<ResultRouteInner> inf2List = new ArrayList<>();
-
-        for (int i=0; i<resi[resjj]+1; i++) {
-            if(traffic[resjj][i] == 3) {  // 도보값만 저장
-                // 검색출발지
-                if(i == 0){
-                    ResultRouteInner inf2 = new ResultRouteInner("도보", startRoute, R.drawable.ic_outline_directions_walk_24);
-                    inf2List.add(inf2);
-                }
-                else{
-                    startName[resjj][i] = endName[resjj][i-1];
-                    ResultRouteInner inf2 = new ResultRouteInner("도보", startName[resjj][i],R.drawable.ic_outline_directions_walk_24);
-                    inf2List.add(inf2);
-                }
-            }
-            if(traffic[resjj][i] == 2) {  // 버스값만 저장
-                // 이동수단 번호
-                ResultRouteInner inf2 = new ResultRouteInner(trafficNum[resjj][i], startName[resjj][i], R.drawable.ic_outline_directions_bus_24);
-                inf2List.add(inf2);
-            }
-            if(traffic[resjj][i] == 1) {  // 지하철 값만 저장
-                //이동수단 번호
-                ResultRouteInner inf2 = new ResultRouteInner(trafficNum[resjj][i], startName[resjj][i], R.drawable.ic_outline_subway_24);
-                inf2List.add(inf2);
-            }
-        }
-        resjj++;
-        return inf2List;
     }
 }//content에 recyclerview 적용 아이템 생성 text적용 그 안에 recyclerview 적용 아이템 3칸 적용

@@ -11,9 +11,9 @@ import android.util.Log;
 import android.view.ViewGroup;
 
 import com.akj.helpyou.R;
-import com.akj.helpyou.activities.Inf.InfD;
-import com.akj.helpyou.activities.Inf.InfD2;
-import com.akj.helpyou.activities.Inf.InfDAdapter;
+import com.akj.helpyou.activities.result.adapter.ResultRouteDetail;
+import com.akj.helpyou.activities.result.adapter.ResultRouteDetailInner;
+import com.akj.helpyou.activities.result.adapter.ResultRouteDetailAdapter;
 import com.akj.helpyou.activities.findroad.Time;
 import com.akj.helpyou.activities.odsay.DataKeyword;
 import com.akj.helpyou.activities.odsay.Dataset;
@@ -61,7 +61,7 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
     ; // 1:상행 2:하행
     public static String[][] startSubwayTel = new String[5][20]; // 출발역 전화번호
     public static String[][] endSubwayTel = new String[5][20]; // 도착역 전화번호
-    public static int[][] Count = new int[5][1000];
+    public static int[][] count = new int[5][1000];
     // 지하철or 버스 경유 정차명
     public static String[][][] passName = new String[5][20][100];  // [j][i][z] j/i는 그전에 썻던 그대로 위치값 z는 경유 정차 갯수
     // ex) [j][i][0]~[j][i][k]는 [j][i]가 버스일때 해당 버스 출발지부터 도착지까지의 경유 정류장이름이 들어가있음
@@ -74,7 +74,7 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
 
     public static void resdata2(ArrayList<DataKeyword> data, int j, int i, int k, int trafficType, String[][][] Pass, int[][] count) {
         Dataset dataset = new Dataset(data, j, i, k, trafficType);
-        Count[j][i] = count[j][i];
+        ResultRouteDetailActivity.count[j][i] = count[j][i];
         passName = Pass;
         for (int z = 0; z < 100; z++) {
             if (passName[j][i][z] != null) {
@@ -166,22 +166,82 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result_route_detail);
 
-        double start_x = 37.60518;
-        double start_y = 127.026027;
-        MapPoint centerpoint = MapPoint.mapPointWithGeoCoord(start_x, start_y);
+        double startX = 37.60518;
+        double startY = 127.026027;
+        MapPoint centerPoint = MapPoint.mapPointWithGeoCoord(startX, startY);
 
         mapView = new MapView(this);
-        mapViewContainer = findViewById(R.id.detailMap);
+        mapViewContainer = findViewById(R.id.framelayout_result_route_detail_map);
         mapViewContainer.addView(mapView);
-        mapView.setMapCenterPointAndZoomLevel(centerpoint, 4, true);
+        mapView.setMapCenterPointAndZoomLevel(centerPoint, 4, true);
 
         mapDraw(detailMapxy, detailMtype, detailMcount);
 
-        RecyclerView rvInfd = findViewById(R.id.recyclerView_inf_d);
+        RecyclerView rv = findViewById(R.id.rv_result_route_detail);
         LinearLayoutManager layoutManager = new LinearLayoutManager(ResultRouteDetailActivity.this);
-        InfDAdapter infDAdapter = new InfDAdapter(buildInfDList());
-        rvInfd.setAdapter(infDAdapter);
-        rvInfd.setLayoutManager(layoutManager);
+        ResultRouteDetailAdapter adapter = new ResultRouteDetailAdapter(buildRouteDetailList());
+        rv.setAdapter(adapter);
+        rv.setLayoutManager(layoutManager);
+    }
+
+    private List<ResultRouteDetail> buildRouteDetailList() {
+        Intent intent = getIntent();
+        int position = intent.getIntExtra("position", 0);
+        List<ResultRouteDetail> routeDetailList = new ArrayList<>();
+        String startRoute = intent.getStringExtra("startRoute");
+        String endRoute = intent.getStringExtra("endRoute");
+
+        for (i = 0; i < resi[position] + 1; i++) {
+            if (traffic[position][i] == 3) {  // 도보값만 저장
+                // 검색출발지
+                if (i == 0) {
+                    endName[position][i] = startName[position][i + 1];
+                    ResultRouteDetail routeDetail = new ResultRouteDetail(
+                            "도보  ", startRoute + "  ", endName[position][i] + "  ",
+                            walkSectionTime[position][i] + "분  ", "           ", "", buildRouteDetailInnerList());
+                    routeDetailList.add(routeDetail);
+                } else if (i == resi[position]) {
+                    startName[position][i] = endName[position][i - 1];
+                    ResultRouteDetail routeDetail = new ResultRouteDetail(
+                            "도보  ", startName[position][i] + "  ", endRoute + "  ",
+                            walkSectionTime[position][i] + "분  ", "           ", "", buildRouteDetailInnerList());
+                    routeDetailList.add(routeDetail);
+                } else {
+                    startName[position][i] = endName[position][i - 1];
+                    ResultRouteDetail routeDetail = new ResultRouteDetail("도보  ", startName[position][i] + "  ", endName[position][i] + "  ",
+                            walkSectionTime[position][i] + "분  ", " ", " ", buildRouteDetailInnerList());
+                    routeDetailList.add(routeDetail);
+                }
+            }
+            if (traffic[position][i] == 2) {  // 버스값만 저장
+                // 이동수단 번호
+                ResultRouteDetail routeDetail = new ResultRouteDetail("버스  ", startName[position][i] + "  ", endName[position][i] + "  ",
+                        busSectionTime[position][i] + "분  ", " 저상(Y/N) : "+busLow[position][i]+ "     ", "상세보기 ", buildRouteDetailInnerList());
+                routeDetailList.add(routeDetail);
+            }
+            if (traffic[position][i] == 1) {  // 지하철 값만 저장
+                //이동수단 번호
+                ResultRouteDetail routeDetail = new ResultRouteDetail("지하철  ", startName[position][i] + "  ", endName[position][i] + "  ",
+                        subwaySectionTime[position][i] + "분  ", "출발역 : " + startSubwayTel[position][i] + "   \n도착역 : " + endSubwayTel[position][i],
+                        "      상세보기 ", buildRouteDetailInnerList());
+                routeDetailList.add(routeDetail);
+            }
+        }
+        return routeDetailList;
+    }
+
+    private List<ResultRouteDetailInner> buildRouteDetailInnerList() {
+        Intent intent = getIntent();
+        int position = intent.getIntExtra("position", 0);
+        List<ResultRouteDetailInner> routeDetailInnerList = new ArrayList<>();
+        if (traffic[position][i] != 3) {
+            for (int z = 0; z < count[position][i]; z++) {
+                ResultRouteDetailInner routeDetailInner = new ResultRouteDetailInner(passName[position][i][z]);
+                routeDetailInnerList.add(routeDetailInner);
+            }
+        }
+
+        return routeDetailInnerList;
     }
 
     private void mapDraw(double[][] detailMapxy, int[] detailMtype, int[] detailMcount) {
@@ -264,58 +324,5 @@ public class ResultRouteDetailActivity extends AppCompatActivity {
         }
     }
 
-
-    private List<InfD> buildInfDList() {
-        Intent intent = getIntent();
-        int position = intent.getIntExtra("position", 0);
-        List<InfD> infDList = new ArrayList<>();
-        String startRoute = intent.getStringExtra("startRoute");
-        String endRoute = intent.getStringExtra("endRoute");
-
-        for (i = 0; i < resi[position] + 1; i++) {
-            if (traffic[position][i] == 3) {  // 도보값만 저장
-                // 검색출발지
-                if (i == 0) {
-                    endName[position][i] = startName[position][i + 1];
-                    InfD infd = new InfD("도보  ", startRoute + "  ", endName[position][i] + "  ", walkSectionTime[position][i] + "분  ", "           ", "", buildInfD2List());
-                    infDList.add(infd);
-                } else if (i == resi[position]) {
-                    startName[position][i] = endName[position][i - 1];
-                    InfD infd = new InfD("도보  ", startName[position][i] + "  ", endRoute + "  ", walkSectionTime[position][i] + "분  ", "           ", "", buildInfD2List());
-                    infDList.add(infd);
-                } else {
-                    startName[position][i] = endName[position][i - 1];
-                    InfD infd = new InfD("도보  ", startName[position][i] + "  ", endName[position][i] + "  ", walkSectionTime[position][i] + "분  ", " ", " ", buildInfD2List());
-                    infDList.add(infd);
-                }
-            }
-            if (traffic[position][i] == 2) {  // 버스값만 저장
-                // 이동수단 번호
-                InfD infd = new InfD("버스  ", startName[position][i] + "  ", endName[position][i] + "  ", busSectionTime[position][i] + "분  ", " 저상(Y/N) : "+busLow[position][i]+ "     ", "상세보기 ", buildInfD2List());
-                infDList.add(infd);
-            }
-            if (traffic[position][i] == 1) {  // 지하철 값만 저장
-                //이동수단 번호
-                InfD infd = new InfD("지하철  ", startName[position][i] + "  ", endName[position][i] + "  ", subwaySectionTime[position][i] + "분  ", "출발역 : " + startSubwayTel[position][i] + "   \n도착역 : " + endSubwayTel[position][i], "      상세보기 ", buildInfD2List());
-                infDList.add(infd);
-            }
-        }
-        return infDList;
-    }
-
     // 그안에 존재하는 하위 아이템 박스(3개씩 보이는 아이템들)
-    private List<InfD2> buildInfD2List() {
-        Intent intent = getIntent();
-        int position = intent.getIntExtra("position", 0);
-        List<InfD2> infD2List = new ArrayList<>();
-        if (traffic[position][i] != 3) {
-            for (int z = 0; z < Count[position][i]; z++) {
-
-                InfD2 infD2 = new InfD2(passName[position][i][z]);
-                infD2List.add(infD2);
-
-            }
-        }
-        return infD2List;
-    }
 }

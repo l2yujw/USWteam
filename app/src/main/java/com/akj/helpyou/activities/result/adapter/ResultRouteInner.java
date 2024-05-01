@@ -2,12 +2,12 @@ package com.akj.helpyou.activities.result.adapter;
 
 public class ResultRouteInner {
     int img;
-    String vhnum;
-    String startpoint;
+    String vehicle;
+    String startPoint;
 
     public ResultRouteInner(String vhnum, String startpoint, int img) {
-        this.vhnum = vhnum;
-        this.startpoint = startpoint;
+        this.vehicle = vhnum;
+        this.startPoint = startpoint;
         this.img = img;
     }
 
@@ -19,19 +19,19 @@ public class ResultRouteInner {
         this.img = img;
     }
 
-    public String getVhnum() {
-        return vhnum;
+    public String getVehicle() {
+        return vehicle;
     }
 
-    public void setVhnum(String vhnum) {
-        this.vhnum = vhnum;
+    public void setVehicle(String vehicle) {
+        this.vehicle = vehicle;
     }
 
-    public String getStartpoint() {
-        return startpoint;
+    public String getStartPoint() {
+        return startPoint;
     }
 
-    public void setStartpoint(String startpoint) {
-        this.startpoint = startpoint;
+    public void setStartPoint(String startPoint) {
+        this.startPoint = startPoint;
     }
 }

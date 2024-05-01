@@ -34,7 +34,7 @@
                         android:layout_height="match_parent">
 
                         <TextView
-                            android:id="@+id/infd_vh"
+                            android:id="@+id/tv_result_route_detail_vehicle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/Black"
@@ -45,7 +45,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/infd_startpoint"
+                            android:id="@+id/tv_result_route_detail_start"
                             android:layout_width="0dp"
                             android:layout_weight="1"
                             android:layout_height="wrap_content"
@@ -56,7 +56,6 @@
                             android:textSize="11dp" />
 
                         <TextView
-                            android:id="@+id/infd_marker"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:textColor="@color/Black"
@@ -65,7 +64,7 @@
                             android:text="->" />
 
                         <TextView
-                            android:id="@+id/infd_endpoint"
+                            android:id="@+id/tv_result_route_detail_end"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -87,7 +86,7 @@
                         android:layout_margin="4dp">
 
                         <TextView
-                            android:id="@+id/infd_time"
+                            android:id="@+id/tv_result_route_detail_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="시간"
@@ -96,7 +95,7 @@
                             android:textStyle="bold" />
 
                         <TextView
-                            android:id="@+id/infd_etc"
+                            android:id="@+id/tv_result_route_detail_etc"
                             android:layout_marginLeft="15dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -108,7 +107,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/infd_details"
+                    android:id="@+id/tv_result_route_detail_details"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_margin="2dp"
@@ -119,13 +118,13 @@
                     android:textColor="@color/Black" />
             </LinearLayout>
 
-
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="1dp"
                 android:background="#000000" />
+
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView_infd2"
+                android:id="@+id/rv_result_route_detail_inner"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 

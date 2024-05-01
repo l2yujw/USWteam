@@ -1,9 +1,9 @@
-package com.akj.helpyou.activities.Inf;
+package com.akj.helpyou.activities.result.adapter;
 
-public class InfD2 {
+public class ResultRouteDetailInner {
     private String stop;
 
-    public InfD2(String stop) {
+    public ResultRouteDetailInner(String stop) {
         this.stop = stop;
     }
 

@@ -14,21 +14,22 @@
             android:layout_height="match_parent">
 
             <FrameLayout
-                android:id="@+id/detailMap"
+                android:id="@+id/framelayout_result_route_detail_map"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></FrameLayout>
+                android:layout_height="match_parent">
+            </FrameLayout>
 
             <SlidingDrawer
-                android:id="@+id/slidingdrawer"
+                android:id="@+id/slidingdrawer_result_route_detail"
                 android:layout_width="match_parent"
                 android:layout_height="500dp"
                 android:layout_alignParentBottom="true"
                 android:content="@+id/frame_inf_d"
-                android:handle="@+id/handle"
+                android:handle="@+id/btn_result_route_detail_handle"
                 android:orientation="vertical">
 
                 <Button
-                    android:id="@+id/handle"
+                    android:id="@+id/btn_result_route_detail_handle"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:background="@color/skyblue"
@@ -42,7 +43,7 @@
                     android:orientation="vertical">
 
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerView_inf_d"
+                        android:id="@+id/rv_result_route_detail"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp" />
