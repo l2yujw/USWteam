@@ -15,7 +15,6 @@ import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.webkit.WebViewAssetLoader
 import com.akj.helpyou.R
-import org.w3c.dom.Text
 
 private const val BASE_URL = "https://appassets.androidplatform.net/assets/www"
 
@@ -32,20 +31,19 @@ class Viewer : AppCompatActivity() {
             Toast.makeText(applicationContext, "targetStation 검색 실패", Toast.LENGTH_SHORT).show()
 
         }
-        val btn_back = findViewById<ImageView>(R.id.btn_back)
-        val targetStationtext = findViewById<TextView>(R.id.targetStationName)
+        val btnBack = findViewById<ImageView>(R.id.btn_viewer_back)
+        val targetStationtext = findViewById<TextView>(R.id.tv_viewer_target)
 
-        btn_back.setOnClickListener(View.OnClickListener {
+        btnBack.setOnClickListener {
             finish()
-        })
-
+        }
         targetStationtext.text = targetStation
         // Setup webView
         initWebView()
     }
     @SuppressLint("SetJavaScriptEnabled")
     private fun initWebView() {
-        webView = findViewById(R.id.three_web_view)
+        webView = findViewById(R.id.webview_viewer)
         webView.settings.apply {
             javaScriptEnabled = true
             allowFileAccess = true

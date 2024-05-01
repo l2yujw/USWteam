@@ -1,4 +1,4 @@
-package com.akj.helpyou.activities;
+package com.akj.helpyou.activities.navigation.subway;
 
 import android.os.Bundle;
 import android.util.Log;

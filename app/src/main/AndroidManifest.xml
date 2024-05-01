@@ -38,14 +38,14 @@
         <activity android:name=".activities.recent.RecentAreaActivity" />
         <activity android:name=".activities.recent.RecentRouteActivity" />
         <activity android:name=".activities.recent.RecentBookmarkActivity" />
-        <activity android:name=".activities.bookmark.BookmarkActivity" />
-        <activity android:name=".activities.SettingActivity" />
-        <activity android:name=".activities.subway.SubwayMapActivity" />
+        <activity android:name=".activities.navigation.bookmark.BookmarkActivity" />
+        <activity android:name=".activities.navigation.setting.SettingActivity" />
+        <activity android:name=".activities.navigation.subway.SubwayMapActivity" />
         <activity android:name=".activities.result.ResultRouteActivity" />
         <activity android:name=".activities.search.SearchActivity" />
         <activity android:name=".activities.result.ResultRouteDetailActivity" />
-        <activity android:name=".activities.subway.SubwayDetailActivity" />
-        <activity android:name=".activities.Substitute3dImageActivity" />
+        <activity android:name=".activities.navigation.subway.SubwayDetailActivity" />
+        <activity android:name=".activities.navigation.subway.Substitute3dImageActivity" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"

@@ -1,10 +1,10 @@
-package com.akj.helpyou.activities.subway;
+package com.akj.helpyou.activities.navigation.subway.adapter;
 
-public class SubwayDTime {
+public class SubwayDetailTime {
     private String startTime;
     private String startMinute;
 
-    public SubwayDTime(String startTime, String startMinute) {
+    public SubwayDetailTime(String startTime, String startMinute) {
         this.startTime = startTime;
         this.startMinute = startMinute;
     }

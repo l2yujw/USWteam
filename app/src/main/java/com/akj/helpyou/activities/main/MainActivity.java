@@ -27,10 +27,10 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.akj.helpyou.db.chargestation.ChargeStation;
 import com.akj.helpyou.db.chargestation.ChargeStationDatabase;
 import com.akj.helpyou.R;
-import com.akj.helpyou.activities.bookmark.BookmarkActivity;
+import com.akj.helpyou.activities.navigation.bookmark.BookmarkActivity;
 import com.akj.helpyou.activities.findroad.FindRoadActivity;
-import com.akj.helpyou.activities.SettingActivity;
-import com.akj.helpyou.activities.subway.SubwayMapActivity;
+import com.akj.helpyou.activities.navigation.setting.SettingActivity;
+import com.akj.helpyou.activities.navigation.subway.SubwayMapActivity;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.navigation.NavigationView;
 

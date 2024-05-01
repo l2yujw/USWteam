@@ -1,4 +1,4 @@
-package com.akj.helpyou.activities;
+package com.akj.helpyou.activities.navigation.setting;
 
 import android.app.Activity;
 import android.os.Bundle;

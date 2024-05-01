@@ -1,4 +1,4 @@
-package com.akj.helpyou.activities.bookmark.fragment;
+package com.akj.helpyou.activities.navigation.bookmark.fragment;
 
 import android.os.Bundle;
 
@@ -12,10 +12,10 @@ import com.akj.helpyou.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link TabAreaFragment#newInstance} factory method to
+ * Use the {@link TabBusFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class TabAreaFragment extends Fragment {
+public class TabBusFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class TabAreaFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public TabAreaFragment() {
+    public TabBusFragment() {
         // Required empty public constructor
     }
 
@@ -36,11 +36,11 @@ public class TabAreaFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment FragmentTabArea.
+     * @return A new instance of fragment FragmentTabBus.
      */
     // TODO: Rename and change types and number of parameters
-    public static TabAreaFragment newInstance(String param1, String param2) {
-        TabAreaFragment fragment = new TabAreaFragment();
+    public static TabBusFragment newInstance(String param1, String param2) {
+        TabBusFragment fragment = new TabBusFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -61,6 +61,6 @@ public class TabAreaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_tab_area, container, false);
+        return inflater.inflate(R.layout.fragment_tab_bus, container, false);
     }
 }

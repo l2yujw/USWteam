@@ -13,7 +13,7 @@
         tools:context=".activities.search.SearchActivity">
 
         <LinearLayout
-            android:id="@+id/toplayout"
+            android:id="@+id/linearlayout_viewer_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -73,7 +73,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toplayout"
+            app:layout_constraintTop_toBottomOf="@+id/linearlayout_viewer_top"
             app:layout_constraintVertical_bias="0.136" />
 
         <androidx.constraintlayout.widget.ConstraintLayout

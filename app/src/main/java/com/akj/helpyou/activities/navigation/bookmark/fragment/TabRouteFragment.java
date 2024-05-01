@@ -1,4 +1,4 @@
-package com.akj.helpyou.activities.bookmark.fragment;
+package com.akj.helpyou.activities.navigation.bookmark.fragment;
 
 import android.os.Bundle;
 

@@ -4,7 +4,7 @@ package com.akj.helpyou.activities.odsay;
 
 import android.util.Log;
 
-import com.akj.helpyou.activities.subway.SubwayDetailActivity;
+import com.akj.helpyou.activities.navigation.subway.SubwayDetailActivity;
 
 import org.json.JSONArray;
 import org.json.JSONObject;

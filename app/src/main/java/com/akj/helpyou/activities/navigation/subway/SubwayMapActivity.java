@@ -1,4 +1,4 @@
-package com.akj.helpyou.activities.subway;
+package com.akj.helpyou.activities.navigation.subway;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -25,7 +25,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.akj.helpyou.db.chargestation.SubwayDatabase;
 import com.akj.helpyou.R;
-import com.akj.helpyou.activities.Substitute3dImageActivity;
 import com.akj.helpyou.activities.Viewer;
 import com.davemorrissey.labs.subscaleview.ImageSource;
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView;

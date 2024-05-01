@@ -1,9 +1,9 @@
-package com.akj.helpyou.activities.subway;
+package com.akj.helpyou.activities.navigation.subway.adapter;
 
-public class SubwayDStation {
+public class SubwayDetailStation {
     private String line;
 
-    public SubwayDStation(String line) {
+    public SubwayDetailStation(String line) {
         this.line = line;
     }
 

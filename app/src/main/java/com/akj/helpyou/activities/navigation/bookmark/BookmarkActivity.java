@@ -1,4 +1,4 @@
-package com.akj.helpyou.activities.bookmark;
+package com.akj.helpyou.activities.navigation.bookmark;
 
 import android.os.Bundle;
 
@@ -6,9 +6,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.akj.helpyou.R;
-import com.akj.helpyou.activities.bookmark.fragment.TabAreaFragment;
-import com.akj.helpyou.activities.bookmark.fragment.TabBusFragment;
-import com.akj.helpyou.activities.bookmark.fragment.TabRouteFragment;
+import com.akj.helpyou.activities.navigation.bookmark.fragment.TabAreaFragment;
+import com.akj.helpyou.activities.navigation.bookmark.fragment.TabBusFragment;
+import com.akj.helpyou.activities.navigation.bookmark.fragment.TabRouteFragment;
 import com.google.android.material.tabs.TabLayout;
 
 
