@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.HelpYou"
         android:usesCleartextTraffic="true"
-        tools:targetApi="31">
+        tools:targetApi="33">
         <activity
             android:name=".activities.Viewer"
             android:exported="false" />
@@ -35,9 +35,6 @@
         </activity>
         <activity android:name=".activities.main.MainActivity" />
         <activity android:name=".activities.findroad.FindRoadActivity" />
-        <activity android:name=".activities.recent.RecentAreaActivity" />
-        <activity android:name=".activities.recent.RecentRouteActivity" />
-        <activity android:name=".activities.recent.RecentBookmarkActivity" />
         <activity android:name=".activities.navigation.bookmark.BookmarkActivity" />
         <activity android:name=".activities.navigation.setting.SettingActivity" />
         <activity android:name=".activities.navigation.subway.SubwayMapActivity" />
@@ -53,7 +50,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBU_ovnZhR5ojzZr7EtIoLTqfrV-UDcEtQ" />
-
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />

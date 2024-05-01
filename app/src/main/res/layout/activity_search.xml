@@ -13,7 +13,7 @@
         tools:context=".activities.search.SearchActivity">
 
         <LinearLayout
-            android:id="@+id/linearlayout_viewer_top"
+            android:id="@+id/linearlayout_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
@@ -29,7 +29,7 @@
                 android:padding="18dp">
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/tv_search_start"
                     android:layout_width="wrap_content"
                     android:layout_height="50dp"
                     android:layout_marginEnd="5dp"
@@ -42,7 +42,7 @@
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/addressSearchEditText3"
+                    android:id="@+id/et_search_address"
                     android:layout_width="0dp"
                     android:duplicateParentState="false"
                     android:layout_height="40dp"
@@ -55,7 +55,7 @@
                     android:inputType="textPersonName" />
 
                 <Button
-                    android:id="@+id/s1searchbtn"
+                    android:id="@+id/btn_search"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="검색"
@@ -66,18 +66,18 @@
         </LinearLayout>
 
         <net.daum.mf.map.api.MapView
-            android:id="@+id/mapView"
+            android:id="@+id/mapview_search"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
+            app:layout_constraintBottom_toTopOf="@+id/constraintLayout_search"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearlayout_viewer_top"
+            app:layout_constraintTop_toBottomOf="@+id/linearlayout_search"
             app:layout_constraintVertical_bias="0.136" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
+            android:id="@+id/constraintLayout_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -86,17 +86,17 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_list"
+                android:id="@+id/rv_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#E8EAF6"
-                app:layout_constraintBottom_toTopOf="@+id/btn_nextPage"
+                app:layout_constraintBottom_toTopOf="@+id/btn_search_next"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout_search" />
 
             <Button
-                android:id="@+id/btn_prevPage"
+                android:id="@+id/btn_search_prev"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -109,7 +109,7 @@
                 app:layout_constraintStart_toStartOf="parent" />
 
             <Button
-                android:id="@+id/btn_nextPage"
+                android:id="@+id/btn_search_next"
                 style="@style/Widget.AppCompat.Button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -127,10 +127,10 @@
                 android:layout_height="wrap_content"
                 android:text="1"
                 android:textColor="?android:attr/textColorPrimary"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_nextPage"
-                app:layout_constraintEnd_toStartOf="@+id/btn_nextPage"
-                app:layout_constraintStart_toEndOf="@+id/btn_prevPage"
-                app:layout_constraintTop_toTopOf="@+id/btn_nextPage" />
+                app:layout_constraintBottom_toBottomOf="@+id/btn_search_next"
+                app:layout_constraintEnd_toStartOf="@+id/btn_search_next"
+                app:layout_constraintStart_toEndOf="@+id/btn_search_prev"
+                app:layout_constraintTop_toTopOf="@+id/btn_search_next" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
