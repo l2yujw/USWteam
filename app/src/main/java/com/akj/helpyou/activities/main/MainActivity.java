@@ -27,7 +27,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import com.akj.helpyou.db.chargestation.ChargeStation;
 import com.akj.helpyou.db.chargestation.ChargeStationDatabase;
 import com.akj.helpyou.R;
-import com.akj.helpyou.activities.BookmarkActivity;
+import com.akj.helpyou.activities.bookmark.BookmarkActivity;
 import com.akj.helpyou.activities.findroad.FindRoadActivity;
 import com.akj.helpyou.activities.SettingActivity;
 import com.akj.helpyou.activities.subway.SubwayMapActivity;
@@ -180,7 +180,7 @@ public class MainActivity extends AppCompatActivity implements CurrentLocationEv
             //메인 홈 선택시 -> 새창으로 안뜨게 하기 + 다른 창에서도 메뉴바 선택할 수 있게 할까?
             if (id == R.id.item_mainhome) {
             }
-            //즐겨찾기 선택시
+            //즐겨 찾기 선택시
             if (id == R.id.item_bookmark) {
                 startActivity(new Intent(getApplicationContext(), BookmarkActivity.class));
             }

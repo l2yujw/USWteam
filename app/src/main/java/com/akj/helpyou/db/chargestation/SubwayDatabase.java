@@ -13,14 +13,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class SubwayDBHelper extends SQLiteOpenHelper {
+public class SubwayDatabase extends SQLiteOpenHelper {
     // database의 파일경로
     String DB_PATH = null;
     final private static String DB_NAME = "subwayinfo.db"; // SQLITE 파일명 이름
     private static SQLiteDatabase myDataBase;
     private final Context myContext;
 
-    public SubwayDBHelper(Context context) {
+    public SubwayDatabase(Context context) {
         super(context, DB_NAME, null, 1);
         this.myContext = context;
         this.DB_PATH = "/data/data/" + context.getPackageName() + "/" + "databases/";

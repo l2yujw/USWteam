@@ -98,7 +98,7 @@ public class FindRoadActivity extends AppCompatActivity {
 
         getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_findroad_container, routeFragment).commit();
 
-        tabs = findViewById(R.id.tablayout_findroad);
+        tabs = findViewById(R.id.tablayout_bookmark);
         tabs.addTab(tabs.newTab().setText("최근 장소"));
         tabs.addTab(tabs.newTab().setText("최근 경로"));
         tabs.addTab(tabs.newTab().setText("즐겨 찾기"));
@@ -150,13 +150,13 @@ public class FindRoadActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            if(startAddressList==null){
+            if (startAddressList == null) {
                 Toast.makeText(getApplicationContext(), "시작 주소 검색 오류", Toast.LENGTH_SHORT).show();
-            }else if(endAddressList==null){
+            } else if (endAddressList == null) {
                 Toast.makeText(getApplicationContext(), "도착 주소 검색 오류", Toast.LENGTH_SHORT).show();
-            }else{
-                Log.d(TAG, "start_address: "+startAddressList.get(0));
-                Log.d(TAG, "end_address: "+endAddressList.get(0));
+            } else {
+                Log.d(TAG, "start_address: " + startAddressList.get(0));
+                Log.d(TAG, "end_address: " + endAddressList.get(0));
 
                 startX = startAddressList.get(0).getLongitude();
                 startY = startAddressList.get(0).getLatitude();
@@ -164,44 +164,46 @@ public class FindRoadActivity extends AppCompatActivity {
                 endY = endAddressList.get(0).getLatitude();
             }
 
-            if(startPoint.equals("") || endPoint.equals("")){
+            if (startPoint.equals("") || endPoint.equals("")) {
+
                 Toast.makeText(getApplicationContext(), "입력을 다 해주세요", Toast.LENGTH_SHORT).show();
-            }else if(startX.isNaN() || startY.isNaN() || endX.isNaN() || endY.isNaN()){
-                Toast.makeText(getApplicationContext(),"좌표 없음",Toast.LENGTH_SHORT).show();
-            }
-            else{
+            } else if (startX.isNaN() || startY.isNaN() || endX.isNaN() || endY.isNaN()) {
+                Toast.makeText(getApplicationContext(), "좌표 없음", Toast.LENGTH_SHORT).show();
+            } else {
                 FindDirection runThread = new FindDirection();
                 FindDirection.xtdata(startX, startY, endX, endY);
                 runThread.start();
 
-                routeDb.insert(startPoint,endPoint,time.set);
-                recentDb.insert(startPoint,time.set);
-                recentDb.insert(endPoint,time.set);
+                routeDb.insert(startPoint, endPoint, time.set);
+                recentDb.insert(startPoint, time.set);
+                recentDb.insert(endPoint, time.set);
 
                 try {
                     runThread.join();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-                //reset();
-                Intent intent = new Intent(getApplicationContext(), ResultRouteActivity.class);
-                intent.putExtra("startText1", startPoint);
-                intent.putExtra("endText1", endPoint);
-                startActivity(intent);
 
+                startResultRouteActivity(startPoint, endPoint);
 
                 Intent toDetail = new Intent(getApplicationContext(), ResultRouteDetailActivity.class);
                 toDetail.putExtra("toDetail_x", startX);
                 toDetail.putExtra("toDetail_y", startY);
-
             }
         });
+    }
+
+    private void startResultRouteActivity(String startPoint, String endPoint) {
+        Intent intent = new Intent(getApplicationContext(), ResultRouteActivity.class);
+        intent.putExtra("startText1", startPoint);
+        intent.putExtra("endText1", endPoint);
+        startActivity(intent);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode== startRequestCode){
+        if (requestCode == startRequestCode) {
             if (resultCode != Activity.RESULT_OK) {
                 return;
             }
@@ -209,7 +211,7 @@ public class FindRoadActivity extends AppCompatActivity {
             tvStart.setText(sendText);
             startX = data.getExtras().getDouble("returnValue_x");
             startY = data.getExtras().getDouble("returnValue_y");
-        }else if(requestCode== endRequestCode){
+        } else if (requestCode == endRequestCode) {
             if (resultCode != Activity.RESULT_OK) {
                 return;
             }

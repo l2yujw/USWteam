@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".activities.BookmarkActivity">
+    tools:context=".activities.bookmark.BookmarkActivity">
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tablayout_findroad"
+        android:id="@+id/tablayout_bookmark"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
@@ -18,7 +18,7 @@
         app:tabTextColor="@color/black"
         android:elevation="1dp"/>
     <FrameLayout
-        android:id="@+id/nv_bookmarker"
+        android:id="@+id/framelayout_bookmark"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 </LinearLayout>

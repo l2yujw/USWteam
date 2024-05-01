@@ -5,34 +5,32 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_subwaymap"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/BlueMain"
-        >
+        android:background="@color/BlueMain">
 
         <SearchView
-            android:id="@+id/search_subway"
+            android:id="@+id/subwaymap_search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:iconifiedByDefault="false"
             android:queryHint="지하철역 검색"
             android:background="@color/white"
             android:searchIcon="@drawable/quantum_ic_search_grey600_24"
-            android:closeIcon="@drawable/ic_baseline_close_24"
-            />
+            android:closeIcon="@drawable/ic_baseline_close_24"/>
     </androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
+        android:layout_below="@id/toolbar_subwaymap"
         android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_below="@+id/toolbar"
+            android:layout_below="@+id/toolbar_subwaymap"
             android:layout_weight="10"
             android:gravity="center">
 
@@ -41,11 +39,12 @@
                 android:layout_height="match_parent">
 
                 <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
-                    android:id="@+id/subwayMap"
+                    android:id="@+id/subwaymap_map"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"></com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView>
+                    android:layout_height="match_parent">
+                </com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView>
                 <RelativeLayout
-                    android:id="@+id/quickview"
+                    android:id="@+id/relativelayout_subwaymap_quickview"
                     android:layout_width="60px"
                     android:layout_height="80px"
                     />
@@ -56,13 +55,13 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/btnlinear"
+            android:id="@+id/linearlayout_subwaymap"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1">
 
             <Button
-                android:id="@+id/btn_Elevator"
+                android:id="@+id/btn_subwaymap_elevator"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -72,7 +71,7 @@
                 android:text="엘리베이터" />
 
             <Button
-                android:id="@+id/btn_Lift"
+                android:id="@+id/btn_subwaymap_lift"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"

@@ -55,7 +55,7 @@
                 android:id="@+id/framelayout_main_mapview"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_below="@+id/toolbar">
+                android:layout_below="@+id/toolbar_subwaymap">
 
                 <com.google.android.material.floatingactionbutton.FloatingActionButton
                     android:id="@+id/fab_main_location"

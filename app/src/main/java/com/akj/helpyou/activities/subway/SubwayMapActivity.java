@@ -15,7 +15,6 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MenuItem;
 import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.SearchView;
@@ -24,7 +23,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.akj.helpyou.db.chargestation.SubwayDBHelper;
+import com.akj.helpyou.db.chargestation.SubwayDatabase;
 import com.akj.helpyou.R;
 import com.akj.helpyou.activities.Substitute3dImageActivity;
 import com.akj.helpyou.activities.Viewer;
@@ -49,8 +48,8 @@ public class SubwayMapActivity extends AppCompatActivity {
     private boolean checkL = true;
     private GestureDetector detector;
     final public String[] versionArray = new String[]{"출발", "경유", "도착"};
-    private Button button1;
-    private Button button2;
+    private Button btnElevator;
+    private Button btnLift;
 
     //Quick Action
     private static final int ID_SOURCE = 1;
@@ -74,20 +73,66 @@ public class SubwayMapActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigation_subwaymap);
 
+        //DB 설정
+        SubwayDatabase subwayDb = new SubwayDatabase(SubwayMapActivity.this); // Reading SQLite database.
+        try {
+            subwayDb.createDataBase();
+        } catch (IOException ioe) {
+            throw new Error("Unable to create database");
+        }
+        try {
+            subwayDb.openDataBase();
+        } catch (SQLException sqlException) {
+            throw sqlException;
+        }
+        c = subwayDb.query("subwayData", null, null, null, null, null, null); // SQLDataRead
+
         // 툴바 만들기
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24); //왼쪽 상단 버튼 아이콘 지정
+        createToolbar();
 
         // QUICK ACTION 만들기
-
         ActionItem sourceItem = new ActionItem(ID_SOURCE, "출발", R.drawable.ic_baseline_source_pin_24);
         ActionItem viaItem = new ActionItem(ID_VIA, "경유", R.drawable.ic_baseline_via_pin_24);
         ActionItem destinationItem = new ActionItem(ID_DESTINATION, "도착", R.drawable.ic_baseline_destination_pin_24);
         ActionItem timetableItem = new ActionItem(ID_TIMETABLE, "시간표", R.drawable.ic_baseline_timetable_24);
         ActionItem viewItem = new ActionItem(ID_3DVIEW, "3D", R.drawable.ic_baseline_3dview_24);
 
+        createQuickAction(sourceItem, viaItem, destinationItem, timetableItem, viewItem);
+
+        SubsamplingScaleImageView ivMap = findViewById(R.id.subwaymap_map); // 지하철역 이미지뷰 //Refer to ID value.
+        bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.naver_subway);
+        ivMap.setImage(ImageSource.bitmap(bitmap));
+
+        RelativeLayout quickView = findViewById(R.id.relativelayout_subwaymap_quickview);
+        createGestureDetector(ivMap, quickView);
+
+        ivMap.setOnTouchListener((view, motionEvent) -> {
+            detector.onTouchEvent(motionEvent);
+            return SubwayMapActivity.super.onTouchEvent(motionEvent);
+        });
+
+        // Button - 엘레베이터 / 리프트
+        elevatorButton(ivMap);
+        liftButton(ivMap);
+
+        quickActionClick(sourceItem, viaItem, destinationItem, timetableItem, viewItem);
+
+        // 지하철 역 검색하면 화면 확대 + 이동
+        subwaySearchView(ivMap);
+    }
+
+    private void createToolbar() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar_subwaymap);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true); // 뒤로가기 버튼, 디폴트로 true만 해도 백버튼이 생김
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_baseline_arrow_back_24); //왼쪽 상단 버튼 아이콘 지정
+    }
+
+    private void createQuickAction(ActionItem sourceItem,
+                                   ActionItem viaItem,
+                                   ActionItem destinationItem,
+                                   ActionItem timetableItem,
+                                   ActionItem viewItem) {
         sourceItem.setSticky(true);
         viaItem.setSticky(true);
         destinationItem.setSticky(true);
@@ -103,185 +148,148 @@ public class SubwayMapActivity extends AppCompatActivity {
         quickAction.addActionItem(destinationItem);
         quickAction.addActionItem(timetableItem);
         quickAction.addActionItem(viewItem);
+    }
 
-        RelativeLayout quickview = findViewById(R.id.quickview);
+    private void createGestureDetector(SubsamplingScaleImageView imageView, RelativeLayout quickView) {
+        detector = new GestureDetector(
+                this,
+                new GestureDetector.OnGestureListener() {
+                    @Override
+                    public boolean onDown(MotionEvent motionEvent) {
+                        return false;
+                    }
 
+                    @Override
+                    public void onShowPress(MotionEvent motionEvent) {
+                    }
 
-        // DB 데이터 적용 시작
-        SubwayDBHelper myDbHelper = new SubwayDBHelper(SubwayMapActivity.this); // Reading SQLite database.
-        try {
-            myDbHelper.createDataBase();
-        } catch (IOException ioe) {
-            throw new Error("Unable to create database");
-        }
-        try {
-            myDbHelper.openDataBase();
-        } catch (SQLException sqle) {
-            throw sqle;
-        }
-        c = myDbHelper.query("subwayData", null, null, null, null, null, null); // SQLDataRead
-        // String table 테이블 이름
-        // String[] columns 가져올 컬럼들
-        // String selection WHERE문(WHERE를 제외한)
-        // String[] SelectionArgs WHERE문에 전달해줄 값들
-        // String groupBy 집합함수 컬럼을 추가해 특정 컬럼의 중복되는 값을을 카운트 할 수 있습니다.
-        // String having groupBy절에서 사용할 수 있는 필터로, groupBy에서 카운팅된 수를 원하는 범위로 필터링 할 수 있습니다.
-        // String orderBy:정렬방식. 특정컬럼의 값을 기준으로 오름차순 혹은 내림차순으로 정렬할 수 있습니다.
+                    @Override
+                    public boolean onSingleTapUp(MotionEvent ev) {
+                        if (imageView.isReady()) {
+                            PointF sCoord = imageView.viewToSourceCoord(ev.getX(), ev.getY());
+                            int xCor = (int) sCoord.x;
+                            int yCor = (int) sCoord.y;
 
-        SubsamplingScaleImageView imageView = findViewById(R.id.subwayMap); // 지하철역 이미지뷰 //Refer to ID value.
-        bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.naver_subway);
-        imageView.setImage(ImageSource.bitmap(bitmap));
+                            Log.e("좌표", "X: " + xCor + ", Y: " + yCor);
+                            // Loop for finding the station.
+                            if (c.moveToFirst()) {
+                                do {
+                                    if ((xCor > c.getInt(2)) && (xCor < c.getInt(4)) && (yCor > c.getInt(3)) && (yCor < c.getInt(5))) {
+                                        targetStation = c.getString(1); // 유저가 클릭한 지하철역
 
+                                        Log.e("Cursor", "X1: " + c.getInt(2) + " Y1: " + c.getInt(3) + " X2: " + c.getInt(4) + " Y2: " + c.getInt(5));
+                                        Log.e("Station", targetStation);
+                                        Log.e("ev", "X: " + ev.getX() + "  Y: " + ev.getY());
+                                        quickView.setX(ev.getX());
+                                        quickView.setY(ev.getY());
+                                        quickAction.show(quickView);
+                                    }
 
-        detector = new GestureDetector(this, new GestureDetector.OnGestureListener() {
-            @Override
-            public boolean onDown(MotionEvent motionEvent) {
-                return false;
-            }
-
-            @Override
-            public void onShowPress(MotionEvent motionEvent) {
-
-            }
-
-            @Override
-            public boolean onSingleTapUp(MotionEvent ev) {
-                if (imageView.isReady()) {
-                    PointF sCoord = imageView.viewToSourceCoord(ev.getX(), ev.getY());
-                    int x_cor = (int) sCoord.x;
-                    int y_cor = (int) sCoord.y;
-
-                    Log.e("좌표", "X: " + x_cor + ", Y: " + y_cor);
-                    // Loop for finding the station.
-                    if (c.moveToFirst()) {
-                        do {
-                            if ((x_cor > c.getInt(2)) && (x_cor < c.getInt(4)) && (y_cor > c.getInt(3)) && (y_cor < c.getInt(5))) {
-                                targetStation = c.getString(1); // 유저가 클릭한 지하철역
-
-                                Log.e("Cursor", "X1: " + c.getInt(2) + " Y1: " + c.getInt(3) + " X2: " + c.getInt(4) + " Y2: " + c.getInt(5));
-                                Log.e("Station", targetStation);
-                                Log.e("ev", "X: " + ev.getX() + "  Y: " + ev.getY() );
-                                quickview.setX(ev.getX());
-                                quickview.setY(ev.getY());
-                                quickAction.show(quickview);
+                                } while (c.moveToNext());
                             }
+                        }
+                        return SubwayMapActivity.super.onTouchEvent(ev);
+                    }
 
-                        } while (c.moveToNext());
+                    @Override
+                    public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+                        return false;
+                    }
+
+                    @Override
+                    public void onLongPress(MotionEvent motionEvent) {
+                    }
+
+                    @Override
+                    public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
+                        return false;
                     }
                 }
-                return SubwayMapActivity.super.onTouchEvent(ev);
-            }
+        );
+    }
 
-            @Override
-            public boolean onScroll(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-                return false;
-            }
-
-            @Override
-            public void onLongPress(MotionEvent motionEvent) {
-
-            }
-
-            @Override
-            public boolean onFling(MotionEvent motionEvent, MotionEvent motionEvent1, float v, float v1) {
-                return false;
+    private void elevatorButton(SubsamplingScaleImageView imageView) {
+        btnElevator = findViewById(R.id.btn_subwaymap_elevator);
+        btnElevator.setOnClickListener(view -> {
+            bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.naver_subway);
+            elevatorBitmap = makeElevatorBitmap(bitmap);
+            if (checkE == true && checkL == true) {
+                imageView.setImage(ImageSource.bitmap(elevatorBitmap));
+                checkE = false;
+            } else if (checkE == false && checkL == true) {
+                imageView.setImage(ImageSource.bitmap(bitmap));
+                checkE = true;
+            } else if (checkE == true && checkL == false) {
+                imageView.setImage(ImageSource.bitmap(elevatorBitmap));
+                checkE = false;
+                checkL = true;
+            } else if (checkE == false && checkL == false) {
+                imageView.setImage(ImageSource.bitmap(elevatorBitmap));
+                checkE = true;
+                checkL = true;
             }
         });
-        imageView.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                detector.onTouchEvent(motionEvent);
-                return SubwayMapActivity.super.onTouchEvent(motionEvent);
+    }
+
+    private void liftButton(SubsamplingScaleImageView imageView) {
+        btnLift = findViewById(R.id.btn_subwaymap_lift);
+        btnLift.setOnClickListener(view -> {
+            bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.naver_subway);
+            liftBitmap = makeLiftBitmap(bitmap);
+            if (checkE == true && checkL == true) {
+                imageView.setImage(ImageSource.bitmap(liftBitmap));
+                checkL = false;
+            } else if (checkE == true && checkL == false) {
+                imageView.setImage(ImageSource.bitmap(bitmap));
+                checkL = true;
+            } else if (checkE == false && checkL == true) {
+                imageView.setImage(ImageSource.bitmap(liftBitmap));
+                checkE = true;
+                checkL = false;
+            } else if (checkE == false && checkL == false) {
+                imageView.setImage(ImageSource.bitmap(liftBitmap));
+                checkE = true;
+                checkL = true;
             }
-        }); //Touchevent를 Gesture로 넘겨서 실행
+        });
+    }
 
-
-        // Button - 엘레베이터 / 리프트
-        button1 = findViewById(R.id.btn_Elevator);
-        button2 = findViewById(R.id.btn_Lift);
-
-        button1.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View view) {
-                bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.naver_subway);
-                elevatorBitmap = makeEle(bitmap, elevatorBitmap);
-                if (checkE == true && checkL == true) {
-                    imageView.setImage(ImageSource.bitmap(elevatorBitmap));
-                    checkE = false;
-                } else if (checkE == false && checkL == true) {
-                    imageView.setImage(ImageSource.bitmap(bitmap));
-                    checkE = true;
-                } else if (checkE == true && checkL == false) {
-                    imageView.setImage(ImageSource.bitmap(elevatorBitmap));
-                    checkE = false;
-                    checkL = true;
-                } else if (checkE == false && checkL == false) {
-                    imageView.setImage(ImageSource.bitmap(elevatorBitmap));
-                    checkE = true;
-                    checkL = true;
+    private void quickActionClick(ActionItem sourceItem,
+                                  ActionItem viaItem,
+                                  ActionItem destinationItem,
+                                  ActionItem timetableItem,
+                                  ActionItem viewItem) {
+        quickAction.setOnActionItemClickListener(item -> {
+            if (item == sourceItem) {
+                Source = targetStation;
+                Toast.makeText(getApplicationContext(), Source, Toast.LENGTH_SHORT).show();
+            } else if (item == viaItem) {
+                Via = targetStation;
+                Toast.makeText(getApplicationContext(), Via, Toast.LENGTH_SHORT).show();
+            } else if (item == destinationItem) {
+                Destination = targetStation;
+                Toast.makeText(getApplicationContext(), Destination, Toast.LENGTH_SHORT).show();
+            } else if (item == timetableItem) {
+                Intent intent = new Intent(getApplicationContext(), SubwayDetailActivity.class);
+                intent.putExtra("targetStation", targetStation);
+                startActivity(intent);
+            } else if (item == viewItem) {
+                Intent intent;
+                if (targetStation.equals("수원") ||
+                        targetStation.equals("신길") ||
+                        targetStation.equals("여의나루")) {
+                    intent = new Intent(getApplicationContext(), Viewer.class);
+                } else {
+                    intent = new Intent(getApplicationContext(), Substitute3dImageActivity.class);
                 }
+                intent.putExtra("targetStation", targetStation);
+                startActivity(intent);
             }
         });
+    }
 
-        button2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.naver_subway);
-                liftBitmap = makeLift(bitmap, liftBitmap);
-                if (checkE == true && checkL == true) {
-                    imageView.setImage(ImageSource.bitmap(liftBitmap));
-                    checkL = false;
-                } else if (checkE == true && checkL == false) {
-                    imageView.setImage(ImageSource.bitmap(bitmap));
-                    checkL = true;
-                } else if (checkE == false && checkL == true) {
-                    imageView.setImage(ImageSource.bitmap(liftBitmap));
-                    checkE = true;
-                    checkL = false;
-                } else if (checkE == false && checkL == false) {
-                    imageView.setImage(ImageSource.bitmap(liftBitmap));
-                    checkE = true;
-                    checkL = true;
-                }
-            }
-        });
-
-        quickAction.setOnActionItemClickListener(new QuickAction.OnActionItemClickListener() {
-            @Override
-            public void onItemClick(ActionItem item) {
-                if (item == sourceItem) {
-                    Source = targetStation;
-                    Toast.makeText(getApplicationContext(), Source, Toast.LENGTH_SHORT).show();
-                } else if (item == viaItem) {
-                    Via = targetStation;
-                    Toast.makeText(getApplicationContext(), Via, Toast.LENGTH_SHORT).show();
-                } else if (item == destinationItem) {
-                    Destination = targetStation;
-                    Toast.makeText(getApplicationContext(), Destination, Toast.LENGTH_SHORT).show();
-                } else if (item == timetableItem) {
-                    Intent intent = new Intent(getApplicationContext(), SubwayDetailActivity.class);
-                    intent.putExtra("targetStation", targetStation);
-                    startActivity(intent);
-                } else if (item == viewItem) {
-                    if (targetStation.equals("수원") ||
-                            targetStation.equals("신길") ||
-                            targetStation.equals("여의나루")) {
-                        Intent intent = new Intent(getApplicationContext(), Viewer.class);
-                        intent.putExtra("targetStation", targetStation);
-                        startActivity(intent);
-                    } else {
-                        Intent intent = new Intent(getApplicationContext(), Substitute3dImageActivity.class);
-                        intent.putExtra("targetStation", targetStation);
-                        startActivity(intent);
-                    }
-                }
-            }
-        });
-
-
-        // 지하철 역 검색하면 화면 확대 + 이동
-        searchView = findViewById(R.id.search_subway);
+    private void subwaySearchView(SubsamplingScaleImageView imageView) {
+        searchView = findViewById(R.id.subwaymap_search);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String searchText) {
@@ -305,11 +313,7 @@ public class SubwayMapActivity extends AppCompatActivity {
                 return false;
             } // 입력란의 문자가 바뀌었을 떄 처리
         });
-
-        // 마커 생성
-
-
-    } // onCreate 끝
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -323,8 +327,8 @@ public class SubwayMapActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public Bitmap makeEle(Bitmap original, Bitmap copy) {
-        copy = Bitmap.createBitmap(original.getWidth(), original.getHeight(), original.getConfig());
+    public Bitmap makeElevatorBitmap(Bitmap original) {
+        Bitmap copy = Bitmap.createBitmap(original.getWidth(), original.getHeight(), original.getConfig());
         Canvas canvas = new Canvas(copy);
 
         Paint paint = new Paint();
@@ -345,8 +349,8 @@ public class SubwayMapActivity extends AppCompatActivity {
         return copy;
     }
 
-    public Bitmap makeLift(Bitmap original, Bitmap copy) {
-        copy = Bitmap.createBitmap(original.getWidth(), original.getHeight(), original.getConfig());
+    public Bitmap makeLiftBitmap(Bitmap original) {
+        Bitmap copy = Bitmap.createBitmap(original.getWidth(), original.getHeight(), original.getConfig());
         Canvas canvas = new Canvas(copy);
 
         Paint paint = new Paint();

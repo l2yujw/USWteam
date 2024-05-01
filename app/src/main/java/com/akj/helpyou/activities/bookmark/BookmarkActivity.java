@@ -1,4 +1,4 @@
-package com.akj.helpyou.activities;
+package com.akj.helpyou.activities.bookmark;
 
 import android.os.Bundle;
 
@@ -6,35 +6,35 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 import com.akj.helpyou.R;
-import com.akj.helpyou.fragments.FragmentTabArea;
-import com.akj.helpyou.fragments.FragmentTabBus;
-import com.akj.helpyou.fragments.FragmentTabRoute;
+import com.akj.helpyou.activities.bookmark.fragment.TabAreaFragment;
+import com.akj.helpyou.activities.bookmark.fragment.TabBusFragment;
+import com.akj.helpyou.activities.bookmark.fragment.TabRouteFragment;
 import com.google.android.material.tabs.TabLayout;
 
 
 public class BookmarkActivity extends AppCompatActivity {
     TabLayout tabs;
-    FragmentTabArea fragment1; // 장소
-    FragmentTabBus fragment2; // 버스
-    FragmentTabRoute fragment3; // 경로
+    TabAreaFragment tabAreaFragment; // 장소
+    TabBusFragment tabBusFragment; // 버스
+    TabRouteFragment tabRouteFragment; // 경로
 
     int position;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.navigation_bookmark);
+        setContentView(R.layout.activity_bookmark);
 
-        tabs = findViewById(R.id.tablayout_findroad);
+        tabs = findViewById(R.id.tablayout_bookmark);
         tabs.addTab(tabs.newTab().setText("장소"));
         tabs.addTab(tabs.newTab().setText("버스"));
         tabs.addTab(tabs.newTab().setText("경로"));
 
-        fragment1 = new FragmentTabArea();
-        fragment2 = new FragmentTabBus();
-        fragment3 = new FragmentTabRoute();
+        tabAreaFragment = new TabAreaFragment();
+        tabBusFragment = new TabBusFragment();
+        tabRouteFragment = new TabRouteFragment();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.nv_bookmarker, fragment1).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_bookmark, tabAreaFragment).commit();
         tabs.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -43,13 +43,13 @@ public class BookmarkActivity extends AppCompatActivity {
                 Fragment selected = null;
 
                 if(position == 0) {
-                    selected = fragment1;
+                    selected = tabAreaFragment;
                 }else if(position == 1) {
-                    selected = fragment2;
+                    selected = tabBusFragment;
                 }else if (position == 2) {
-                    selected = fragment3;
+                    selected = tabRouteFragment;
                 }
-                getSupportFragmentManager().beginTransaction().replace(R.id.nv_bookmarker, selected).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.framelayout_bookmark, selected).commit();
             }
 
             @Override
@@ -62,13 +62,7 @@ public class BookmarkActivity extends AppCompatActivity {
 
             }
 
-
-
         });
-
-
-
-
     }
 }
 

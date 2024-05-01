@@ -1,4 +1,4 @@
-package com.akj.helpyou.fragments;
+package com.akj.helpyou.activities.bookmark.fragment;
 
 import android.os.Bundle;
 
@@ -12,10 +12,10 @@ import com.akj.helpyou.R;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link FragmentTabRoute#newInstance} factory method to
+ * Use the {@link TabRouteFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class FragmentTabRoute extends Fragment {
+public class TabRouteFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -26,7 +26,7 @@ public class FragmentTabRoute extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public FragmentTabRoute() {
+    public TabRouteFragment() {
         // Required empty public constructor
     }
 
@@ -39,8 +39,8 @@ public class FragmentTabRoute extends Fragment {
      * @return A new instance of fragment FragmentTabRoute.
      */
     // TODO: Rename and change types and number of parameters
-    public static FragmentTabRoute newInstance(String param1, String param2) {
-        FragmentTabRoute fragment = new FragmentTabRoute();
+    public static TabRouteFragment newInstance(String param1, String param2) {
+        TabRouteFragment fragment = new TabRouteFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
