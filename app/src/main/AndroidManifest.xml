@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.akj.helpyou">
+    package="com.akj.with">
     <!-- 인터넷, 위치 권한 -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -21,11 +21,11 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="33">
         <activity
-            android:name=".activities.Viewer"
+            android:name="com.akj.with.activities.Viewer"
             android:exported="false" />
 
         <activity
-            android:name=".activities.SplashActivity"
+            android:name="com.akj.with.activities.SplashActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -33,16 +33,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.main.MainActivity" />
-        <activity android:name=".activities.findroad.FindRoadActivity" />
-        <activity android:name=".activities.navigation.bookmark.BookmarkActivity" />
-        <activity android:name=".activities.navigation.setting.SettingActivity" />
-        <activity android:name=".activities.navigation.subway.SubwayMapActivity" />
-        <activity android:name=".activities.result.ResultRouteActivity" />
-        <activity android:name=".activities.search.SearchActivity" />
-        <activity android:name=".activities.result.ResultRouteDetailActivity" />
-        <activity android:name=".activities.navigation.subway.SubwayDetailActivity" />
-        <activity android:name=".activities.navigation.subway.Substitute3dImageActivity" />
+        <activity android:name="com.akj.with.activities.main.MainActivity" />
+        <activity android:name="com.akj.with.activities.findroad.FindRoadActivity" />
+        <activity android:name="com.akj.with.activities.navigation.bookmark.BookmarkActivity" />
+        <activity android:name="com.akj.with.activities.navigation.setting.SettingActivity" />
+        <activity android:name="com.akj.with.activities.navigation.subway.SubwayMapActivity" />
+        <activity android:name="com.akj.with.activities.result.ResultRouteActivity" />
+        <activity android:name="com.akj.with.activities.search.SearchActivity" />
+        <activity android:name="com.akj.with.activities.result.ResultRouteDetailActivity" />
+        <activity android:name="com.akj.with.activities.navigation.subway.SubwayDetailActivity" />
+        <activity android:name="com.akj.with.activities.navigation.subway.Substitute3dImageActivity" />
 
         <meta-data
             android:name="com.kakao.sdk.AppKey"
