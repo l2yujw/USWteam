@@ -19,7 +19,7 @@ public class BusTimetable  {
 
 
         try {
-            String []data = new String[2];
+            String[] data = new String[2];
             int sec;
             String low;
             // ODsay Api Key 정보
@@ -36,11 +36,10 @@ public class BusTimetable  {
                 conn.setRequestMethod("GET");
 
                 int resCode = conn.getResponseCode();
-                int HTTP_OK = HttpURLConnection.HTTP_OK;
 
                 if(resCode == HttpURLConnection.HTTP_OK){
                     BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    String line = null;
+                    String line;
                     StringBuilder sb = new StringBuilder();
                     while (true) {
                         line = reader.readLine();
@@ -52,17 +51,14 @@ public class BusTimetable  {
                         }
                         JSONObject odsayData = new JSONObject(String.valueOf(sb));
                         JSONArray real = odsayData.getJSONObject("result").getJSONArray("real");
-                        //Log.d("qtq", "real : " +real);
-                        for(int i =0; i<real.length(); i++){
+                        for (int i = 0; i < real.length(); i++) {
                             String busNm = real.getJSONObject(i).getString("routeNm");
-//                            Log.d("qt", "11111 : " + num);
-//                            Log.d("qt", "22222 : " +busNm);
                             Log.d("hh", "hh : " + num.equals(busNm));
-                            if(num.equals(busNm)) {
+                            if (num.equals(busNm)) {
                                 sec = real.getJSONObject(i).getJSONObject("arrival1").getInt("arrivalSec");
                                 low = real.getJSONObject(i).getJSONObject("arrival1").getString("lowBusYn");
-                                Log.d("qt", "sec : " + sec );
-                                Log.d("qt", "low : " + low );
+                                Log.d("qt", "sec : " + sec);
+                                Log.d("qt", "low : " + low);
                                 data[0] = String.valueOf(sec);
                                 data[1] = low;
                                 return data;
@@ -75,7 +71,7 @@ public class BusTimetable  {
                 conn.disconnect();
             }
         } catch (Exception e) {
-
+            throw new RuntimeException(e);
         }
 
         return null;

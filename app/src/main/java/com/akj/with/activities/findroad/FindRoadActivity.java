@@ -85,7 +85,7 @@ public class FindRoadActivity extends AppCompatActivity {
         tvStart.setOnClickListener(
                 view -> {
                     Intent intent = new Intent(getApplicationContext(), SearchActivity.class);
-                    intent.putExtra("textView1", destination);
+                    intent.putExtra("destination", destination);
                     startActivityForResult(intent, startRequestCode);
                 }
         );

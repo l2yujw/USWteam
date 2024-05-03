@@ -32,7 +32,7 @@ public class FindDirection extends Thread {
 
             Log.e("findxy", "start_x : " + start_x + " start_y : " + start_y + " || end_x : " + end_x + " end_y: " + end_y);
 
-            String urlInfo = "https://api.odsay.com/v1/api/searchPubTransPathT?SX=" + start_x + "&SY=" + start_y + "&EX=" + end_x + "&EY=" + end_y + "&OPT=0&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
+            String urlInfo = "https://api.odsay.com/v1/api/searchPubTransPathT?SX=" + start_x + "&SY=" + start_y + "&EX=" + end_x + "&EY=" + end_y + "&OPT=0" + "&apiKey=" + URLEncoder.encode(apiKey, "UTF-8");
 
             // http 연결
             URL url = new URL(urlInfo);
@@ -43,7 +43,6 @@ public class FindDirection extends Thread {
                 conn.setRequestMethod("GET");
 
                 int resCode = conn.getResponseCode();
-                int HTTP_OK = HttpURLConnection.HTTP_OK;
 
                 if (resCode == HttpURLConnection.HTTP_OK) {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));

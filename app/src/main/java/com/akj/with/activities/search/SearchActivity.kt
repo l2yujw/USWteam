@@ -46,8 +46,8 @@ class SearchActivity : AppCompatActivity() {
         val view = binding.root
         setContentView(view)
 
-        if (intent.hasExtra("textView1")) {
-            binding.tvSearchStart.text = intent.getStringExtra("textView1")
+        if (intent.hasExtra("destination")) {
+            binding.tvSearchStart.text = intent.getStringExtra("destination")
 
         } else {
             binding.tvSearchStart.text = "출발지"
@@ -173,7 +173,7 @@ class SearchActivity : AppCompatActivity() {
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        val api = retrofit.create(kakaoAPI::class.java)            // 통신 인터페이스를 객체로 생성
+        val api = retrofit.create(KakaoAPI::class.java)            // 통신 인터페이스를 객체로 생성
         val call = api.getSearchKeyword(API_KEY, keyword, page)    // 검색 조건 입력
 
         // API 서버에 요청
